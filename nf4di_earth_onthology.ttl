@@ -1,0 +1,27 @@
+@prefix n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .  
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .       
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix qudt: <https://qudt.org/schema/qudt/> .
+@prefix envthes: <http://vocabs.lter-europe.net/EnvThes/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+
+n4e_hyd:AirTemperature2mMax rdf:type sosa:ObservableProperty ;
+    rdfs:label "Maximum Air Temperature at 2 meters" .
+
+n4e_hyd:sensor_1 rdf:type sosa:Sensor ;
+    rdfs:label "Sensor 1" .
+	
+envthes:30212 rdf:type skos:Concept;
+	skos:inScheme envthes: ;
+	skos:prefLabel "catchment"@en.
+	
+n4e_hyd:catchment_area_calculated rdf:type 		rdf:Property ;
+	rdfs:label "Calculated Catchment Area" ;
+    rdfs:comment "Property representing the calculated area of a catchment. This value is typically derived from spatial data or GIS calculations." . 
+	
+n4e_hyd:hasCatchment 	rdf:type 		owl:ObjectProperty ;
+                    	rdfs:label 		"has Catchment" ;
+                    	rdfs:comment 	"Relates a stream, lake, hydrological storage, or measurement station has a catchment" .

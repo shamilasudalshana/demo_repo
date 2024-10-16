@@ -11,5 +11,4 @@
 # Define mean elevation property
 n4e_hyd:meanElevation 	rdf:type 	rdf:DatatypeProperty ;
                  		rdf:label 	"Mean Elevation" ;
-                 		rdf:comment 	"Mean elevation of an area calculated from elevation data";
- 						rdfs:range 	xsd:decimal.
+                 		rdf:comment 	"Mean elevation of an area calculated from elevation data".

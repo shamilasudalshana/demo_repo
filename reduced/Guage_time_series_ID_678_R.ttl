@@ -1,0 +1,45 @@
+@prefix n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix envthes: <http://vocabs.lter-europe.net/EnvThes/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <https://qudt.org/schema/qudt/> .
+@prefix unit: <https://qudt.org/vocab/unit/> .
+
+n4e_hyd:sensor_678 rdf:type sosa:Sensor .
+n4e_hyd:observation_2 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:river_678 ;
+	sosa:madeBySensor n4e_hyd:sensor_678 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "26.141"^^xsd:decimal;
+                    qudt:unit  unit:M3-PER-SEC] .
+n4e_hyd:observation_7 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:river_678 ;
+	sosa:madeBySensor n4e_hyd:sensor_678 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "21.835"^^xsd:decimal;
+                    qudt:unit  unit:M3-PER-SEC] .
+n4e_hyd:observation_12 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:river_678 ;
+	sosa:madeBySensor n4e_hyd:sensor_678 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "30.593"^^xsd:decimal;
+                    qudt:unit  unit:M3-PER-SEC] .
+n4e_hyd:observation_17 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:river_678 ;
+	sosa:madeBySensor n4e_hyd:sensor_678 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "51.746"^^xsd:decimal;
+                    qudt:unit  unit:M3-PER-SEC] .

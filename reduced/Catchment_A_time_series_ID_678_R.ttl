@@ -1,0 +1,879 @@
+@prefix n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <https://qudt.org/schema/qudt/> .
+@prefix unit: <https://qudt.org/vocab/unit/> .
+@prefix envthes: <http://vocabs.lter-europe.net/EnvThes/> .
+
+n4e_hyd:sensor_687 rdf:type sosa:Sensor .
+n4e_hyd:observation_2 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-1.3"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_3 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-4.3"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_4 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-8.7"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_5 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-4.2"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_6 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-7.6"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_7 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "-11.5"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_8 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedEast10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "2.8"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_9 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedNorth10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "0.1"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_10 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:ForecastAlbedo ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.42"^^xsd:decimal .
+n4e_hyd:observation_11 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:HighVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "2.3"^^xsd:decimal .
+n4e_hyd:observation_12 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:LowVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "1.7"^^xsd:decimal .
+n4e_hyd:observation_13 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "134.94"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_14 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "108.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_15 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "18.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_16 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "57.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_17 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "28.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_18 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22060 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "88782.0"^^xsd:decimal;
+                    qudt:unit  unit:PA] .
+n4e_hyd:observation_19 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21299 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "0.22"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_20 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:30106 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "8.41"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_21 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionTopsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.34"^^xsd:decimal .
+n4e_hyd:observation_22 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionSubsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-01T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.4"^^xsd:decimal .
+n4e_hyd:observation_28 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-2.3"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_29 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-3.7"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_30 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-5.1"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_31 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-4.6"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_32 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-6.3"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_33 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "-7.3"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_34 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedEast10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "2.3"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_35 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedNorth10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "0.6"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_36 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:ForecastAlbedo ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.43"^^xsd:decimal .
+n4e_hyd:observation_37 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:HighVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "2.2"^^xsd:decimal .
+n4e_hyd:observation_38 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:LowVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "1.7"^^xsd:decimal .
+n4e_hyd:observation_39 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "146.38"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_40 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "64.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_41 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "13.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_42 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "29.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_43 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "14.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_44 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22060 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "88773.0"^^xsd:decimal;
+                    qudt:unit  unit:PA] .
+n4e_hyd:observation_45 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21299 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "0.27"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_46 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:30106 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "13.13"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_47 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionTopsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.34"^^xsd:decimal .
+n4e_hyd:observation_48 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionSubsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-02T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.4"^^xsd:decimal .
+n4e_hyd:observation_54 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "2.5"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_55 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "0.8"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_56 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-2.0"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_57 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-0.4"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_58 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-3.1"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_59 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "-4.8"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_60 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedEast10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "3.0"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_61 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedNorth10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "1.3"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_62 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:ForecastAlbedo ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.43"^^xsd:decimal .
+n4e_hyd:observation_63 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:HighVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "2.2"^^xsd:decimal .
+n4e_hyd:observation_64 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:LowVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "1.7"^^xsd:decimal .
+n4e_hyd:observation_65 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "154.94"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_66 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "85.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_67 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "20.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_68 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "56.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_69 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "19.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_70 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22060 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "87705.0"^^xsd:decimal;
+                    qudt:unit  unit:PA] .
+n4e_hyd:observation_71 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21299 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "0.43"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_72 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:30106 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "8.34"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_73 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionTopsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.34"^^xsd:decimal .
+n4e_hyd:observation_74 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionSubsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-03T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.4"^^xsd:decimal .
+n4e_hyd:observation_80 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "1.3"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_81 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-1.5"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_82 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-4.4"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_83 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-0.4"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_84 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-2.8"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_85 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "-7.3"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_86 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedEast10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "2.1"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_87 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedNorth10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-0.2"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_88 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:ForecastAlbedo ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.42"^^xsd:decimal .
+n4e_hyd:observation_89 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:HighVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "2.2"^^xsd:decimal .
+n4e_hyd:observation_90 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:LowVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "1.6"^^xsd:decimal .
+n4e_hyd:observation_91 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "163.18"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_92 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "32.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_93 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "8.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_94 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "70.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_95 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "26.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_96 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22060 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "87224.0"^^xsd:decimal;
+                    qudt:unit  unit:PA] .
+n4e_hyd:observation_97 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21299 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "0.33"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_98 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:30106 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "18.35"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_99 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionTopsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.35"^^xsd:decimal .
+n4e_hyd:observation_100 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionSubsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-04T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.4"^^xsd:decimal .
+n4e_hyd:observation_106 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-5.2"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_107 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-6.8"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_108 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:AirTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-7.6"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_109 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-8.6"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_110 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-9.4"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_111 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:DewPointTemperature2mMin ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "-10.6"^^xsd:decimal;
+                    qudt:unit  unit:DEG_C] .
+n4e_hyd:observation_112 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedEast10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "2.7"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_113 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WindSpeedNorth10m ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "-0.9"^^xsd:decimal;
+                    qudt:unit  unit:M-PER-SEC] .
+n4e_hyd:observation_114 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:ForecastAlbedo ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.43"^^xsd:decimal .
+n4e_hyd:observation_115 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:HighVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "2.2"^^xsd:decimal .
+n4e_hyd:observation_116 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:LowVegetationGreenLeafArea ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "1.6"^^xsd:decimal .
+n4e_hyd:observation_117 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22242 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "178.93"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_118 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "90.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_119 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetSolarRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "20.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_120 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationMax ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "65.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_121 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:SurfaceNetThermalRadiationAvg ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "30.0"^^xsd:decimal;
+                    qudt:unit  unit:W-PER-M2] .
+n4e_hyd:observation_122 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:22060 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue ;
+                    qudt:numericValue  "87980.0"^^xsd:decimal;
+                    qudt:unit  unit:PA] .
+n4e_hyd:observation_123 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:21299 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "0.51"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_124 rdf:type sosa:Observation ;
+	sosa:observedProperty envthes:30106 ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasResult [
+                    rdf:type  qudt:QuantityValue;
+                    qudt:numericValue  "15.31"^^xsd:decimal;
+                    qudt:unit  unit:MilliM] .
+n4e_hyd:observation_125 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionTopsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.35"^^xsd:decimal .
+n4e_hyd:observation_126 rdf:type sosa:Observation ;
+	sosa:observedProperty n4e_hyd:WaterFractionSubsoil ;
+	sosa:hasFeatureOfInterest n4e_hyd:catchment_687 ;
+	sosa:madeBySensor n4e_hyd:sensor_687 ;
+	sosa:resultTime "1981-01-05T00:00:00Z"^^xsd:dateTime ;
+	sosa:hasSimpleResult "0.4"^^xsd:decimal .

@@ -1,0 +1,32 @@
+{
+  "prefixes": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "dc": "http://purl.org/dc/terms/",
+    "dct": "http://purl.org/dc/terms/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "pext": "https://www.ontotext.com/proton/protonext.html#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "esco": "https://ec.europa.eu/esco/lod/static/model.html#",
+    "dbr": "https://dbpedia.org/page/",
+    "dbo": "https://dbpedia.org/ontology/",
+    "gvp": "http://vocab.getty.edu/ontology#",
+    "time": "http://www.w3.org/2006/time#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "unit": "https://qudt.org/vocab/unit/",
+    "qudt": "https://qudt.org/schema/qudt/",
+    "cpmeta": "https://meta.icos-cp.eu/ontologies/cpmeta/",
+    "ifc": "https://pi.pauwel.be/evoc/ifc_W3ID/20151211/IFC4_ADD1/index.html#",
+    "epsg": "https://epsg.io/",
+    "schema": "https://schema.org/",
+    "envthes": "http://vocabs.lter-europe.net/EnvThes/",
+    "poso": "http://purl.org/poso/",
+
+    "n4e_hyd": "https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#"
+
+  }
+}

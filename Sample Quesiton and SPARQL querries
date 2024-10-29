@@ -1,0 +1,29 @@
+# 1.Object - Location/Footprint:
+## 1.1 Where is the "Schlehdorf" gauging station located within the catchment area? [What are the coordinates]
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT ?name ?longitude ?latitude ?altitude
+WHERE {
+  ?sensor rdf:type n4e_hyd:Sensor ;
+          schema:name "Bangs" ;
+          locn:location ?location .
+  
+  ?location locn:geometry ?geometry .
+  
+  ?geometry locn:longitude ?longitude ;
+            locn:latitude ?latitude ;
+            geo:alt ?altitude .
+  
+  OPTIONAL {
+    ?sensor schema:name ?name .
+  }
+}
+
+
+
+1.2 

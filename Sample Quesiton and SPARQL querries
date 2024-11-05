@@ -132,7 +132,76 @@ WHERE {
 ORDER BY DESC(?catchmentArea)
 LIMIT 1
 
-3.2 
+3.2 What is the average annual precipitation in catchment 1 for the period between 2010 and 2020?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT (AVG(?yearlyTotal) AS ?averageAnnualPrecipitation)
+WHERE {
+  # Subquery to get total precipitation per year for catchment_1
+  {
+    SELECT ?year (SUM(?precipitation) AS ?yearlyTotal)
+    WHERE {
+      # Filter for precipitation observations related to catchment_1
+      ?observation rdf:type sosa:Observation ;
+                   sosa:observedProperty envthes:30106 ;
+                   sosa:hasFeatureOfInterest n4e_hyd:catchment_612 ;
+                   sosa:resultTime ?resultTime ;
+                   sosa:hasResult ?result .
+
+      # Extract the year directly in the FILTER and assign to ?year
+      BIND(YEAR(?resultTime) AS ?year)
+      FILTER (?year >= 2010 && ?year <= 2020)
+
+      # Access the blank node to retrieve the precipitation value
+      ?result qudt:numericValue ?precipitation ;
+              qudt:unit unit:MilliM .
+    }
+    GROUP BY ?year
+  }
+}
+
+## same quesion with each year average precipitation
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT ?year (SUM(?precipitation) AS ?yearlyTotal)
+    WHERE {
+      # Filter for precipitation observations related to catchment_1
+      ?observation rdf:type sosa:Observation ;
+                   sosa:observedProperty envthes:30106 ;
+                   sosa:hasFeatureOfInterest n4e_hyd:catchment_612 ;
+                   sosa:resultTime ?resultTime ;
+                   sosa:hasResult ?result .
+
+      # Extract the year directly in the FILTER and assign to ?year
+      BIND(YEAR(?resultTime) AS ?year)
+      FILTER (?year >= 2010 && ?year <= 2020)
+
+      # Access the blank node to retrieve the precipitation value
+      ?result qudt:numericValue ?precipitation ;
+              qudt:unit unit:MilliM .
+    }
+    GROUP BY ?year
+
 
 
 

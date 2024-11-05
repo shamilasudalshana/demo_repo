@@ -75,7 +75,7 @@ ORDER BY DESC(?totalPrecipitation)
 LIMIT 3
 
 
-1.3 What is the largest 5 catchment areas in this dataset?
+1.3 Where are the largest 5 catchment areas in this dataset?
 
 PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -83,13 +83,20 @@ PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <https://schema.org/>
 
-SELECT ?stationName ?catchment ?catchmentArea
+SELECT ?stationName ?catchment ?catchmentArea ?longitude ?latitude ?altitude
 
 WHERE {
   
     #find the station name 
    ?sensor schema:name ?stationName;
-        n4e_hyd:observesArea ?catchment.
+        n4e_hyd:observesArea ?catchment;
+        locn:location ?location .
+    
+  ?location locn:geometry ?locationGeometry .
+    
+  ?locationGeometry locn:longitude ?longitude ;
+                    locn:latitude ?latitude ;
+                    geo:alt ?altitude .
     
     
     # Find catchments with area information
@@ -100,6 +107,32 @@ ORDER BY DESC(?catchmentArea)
 LIMIT 5
 
 
+3.1 What is the surface area of the largest catchment in the dataset?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <https://schema.org/>
+
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+SELECT ?stationName ?catchment ?catchmentArea 
+WHERE {
+  
+    #find the station name 
+   ?sensor schema:name ?stationName;
+        n4e_hyd:observesArea ?catchment.
+
+    
+    # Find catchments with area information
+  ?catchment rdf:type envthes:30212 ;
+             n4e_hyd:catchment_area_calculated ?catchmentArea .
+}
+ORDER BY DESC(?catchmentArea)
+LIMIT 1
+
+3.2 
 
 
 

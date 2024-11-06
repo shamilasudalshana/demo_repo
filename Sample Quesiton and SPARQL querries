@@ -202,6 +202,30 @@ SELECT ?year (SUM(?precipitation) AS ?yearlyTotal)
     }
     GROUP BY ?year
 
+Q3.3)What is the elevation of the "Schlehdorf" gauging station?
+
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?elevation
+WHERE {
+  # Find the gauging station named "Schlehdorf"
+  ?station rdf:type sosa:Sensor ;
+           schema:name "Schlehdorf" ;
+           locn:location ?location .
+
+  # Retrieve the elevation (altitude) of the location
+  ?location locn:geometry ?geometry.
+
+  ?geometry geo:alt ?elevation .
+}
+
+
+
+
 
 
 

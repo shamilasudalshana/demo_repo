@@ -1,3 +1,4 @@
+
 # 1.Object - Location/Footprint:
 ## 1.1 Where is the "Schlehdorf" gauging station located within the catchment area? [What are the coordinates] - ## Tested and working
 
@@ -280,6 +281,9 @@ WHERE {
   ?result qudt:numericValue ?flow .
 }
 GROUP BY ?sensorName
+
+
+Q3.5) 
 
 
 

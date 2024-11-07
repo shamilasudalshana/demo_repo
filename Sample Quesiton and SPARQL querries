@@ -26,7 +26,6 @@ WHERE {
 }
 
 
-
 1.2 Where are the gauging stations located within the catchment areas for high annual precipitation in 2015? (maximum 3) - ## Tested and working. 
 
 PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
@@ -223,6 +222,64 @@ WHERE {
   ?geometry geo:alt ?elevation .
 }
 
+Q3.4) What is the all-time minimum and maximum river flow observed at the "Vlaske" gauging station?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+
+SELECT (MIN(?flow) AS ?minRiverFlow) (MAX(?flow) AS ?maxRiverFlow)
+WHERE {
+  # Filter observations from the "Vlaske" gauging station and river flow property
+  ?observation rdf:type sosa:Observation ;
+               sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+               sosa:madeBySensor ?sensor ;
+               sosa:hasResult ?result .
+  
+  # Ensure the sensor name is "Vlaske" - I 
+  ?sensor schema:name "Dillingen" .
+
+  # Retrieve river flow value from the result
+  ?result qudt:numericValue ?flow .
+}
+
+Q3.4)_2 (extended version of same abouve question)  What is the all-time minimum and maximum river flow observed at all the gauging stations?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+
+SELECT  ?sensorName (MIN(?flow) AS ?minRiverFlow) (MAX(?flow) AS ?maxRiverFlow)
+WHERE {
+  # Filter observations from the "Vlaske" gauging station and river flow property
+  ?observation rdf:type sosa:Observation ;
+               sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+               sosa:madeBySensor ?sensor ;
+               sosa:hasResult ?result .
+  
+  # Ensure the sensor name is "Vlaske"
+  ?sensor schema:name ?sensorName .
+
+  # Retrieve river flow value from the result
+  ?result qudt:numericValue ?flow .
+}
+GROUP BY ?sensorName
 
 
 

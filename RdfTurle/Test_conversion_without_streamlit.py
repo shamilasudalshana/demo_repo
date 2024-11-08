@@ -127,7 +127,6 @@ def main(csv_files, mapping_json_files, prefixes_json_files, time_data_json_path
         csv_content = open(csv_file, 'r').read()
         delimiter = delimiter_selection(csv_file)
 
-        # Define placeholders for time dependency values; update these based on input files
         is_time_dependant_csv = False
         parsing_method, date_col, time_col, date_format, time_format = None, None, None, None, None
 

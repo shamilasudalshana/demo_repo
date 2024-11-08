@@ -283,7 +283,43 @@ WHERE {
 GROUP BY ?sensorName
 
 
-Q3.5) 
+Q3.5) How many annual average frost days (days with temperatures below 0°C) were recorded at the "Dillingen" gauging station from 2010 to 2020? - ## need to double check the query . answers are bit confusing. 
+
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX schema: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?year (AVG(?frostDays) AS ?averageAnnualFrostDays)
+WHERE {
+  {
+    SELECT ?year (COUNT(?date) AS ?frostDays)
+    WHERE {
+      # Because the freezing is related to min air temp -  temperature observations at the "Dillingen" station for AirTemperature2mMin
+      ?observation rdf:type sosa:Observation ;
+                   sosa:observedProperty n4e_hyd:AirTemperature2mMin ;
+                   sosa:madeBySensor ?sensor ;
+                   sosa:resultTime ?date ;
+                   sosa:hasResult ?result .
+      
+      # Filter for the "Dillingen" station and dates between 2010 and 2020
+      ?sensor schema:name "Dillingen" .
+      FILTER (YEAR(?date) >= 2010 && YEAR(?date) <= 2020)
+
+      # Get temperature value and check if it's below 0°C
+      ?result qudt:numericValue ?temperature .
+      FILTER (?temperature < 0)
+
+      # Extract the year for grouping
+      BIND(YEAR(?date) AS ?year)
+    }
+    GROUP BY ?year
+  }
+}
+GROUP BY ?year
+ORDER BY ?year
 
 
 

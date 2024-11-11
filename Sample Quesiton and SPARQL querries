@@ -322,7 +322,103 @@ GROUP BY ?year
 ORDER BY ?year
 
 
+Q4.1) What is the spatial relationship (distance, elevation difference)  between the "Bangs" and "Loruens-Aeule" gauging stations? - # this cannot be tested 
+# error in graphDB - 500: Error, Query evaluation error: Unknown function 'http://jena.apache.org/function/spatial#greatCircleGeom'
 
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX spatialF: <http://jena.apache.org/function/spatial#>
+PREFIX units: <http://www.opengis.net/def/uom/OGC/1.0/>
+
+SELECT ?altitude_diff ?distance ?longitude_1 ?latitude_1 ?longitude_2 ?latitude_2
+WHERE {
+  # Define the first sensor ("Bangs") and retrieve its location details
+  ?sensor_1 rdf:type sosa:Sensor ;
+            schema:name "Bangs" ;
+            locn:location ?location_1 .
+  
+  ?location_1 locn:geometry ?geometry_1 .
+  ?geometry_1 geo:alt ?altitude_1 ;
+              locn:longitude ?longitude_1 ;
+              locn:latitude ?latitude_1 .
+
+  # Define the second sensor ("Loruens-Aeule") and retrieve its location details
+  ?sensor_2 rdf:type sosa:Sensor ;
+            schema:name "Loruens-Aeule" ;
+            locn:location ?location_2 .
+  
+  ?location_2 locn:geometry ?geometry_2 .
+  ?geometry_2 geo:alt ?altitude_2 ;
+              locn:longitude ?longitude_2 ;
+              locn:latitude ?latitude_2 .
+
+  # Calculate the altitude difference
+  BIND(ABS(?altitude_1 - ?altitude_2) AS ?altitude_diff)
+
+  # Construct the points as plain strings
+  BIND(CONCAT("Point(", STR(?longitude_1), " ", STR(?latitude_1), ")") AS ?point1)
+  BIND(CONCAT("Point(", STR(?longitude_2), " ", STR(?latitude_2), ")") AS ?point2)
+
+  # Calculate the great-circle distance if supported
+  BIND(spatialF:greatCircleGeom(?point1, ?point2, units:kilometre) AS ?distance)
+}
+
+
+## other option is to take square distance because sqareroot is not available with SPARQL 
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?altitude_diff ?squared_distance ?long_dif
+WHERE {
+  # Define the first sensor ("Oberammergau") and retrieve its location details
+  ?sensor_1 rdf:type sosa:Sensor ;
+            schema:name "Oberammergau" ;
+            locn:location ?location_1 .
+
+  ?location_1 locn:geometry ?geometry_1 .
+  
+  ?geometry_1 geo:alt ?altitude_1 ;
+              locn:longitude ?longitude_1 ;
+              locn:latitude ?latitude_1 .
+
+  # Define the second sensor ("Schlehdorf") and retrieve its location details
+  ?sensor_2 rdf:type sosa:Sensor ;
+            schema:name "Schlehdorf" ;
+            locn:location ?location_2 .
+
+  ?location_2 locn:geometry ?geometry_2 .
+  
+  ?geometry_2 geo:alt ?altitude_2 ;
+              locn:longitude ?longitude_2 ;
+              locn:latitude ?latitude_2 .
+
+  # Convert longitude and latitude to decimal for calculations
+  BIND(xsd:decimal(?longitude_1) AS ?long1_decimal)
+  BIND(xsd:decimal(?latitude_1) AS ?lat1_decimal)
+  BIND(xsd:decimal(?longitude_2) AS ?long2_decimal)
+  BIND(xsd:decimal(?latitude_2) AS ?lat2_decimal)
+
+  # Calculate the altitude difference
+  BIND(ABS(xsd:decimal(?altitude_1) - xsd:decimal(?altitude_2)) AS ?altitude_diff)
+
+  # Calculate the approximate squared distance
+  BIND(((?long2_decimal - ?long1_decimal) * (?long2_decimal - ?long1_decimal) +
+        (?lat2_decimal - ?lat1_decimal) * (?lat2_decimal - ?lat1_decimal)) AS ?squared_distance)
+  
+  # Calculate longitude difference
+  BIND((?long2_decimal - ?long1_decimal) AS ?long_dif)
+}
 
 
 

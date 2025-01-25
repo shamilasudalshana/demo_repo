@@ -1,0 +1,425 @@
+
+# 1.Object - Location/Footprint:
+## 1.1 Where is the "Schlehdorf" gauging station located within the catchment area? [What are the coordinates] - ## Tested and working
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+
+SELECT ?name ?longitude ?latitude ?altitude
+WHERE {
+  ?sensor rdf:type sosa:Sensor ;
+          schema:name "Bangs" ;
+          locn:location ?location .
+  
+  ?location locn:geometry ?geometry .
+  
+  ?geometry locn:longitude ?longitude ;
+            locn:latitude ?latitude ;
+            geo:alt ?altitude .
+  
+  OPTIONAL {
+    ?sensor schema:name ?name .
+  }
+}
+
+
+1.2 Where are the gauging stations located within the catchment areas for high annual precipitation in 2015? (maximum 3) - ## Tested and working. 
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT ?stationName ?longitude ?latitude (SUM(?precipitation) AS ?totalPrecipitation)
+WHERE {
+  # Find observations with the observedProperty envthes:30106
+  ?observation rdf:type sosa:Observation ;
+               sosa:observedProperty envthes:30106 ;
+               sosa:madeBySensor ?station ;
+               sosa:resultTime ?resultTime ;
+               sosa:hasResult ?result .
+    
+  # Filter for the year 2015
+  FILTER (YEAR(?resultTime) = 2015)
+
+  # Access the blank node for QuantityValue
+  ?result rdf:type qudt:QuantityValue ;
+          qudt:numericValue ?precipitation ;
+          qudt:unit unit:MilliM .
+      
+  # Retrieve gauging station and location details
+  ?station rdf:type sosa:Sensor ;
+           schema:name ?stationName ;
+           locn:location ?location .
+    
+  ?location locn:geometry ?locationGeometry .
+    
+  ?locationGeometry locn:longitude ?longitude ;
+                    locn:latitude ?latitude ;
+                    geo:alt ?altitude .
+}
+
+# Group by station to sum precipitation values for each station in 2015
+GROUP BY ?stationName ?longitude ?latitude
+ORDER BY DESC(?totalPrecipitation)
+LIMIT 3
+
+
+1.3 Where are the largest 5 catchment areas in this dataset?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <https://schema.org/>
+
+SELECT ?stationName ?catchment ?catchmentArea ?longitude ?latitude ?altitude
+
+WHERE {
+  
+    #find the station name 
+   ?sensor schema:name ?stationName;
+        n4e_hyd:observesArea ?catchment;
+        locn:location ?location .
+    
+  ?location locn:geometry ?locationGeometry .
+    
+  ?locationGeometry locn:longitude ?longitude ;
+                    locn:latitude ?latitude ;
+                    geo:alt ?altitude .
+    
+    
+    # Find catchments with area information
+  ?catchment rdf:type envthes:30212 ;
+             n4e_hyd:catchment_area_calculated ?catchmentArea .
+}
+ORDER BY DESC(?catchmentArea)
+LIMIT 5
+
+
+3.1 What is the surface area of the largest catchment in the dataset?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <https://schema.org/>
+
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+SELECT ?stationName ?catchment ?catchmentArea 
+WHERE {
+  
+    #find the station name 
+   ?sensor schema:name ?stationName;
+        n4e_hyd:observesArea ?catchment.
+
+    
+    # Find catchments with area information
+  ?catchment rdf:type envthes:30212 ;
+             n4e_hyd:catchment_area_calculated ?catchmentArea .
+}
+ORDER BY DESC(?catchmentArea)
+LIMIT 1
+
+3.2 What is the average annual precipitation in catchment 1 for the period between 2010 and 2020?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT (AVG(?yearlyTotal) AS ?averageAnnualPrecipitation)
+WHERE {
+  # Subquery to get total precipitation per year for catchment_1
+  {
+    SELECT ?year (SUM(?precipitation) AS ?yearlyTotal)
+    WHERE {
+      # Filter for precipitation observations related to catchment_1
+      ?observation rdf:type sosa:Observation ;
+                   sosa:observedProperty envthes:30106 ;
+                   sosa:hasFeatureOfInterest n4e_hyd:catchment_612 ;
+                   sosa:resultTime ?resultTime ;
+                   sosa:hasResult ?result .
+
+      # Extract the year directly in the FILTER and assign to ?year
+      BIND(YEAR(?resultTime) AS ?year)
+      FILTER (?year >= 2010 && ?year <= 2020)
+
+      # Access the blank node to retrieve the precipitation value
+      ?result qudt:numericValue ?precipitation ;
+              qudt:unit unit:MilliM .
+    }
+    GROUP BY ?year
+  }
+}
+
+## same quesion with each year average precipitation
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT ?year (SUM(?precipitation) AS ?yearlyTotal)
+    WHERE {
+      # Filter for precipitation observations related to catchment_1
+      ?observation rdf:type sosa:Observation ;
+                   sosa:observedProperty envthes:30106 ;
+                   sosa:hasFeatureOfInterest n4e_hyd:catchment_612 ;
+                   sosa:resultTime ?resultTime ;
+                   sosa:hasResult ?result .
+
+      # Extract the year directly in the FILTER and assign to ?year
+      BIND(YEAR(?resultTime) AS ?year)
+      FILTER (?year >= 2010 && ?year <= 2020)
+
+      # Access the blank node to retrieve the precipitation value
+      ?result qudt:numericValue ?precipitation ;
+              qudt:unit unit:MilliM .
+    }
+    GROUP BY ?year
+
+Q3.3)What is the elevation of the "Schlehdorf" gauging station?
+
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?elevation
+WHERE {
+  # Find the gauging station named "Schlehdorf"
+  ?station rdf:type sosa:Sensor ;
+           schema:name "Schlehdorf" ;
+           locn:location ?location .
+
+  # Retrieve the elevation (altitude) of the location
+  ?location locn:geometry ?geometry.
+
+  ?geometry geo:alt ?elevation .
+}
+
+Q3.4) What is the all-time minimum and maximum river flow observed at the "Vlaske" gauging station?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+
+SELECT (MIN(?flow) AS ?minRiverFlow) (MAX(?flow) AS ?maxRiverFlow)
+WHERE {
+  # Filter observations from the "Vlaske" gauging station and river flow property
+  ?observation rdf:type sosa:Observation ;
+               sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+               sosa:madeBySensor ?sensor ;
+               sosa:hasResult ?result .
+  
+  # Ensure the sensor name is "Vlaske" - I 
+  ?sensor schema:name "Dillingen" .
+
+  # Retrieve river flow value from the result
+  ?result qudt:numericValue ?flow .
+}
+
+Q3.4)_2 (extended version of same abouve question)  What is the all-time minimum and maximum river flow observed at all the gauging stations?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+
+SELECT  ?sensorName (MIN(?flow) AS ?minRiverFlow) (MAX(?flow) AS ?maxRiverFlow)
+WHERE {
+  # Filter observations from the "Vlaske" gauging station and river flow property
+  ?observation rdf:type sosa:Observation ;
+               sosa:observedProperty n4e_hyd:AirTemperature2mMax ;
+               sosa:madeBySensor ?sensor ;
+               sosa:hasResult ?result .
+  
+  # Ensure the sensor name is "Vlaske"
+  ?sensor schema:name ?sensorName .
+
+  # Retrieve river flow value from the result
+  ?result qudt:numericValue ?flow .
+}
+GROUP BY ?sensorName
+
+
+Q3.5) How many annual average frost days (days with temperatures below 0°C) were recorded at the "Dillingen" gauging station from 2010 to 2020? - ## need to double check the query . answers are bit confusing. 
+
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX schema: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?year (AVG(?frostDays) AS ?averageAnnualFrostDays)
+WHERE {
+  {
+    SELECT ?year (COUNT(?date) AS ?frostDays)
+    WHERE {
+      # Because the freezing is related to min air temp -  temperature observations at the "Dillingen" station for AirTemperature2mMin
+      ?observation rdf:type sosa:Observation ;
+                   sosa:observedProperty n4e_hyd:AirTemperature2mMin ;
+                   sosa:madeBySensor ?sensor ;
+                   sosa:resultTime ?date ;
+                   sosa:hasResult ?result .
+      
+      # Filter for the "Dillingen" station and dates between 2010 and 2020
+      ?sensor schema:name "Dillingen" .
+      FILTER (YEAR(?date) >= 2010 && YEAR(?date) <= 2020)
+
+      # Get temperature value and check if it's below 0°C
+      ?result qudt:numericValue ?temperature .
+      FILTER (?temperature < 0)
+
+      # Extract the year for grouping
+      BIND(YEAR(?date) AS ?year)
+    }
+    GROUP BY ?year
+  }
+}
+GROUP BY ?year
+ORDER BY ?year
+
+
+Q4.1) What is the spatial relationship (distance, elevation difference)  between the "Bangs" and "Loruens-Aeule" gauging stations? - # this cannot be tested 
+# error in graphDB - 500: Error, Query evaluation error: Unknown function 'http://jena.apache.org/function/spatial#greatCircleGeom'
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX spatialF: <http://jena.apache.org/function/spatial#>
+PREFIX units: <http://www.opengis.net/def/uom/OGC/1.0/>
+
+SELECT ?altitude_diff ?distance ?longitude_1 ?latitude_1 ?longitude_2 ?latitude_2
+WHERE {
+  # Define the first sensor ("Bangs") and retrieve its location details
+  ?sensor_1 rdf:type sosa:Sensor ;
+            schema:name "Bangs" ;
+            locn:location ?location_1 .
+  
+  ?location_1 locn:geometry ?geometry_1 .
+  ?geometry_1 geo:alt ?altitude_1 ;
+              locn:longitude ?longitude_1 ;
+              locn:latitude ?latitude_1 .
+
+  # Define the second sensor ("Loruens-Aeule") and retrieve its location details
+  ?sensor_2 rdf:type sosa:Sensor ;
+            schema:name "Loruens-Aeule" ;
+            locn:location ?location_2 .
+  
+  ?location_2 locn:geometry ?geometry_2 .
+  ?geometry_2 geo:alt ?altitude_2 ;
+              locn:longitude ?longitude_2 ;
+              locn:latitude ?latitude_2 .
+
+  # Calculate the altitude difference
+  BIND(ABS(?altitude_1 - ?altitude_2) AS ?altitude_diff)
+
+  # Construct the points as plain strings
+  BIND(CONCAT("Point(", STR(?longitude_1), " ", STR(?latitude_1), ")") AS ?point1)
+  BIND(CONCAT("Point(", STR(?longitude_2), " ", STR(?latitude_2), ")") AS ?point2)
+
+  # Calculate the great-circle distance if supported
+  BIND(spatialF:greatCircleGeom(?point1, ?point2, units:kilometre) AS ?distance)
+}
+
+
+## other option is to take square distance because sqareroot is not available with SPARQL 
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?altitude_diff ?squared_distance ?long_dif
+WHERE {
+  # Define the first sensor ("Oberammergau") and retrieve its location details
+  ?sensor_1 rdf:type sosa:Sensor ;
+            schema:name "Oberammergau" ;
+            locn:location ?location_1 .
+
+  ?location_1 locn:geometry ?geometry_1 .
+  
+  ?geometry_1 geo:alt ?altitude_1 ;
+              locn:longitude ?longitude_1 ;
+              locn:latitude ?latitude_1 .
+
+  # Define the second sensor ("Schlehdorf") and retrieve its location details
+  ?sensor_2 rdf:type sosa:Sensor ;
+            schema:name "Schlehdorf" ;
+            locn:location ?location_2 .
+
+  ?location_2 locn:geometry ?geometry_2 .
+  
+  ?geometry_2 geo:alt ?altitude_2 ;
+              locn:longitude ?longitude_2 ;
+              locn:latitude ?latitude_2 .
+
+  # Convert longitude and latitude to decimal for calculations
+  BIND(xsd:decimal(?longitude_1) AS ?long1_decimal)
+  BIND(xsd:decimal(?latitude_1) AS ?lat1_decimal)
+  BIND(xsd:decimal(?longitude_2) AS ?long2_decimal)
+  BIND(xsd:decimal(?latitude_2) AS ?lat2_decimal)
+
+  # Calculate the altitude difference
+  BIND(ABS(xsd:decimal(?altitude_1) - xsd:decimal(?altitude_2)) AS ?altitude_diff)
+
+  # Calculate the approximate squared distance
+  BIND(((?long2_decimal - ?long1_decimal) * (?long2_decimal - ?long1_decimal) +
+        (?lat2_decimal - ?lat1_decimal) * (?lat2_decimal - ?lat1_decimal)) AS ?squared_distance)
+  
+  # Calculate longitude difference
+  BIND((?long2_decimal - ?long1_decimal) AS ?long_dif)
+}
+
+
+
+

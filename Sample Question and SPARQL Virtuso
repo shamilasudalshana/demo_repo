@@ -1,3 +1,6 @@
+Changed  - 3.1 
+
+
 
 # 1.Object - Location/Footprint:
 ## 1.1 Where is the "Schlehdorf" gauging station located within the catchment area? [What are the coordinates] - ## Tested and working
@@ -114,23 +117,23 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <https://schema.org/>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
 
-PREFIX locn: <http://www.w3.org/ns/locn#>
-PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-SELECT ?stationName ?catchment ?catchmentArea 
-WHERE {
-  
+select ?stationName ?catchment ?catchmentArea 
+Where  {GRAPH <http://hydroturtle/LamahCE> 
+  {
     #find the station name 
    ?sensor schema:name ?stationName;
-        n4e_hyd:observesArea ?catchment.
+        n4e_hyd:monitorsCatchment ?catchment.
 
     
     # Find catchments with area information
   ?catchment rdf:type envthes:30212 ;
              n4e_hyd:catchment_area_calculated ?catchmentArea .
-}
+}}
 ORDER BY DESC(?catchmentArea)
 LIMIT 1
+
 
 3.2 What is the average annual precipitation in catchment 1 for the period between 2010 and 2020?
 

@@ -1,4 +1,4 @@
-Changed  - 3.1 
+Changed  - 1.1 
 
 
 
@@ -6,28 +6,28 @@ Changed  - 3.1
 ## 1.1 Where is the "Schlehdorf" gauging station located within the catchment area? [What are the coordinates] - ## Tested and working
 
 PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX schema: <https://schema.org/>
-PREFIX locn: <http://www.w3.org/ns/locn#>
-PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-PREFIX sosa: <http://www.w3.org/ns/sosa/>
 
-SELECT ?name ?longitude ?latitude ?altitude
+SELECT ?wkt ?easting ?northing ?elevation
+FROM <http://hydroturtle/LamahCE>
 WHERE {
-  ?sensor rdf:type sosa:Sensor ;
-          schema:name "Bangs" ;
-          locn:location ?location .
-  
-  ?location locn:geometry ?geometry .
-  
-  ?geometry locn:longitude ?longitude ;
-            locn:latitude ?latitude ;
-            geo:alt ?altitude .
-  
-  OPTIONAL {
-    ?sensor schema:name ?name .
-  }
+    # Find the sensor with the name "Bangs"
+    ?sensor schema:name "Bangs" ;
+            geo:hasGeometry ?geom .
+    
+    # Get the WKT representation
+    ?geom geo:asWKT ?wkt .
+    
+    # Convert WKT into geometry object using Virtuoso functions
+    BIND (bif:st_geomfromtext(?wkt) AS ?geomObj)
+    
+    # Extract coordinates using Virtuoso spatial functions
+    BIND (bif:st_x(?geomObj) AS ?easting)   # Longitude
+    BIND (bif:st_y(?geomObj) AS ?northing)  # Latitude
+    BIND (bif:st_z(?geomObj) AS ?elevation) # Elevation
 }
+
 
 
 1.2 Where are the gauging stations located within the catchment areas for high annual precipitation in 2015? (maximum 3) - ## Tested and working. 

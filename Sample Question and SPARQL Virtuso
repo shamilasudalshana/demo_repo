@@ -69,7 +69,7 @@ WHERE {
           geo:hasGeometry ?locationGeometry .
 
     ## Get the WKT representation
-    ?locationGeometry geo:asWKT ?wkt
+    ?locationGeometry geo:asWKT ?wkt .
 
     # Convert WKT into geometry object using Virtuoso functions
     BIND (bif:st_geomfromtext(?wkt) AS ?geomObj)

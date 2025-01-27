@@ -128,9 +128,8 @@ WHERE {
 ORDER BY DESC(?catchmentArea)
 LIMIT 5
 
-2.1 What are the boundaries of the catchment with the highest precipitation in 2012? - Could not test 
-Error - [Virtuoso 42000 Error The estimated execution time 0 (sec) exceeds the limit of 400 (sec)]
-
+2.1 What are the boundaries of the catchment with the highest precipitation in 2012? - tested in Virtuoso [ this is run for fow rate because only updated flow rate to the triple store at the moment.] 
+[need to update again after update WKT as direct geom object. then conversion of bif:st_geomfromtext(?catchmentWKT) is not required] 
 
 PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
 PREFIX sosa: <http://www.w3.org/ns/sosa/>
@@ -142,13 +141,15 @@ PREFIX unit: <https://qudt.org/vocab/unit/>
 PREFIX schema: <https://schema.org/>
 PREFIX locn: <http://www.w3.org/ns/locn#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX virtrdf: <http://www.openlinksw.com/schemas/virtrdf#>
 
-SELECT ?neighbourCatchment
+SELECT ?neighbourCatchment ?catchment ?maxFlow ?time ?neighbourCatchmentWKT 
 FROM <http://hydroturtle/LamahCE>
 WHERE {
-    # Find the catchment with the highest flow rate between 2000-2010
+    # Find the catchment with the highest flow rate between 2012-2016
     {
-        SELECT ?catchment ?catchmentWKT (MAX(?flowRate) AS ?maxFlow)
+
+        SELECT ?catchment ?catchmentWKT (MAX(?flowRate) AS ?maxFlow) ?time
         WHERE {
             # Find the observations with precipitation[envthes:30106] (flow rate for this time - envthes:21242) - 
             # precipitation can be written as directly associalted with catchment as observerd property 
@@ -160,30 +161,36 @@ WHERE {
 
             ## take the flow rate value
             ?result qudt:numericValue ?flowRate;
-                    qudt:unit  unit:M3-PER-SEC. 
+                    qudt:unit  unit:M3-PER-SEC.
 
             # Take the catchment geometry as WKT
             ?sensor n4e_hyd:monitorsCatchment ?catchment .
             ?catchment geo:hasGeometry ?catchmentGeometry.
             ?catchmentGeometry geo:asWKT ?catchmentWKT.
 
-            FILTER (?time >= "2000-01-01"^^xsd:dateTime && ?time <= "2010-12-31"^^xsd:dateTime)
-        }
-        GROUP BY ?catchment ?catchmentWKT
+           FILTER (?time >= "2012-01-01"^^xsd:dateTime && ?time <= "2015-12-31"^^xsd:dateTime)
+              #FILTER (xsd:dateTime(?time) >= "2016-01-01T00:00:00Z"^^xsd:dateTime &&
+            #xsd:dateTime(?time) <= "2016-12-31T23:59:59Z"^^xsd:dateTime)
+}
         ORDER BY DESC(?maxFlow)
         LIMIT 1
-    }
-    # Find neighboring catchments touching the highest flow catchment ( catchment is envthes:30212)
-    ?neighbourCatchment rdf:type envthes:30212;
-                       geo:hasGeometry ?neighbourCatchmentGeometry.  
-
-    ?neighborCatchmentGeometry geo:asWKT ?neighbourCatchmentWKT.
-
-    #Exclude highest flow rate catchment
-    FILTER (?neighbourCatchment != ?catchment)
-    FILTER bif:st_intersects(?catchmentWKT, ?neighbourCatchmentWKT, 0)  # 0 distance means touching borders
 
 }
+
+            #from here this should try to take 
+            ?neighbourCatchment rdf:type envthes:30212 ;
+                                geo:hasGeometry ?neighbourCatchmentGeom .
+
+            ?neighbourCatchmentGeom geo:asWKT ?neighbourCatchmentWKT .
+
+            # Convert WKT into geometry object using Virtuoso functions
+            BIND (bif:st_geomfromtext(?catchmentWKT) AS ?geomObjCat)
+            BIND (bif:st_geomfromtext(?neighbourCatchmentWKT ) AS ?geomObjCatNeig)
+
+            FILTER (?neighbourCatchment != ?catchment) # Exclude the max flow catchment
+            FILTER bif:st_intersects(?geomObjCat, ?geomObjCatNeig, 0) # 0 distance means touching borders
+
+        }
 
 
 

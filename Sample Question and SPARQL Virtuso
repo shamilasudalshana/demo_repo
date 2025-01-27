@@ -1,4 +1,4 @@
-Changed  - 1.1, 1.2, 1.3
+Changed  - 1.1, 1.2, 1.3, 2.1
 
 
 
@@ -127,6 +127,65 @@ WHERE {
 # take the largest catchment area.  
 ORDER BY DESC(?catchmentArea)
 LIMIT 5
+
+2.1 What are the boundaries of the catchment with the highest precipitation in 2012? - Could not test 
+Error - [Virtuoso 42000 Error The estimated execution time 0 (sec) exceeds the limit of 400 (sec)]
+
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?neighbourCatchment
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+    # Find the catchment with the highest flow rate between 2000-2010
+    {
+        SELECT ?catchment ?catchmentWKT (MAX(?flowRate) AS ?maxFlow)
+        WHERE {
+            # Find the observations with precipitation[envthes:30106] (flow rate for this time - envthes:21242) - 
+            # precipitation can be written as directly associalted with catchment as observerd property 
+            ?observation rdf:type sosa:Observation ;
+                sosa:observedProperty envthes:21242 ;
+                sosa:madeBySensor ?sensor ;
+                sosa:resultTime ?time ;
+                sosa:hasResult ?result.
+
+            ## take the flow rate value
+            ?result qudt:numericValue ?flowRate;
+                    qudt:unit  unit:M3-PER-SEC. 
+
+            # Take the catchment geometry as WKT
+            ?sensor n4e_hyd:monitorsCatchment ?catchment .
+            ?catchment geo:hasGeometry ?catchmentGeometry.
+            ?catchmentGeometry geo:asWKT ?catchmentWKT.
+
+            FILTER (?time >= "2000-01-01"^^xsd:dateTime && ?time <= "2010-12-31"^^xsd:dateTime)
+        }
+        GROUP BY ?catchment ?catchmentWKT
+        ORDER BY DESC(?maxFlow)
+        LIMIT 1
+    }
+    # Find neighboring catchments touching the highest flow catchment ( catchment is envthes:30212)
+    ?neighbourCatchment rdf:type envthes:30212;
+                       geo:hasGeometry ?neighbourCatchmentGeometry.  
+
+    ?neighborCatchmentGeometry geo:asWKT ?neighbourCatchmentWKT.
+
+    #Exclude highest flow rate catchment
+    FILTER (?neighbourCatchment != ?catchment)
+    FILTER bif:st_intersects(?catchmentWKT, ?neighbourCatchmentWKT, 0)  # 0 distance means touching borders
+
+}
+
+
 
 
 3.1 What is the surface area of the largest catchment in the dataset?

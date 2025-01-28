@@ -1,5 +1,5 @@
 Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3 
-Context Specified - 6.1, 6.2, 6.3, 7.1, 7.2 
+Context Specified - 6.1, 6.2, 6.3, 7.1, 7.2, 7.3, 
 
 
 
@@ -985,3 +985,50 @@ WHERE {
 GROUP BY ?year
 ORDER BY DESC(?floodDays)
 LIMIT 5 # Change this to 1 when it only needs to take the year with most of the days of flooding. This provides the top 5 years. 
+
+
+Q7.3) During which five years did the "Oberammergau" gauging station record the highest number of flood events?
+# in here it is assumed that when the flow is above 5 m3/s then flood events occur. This is incorrect. It should be connected to the water level. However, it is not available in this dataset. 
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+
+SELECT halfDecade (COUNT(DISTINCT ?date) AS ?floodDays)
+WHERE {
+    # Find observations for river flow
+    ?observation rdf:type sosa:Observation ;
+                 sosa:observedProperty envthes:21242 ;  # River flow
+                 sosa:madeBySensor ?sensor ;
+                 sosa:resultTime ?resultTime ;
+                 sosa:hasResult ?result .
+
+    # Extract river flow value
+    ?result rdf:type qudt:QuantityValue ;
+            qudt:numericValue ?flowRate ;
+            qudt:unit unit:M3-PER-SEC .
+
+    # Filter for the location "Buers (Bruecke L82)"
+    ?sensor schema:name "Buers (Bruecke L82)".
+
+    # Filter for flow rates exceeding 5 m³/s
+    FILTER(?flowRate > 5)
+
+    # Extract year and determine the half-decade period
+    BIND(YEAR(?resultTime) AS ?year)
+    BIND(FLOOR((?year - 1) / 5) * 5 + 1 AS ?halfDecade)  # Computes half-decade periods like 1996-2000, 2001-2005, etc.
+
+    # Extract date from timestamp (only Year-Month-Day, ignoring time)
+    BIND(STRDT(CONCAT(STR(YEAR(?resultTime)), "-", STR(MONTH(?resultTime)), "-", STR(DAY(?resultTime))), xsd:date) AS ?date)
+
+}
+
+# Group by half-decade and count flood events
+GROUP BY ?halfDecade
+ORDER BY DESC(?floodDays)
+LIMIT 5

@@ -1,5 +1,5 @@
 Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3 
-Context Specified - 6.1, 6.2
+Context Specified - 6.1, 6.2, 6.3 
 
 
 
@@ -851,3 +851,36 @@ ORDER BY DESC(?totalAnnualFlowrate)  # Sort by highest precipitation
 LIMIT 1  # Select only the catchment with the highest precipitation
 
 
+
+Q6.3) What is the average atmospheric temperature at 2m above catchment 1 for 2010 to 2020?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+
+SELECT ?stationName (AVG(?temperatureValue) AS ?averageTemperature)
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+    ?observation rdf:type sosa:Observation ;
+                 sosa:observedProperty n4e_hyd:AirTemperature2mAvg ;  # AVG Atmospheric temperature at 2m hiehgh 
+                 sosa:madeBySensor ?sensor ;
+                 sosa:resultTime ?resultTime ;
+                 sosa:hasResult ?result.
+
+    # Extract the numeric temperature value
+    ?result qudt:numericValue ?temperatureValue;
+            qudt:unit unit:DEG_C.
+
+    # Find sensors monitoring Catchment_1
+    ?sensor n4e_hyd:monitorsCatchment n4e_hyd:catchment_1;
+            schema:name ?stationName.
+
+    # Filter for the selected time range
+    BIND(YEAR(?resultTime) AS ?resultYear)
+    FILTER (?resultYear >= 2010 && ?resultYear <= 2020)
+}

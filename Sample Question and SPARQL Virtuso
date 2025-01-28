@@ -1,5 +1,5 @@
 Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3 
-Context Specified - 6.1, 6.2, 6.3 
+Context Specified - 6.1, 6.2, 6.3, 7.1
 
 
 
@@ -884,3 +884,60 @@ WHERE {
     BIND(YEAR(?resultTime) AS ?resultYear)
     FILTER (?resultYear >= 2010 && ?resultYear <= 2020)
 }
+
+Q7.1) Which month experienced the highest precipitation in Germany in 2012?
+# the current query is written for flow rate, in Austria because of limited data uploaded into the triple store. 
+
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX esco: <https://ec.europa.eu/esco/lod/static/model.html#>
+
+SELECT  ?month 
+        (AVG(?flowRate) AS ?averageMontlyFlowRate) 
+        (COUNT(?flowRate) AS ?noOfMeasurments) 
+        (COUNT(DISTINCT ?station) AS ?numOfStations)
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+
+        # Find the observations with precipitation[envthes:30106] (flow rate for this time - envthes:21242) 
+        ?observation rdf:type sosa:Observation ;
+                sosa:observedProperty envthes:21242 ;
+                sosa:madeBySensor ?station ;
+                sosa:resultTime ?resultTime ;
+                sosa:hasResult ?result .
+
+                
+        # Access the blank node for QuantityValue
+        ?result rdf:type qudt:QuantityValue ;
+                qudt:numericValue ?flowRate;
+                qudt:unit unit:M3-PER-SEC.
+
+        # Find the gauging stations situated in Germanay
+        ?station rdf:type sosa:Sensor ;
+                esco:isoCountryCodeA3 "AUT".    # This should be changed to "DEU" for Germanay. For the moment only 35 stations uploaded. All are from Austria
+
+        
+
+        # extract year and month from result time and assign them to seperate variables ?year and ?month
+        BIND (YEAR(?resultTime) AS ?year)
+        BIND (MONTH(?resultTime) AS ?month)
+
+      
+        #Filter results of 2012
+        FILTER(?year = 2012)
+
+}
+
+# Group by monthly
+GROUP BY ?month 
+ORDER BY DESC(?averageMontlyFlowRate)
+LIMIT 3

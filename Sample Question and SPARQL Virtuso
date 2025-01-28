@@ -1,4 +1,4 @@
-Changed  - 1.1, 1.2, 1.3, 2.1
+Changed  - 1.1, 1.2, 1.3, 2.1, 2.2
 
 
 
@@ -189,6 +189,60 @@ WHERE {
 
             FILTER (?neighbourCatchment != ?catchment) # Exclude the max flow catchment
             FILTER bif:st_intersects(?geomObjCat, ?geomObjCatNeig, 0) # 0 distance means touching borders
+
+        }
+
+2.2 What is the boundary of the "Oberammergau" gauging station area for discharge monitoring? [in here the station name "Garsella" used since only 35 stations uploaded to triples store at the moment.]
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX virtrdf: <http://www.openlinksw.com/schemas/virtrdf#>
+
+SELECT ?neighbourCatchment ?neighbourSensorName ?catchmentGiven 
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+    # Find the catchment with the highest flow rate between 2012-2016
+    {
+
+        SELECT ?catchmentGiven ?catchmenGiventWKT 
+        WHERE {
+            # Find the sensor with the name "Garsella" and catchment associated with it
+            ?sensorGiven rdf:type sosa:Sensor;
+                    schema:name "Garsella";
+                    n4e_hyd:monitorsCatchment ?catchmentGiven.
+
+            # take the catchment geomatery of the particular sensor 
+            ?catchmentGiven geo:hasGeometry ?catchmentGivenGeometry.
+            ?catchmentGivenGeometry geo:asWKT ?catchmenGiventWKT.
+
+}
+
+}
+
+            #Take the neighbouring catchements. 
+            ?neighbourCatchment rdf:type envthes:30212 ;
+                                geo:hasGeometry ?neighbourCatchmentGeom .
+
+            ?neighbourSensor rdf:type sosa:Sensor;
+                             schema:name ?neighbourSensorName;
+                             n4e_hyd:monitorsCatchment ?neighbourCatchment.
+
+            ?neighbourCatchmentGeom geo:asWKT ?neighbourCatchmentWKT .
+
+            # Convert WKT into geometry object using Virtuoso functions
+            BIND (bif:st_geomfromtext(?catchmenGiventWKT) AS ?geomObjCatGiven)
+            BIND (bif:st_geomfromtext(?neighbourCatchmentWKT ) AS ?geomObjCatNeig)
+
+            FILTER (?neighbourCatchment != ?catchmentGiven) # exclude the given catchment from the selection 
+            FILTER bif:st_intersects(?geomObjCatGiven, ?geomObjCatNeig, 0) # 0 distance means touching borders
 
         }
 

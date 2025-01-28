@@ -1,4 +1,4 @@
-Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2
+Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3
 
 
 
@@ -412,25 +412,39 @@ WHERE {
         }
         GROUP BY ?resultYear ?guagingStationName
 
-Q3.3)What is the elevation of the "Schlehdorf" gauging station?
+Q3.3)What is the elevation of the "Schlehdorf" gauging station? [query is written for "Beschling" since only 35 station are uploaded to triple store at the moment ] 
+# when WKT is written with "^^geo:wktLiteral, conversion to geom object is not required. 
 
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
 PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
 PREFIX schema: <https://schema.org/>
 PREFIX locn: <http://www.w3.org/ns/locn#>
-PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX virtrdf: <http://www.openlinksw.com/schemas/virtrdf#>
 
-SELECT ?elevation
+SELECT ?easting ?northing ?elevation ?geomObj
+FROM <http://hydroturtle/LamahCE>
 WHERE {
-  # Find the gauging station named "Schlehdorf"
-  ?station rdf:type sosa:Sensor ;
-           schema:name "Schlehdorf" ;
-           locn:location ?location .
 
-  # Retrieve the elevation (altitude) of the location
-  ?location locn:geometry ?geometry.
-
-  ?geometry geo:alt ?elevation .
+    # Find the sensor with the name "Beschling"
+    ?sensor schema:name "Beschling" ; # change to "Schlehdorf" as mentioned in the question. 
+            geo:hasGeometry ?geom .
+    
+    # Get the WKT representation
+    ?geom geo:asWKT ?wkt .
+    
+    # Convert WKT into geometry object using Virtuoso functions
+    BIND (bif:st_geomfromtext(?wkt) AS ?geomObj)
+    
+    # Extract coordinates using Virtuoso spatial functions
+    BIND (bif:st_x(?geomObj) AS ?easting)   # Longitude
+    BIND (bif:st_y(?geomObj) AS ?northing)  # Latitude
+    BIND (bif:st_z(?geomObj) AS ?elevation) # Elevation
 }
 
 Q3.4) What is the all-time minimum and maximum river flow observed at the "Vlaske" gauging station?

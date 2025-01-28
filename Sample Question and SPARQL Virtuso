@@ -1,4 +1,4 @@
-Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5
+Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6 
 
 
 
@@ -563,43 +563,52 @@ WHERE {
     }
     GROUP BY ?guagingStationName #can remove GROUP BY - specially, only one gauging station is used. 
 
-Q3.5) How many annual average frost days (days with temperatures below 0°C) were recorded at the "Dillingen" gauging station from 2010 to 2020? - ## need to double check the query . answers are bit confusing. 
+Q3.6) How many annual average frost days (days with temperatures below 0°C) were recorded at the "Dillingen" gauging station from 2010 to 2020? - 
+## need to double check the query . answers cannot check some part of the TTL files hasn't upload when I try to upload catchment 1 time series . 
 
-PREFIX sosa: <http://www.w3.org/ns/sosa/>
-PREFIX schema: <https://schema.org/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 PREFIX qudt: <https://qudt.org/schema/qudt/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX virtrdf: <http://www.openlinksw.com/schemas/virtrdf#>
 
 SELECT ?year (AVG(?frostDays) AS ?averageAnnualFrostDays)
+FROM <http://hydroturtle/LamahCE>
 WHERE {
-  {
-    SELECT ?year (COUNT(?date) AS ?frostDays)
-    WHERE {
-      # Because the freezing is related to min air temp -  temperature observations at the "Dillingen" station for AirTemperature2mMin
-      ?observation rdf:type sosa:Observation ;
-                   sosa:observedProperty n4e_hyd:AirTemperature2mMin ;
-                   sosa:madeBySensor ?sensor ;
-                   sosa:resultTime ?date ;
-                   sosa:hasResult ?result .
-      
-      # Filter for the "Dillingen" station and dates between 2010 and 2020
-      ?sensor schema:name "Dillingen" .
-      FILTER (YEAR(?date) >= 2010 && YEAR(?date) <= 2020)
+    {
+      SELECT ?year (COUNT(?resultDate) AS ?frostDays)
+      WHERE {
+        # Because the freezing is related to min air temp -  temperature observations at the "Dillingen" station for AirTemperature2mAVG (for this min temp also can be used)
+        ?observation rdf:type sosa:Observation ;
+                     sosa:observedProperty n4e_hyd:AirTemperature2mAvg ;
+                     sosa:madeBySensor ?sensor ;
+                     sosa:resultTime ?resultDate ;
+                     sosa:hasResult ?result .
+        
+        # Filter for the "Bangs" station and dates between 2010 and 2020 #only "Bangs" catchment TS is uploaded for now. therefore it used. 
+        ?sensor rdf:type sosa:Sensor ;
+                schema:name "Bangs" .
 
-      # Get temperature value and check if it's below 0°C
-      ?result qudt:numericValue ?temperature .
-      FILTER (?temperature < 0)
-
-      # Extract the year for grouping
-      BIND(YEAR(?date) AS ?year)
+        FILTER (YEAR(?resultDate) >= 2010 && YEAR(?resultDate) <= 2020)
+  
+        # Get temperature value and check if it's below 0°C
+        ?result qudt:numericValue ?temperature .
+        FILTER (?temperature < 0)
+  
+        # Extract the year for grouping
+        BIND(YEAR(?resultDate) AS ?year)
+      }
+      GROUP BY ?year
     }
-    GROUP BY ?year
   }
-}
-GROUP BY ?year
-ORDER BY ?year
+  GROUP BY ?year
+  ORDER BY ?year
 
 
 Q4.1) What is the spatial relationship (distance, elevation difference)  between the "Bangs" and "Loruens-Aeule" gauging stations? - # this cannot be tested 

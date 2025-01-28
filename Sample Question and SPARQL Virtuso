@@ -1,4 +1,5 @@
 Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3 
+Context Specified - 6.1 
 
 
 
@@ -776,3 +777,36 @@ WHERE {
     FILTER  bif:st_intersects(?geomObjGiven, ?geomObjSurrounding, 10)  # distance need to given with km 
 
 }
+
+
+---------------------Context-Specific Questions:--------------------------------------------
+
+
+Q6.1) Which catchments has the largest area (maximum 3)? [ this was already answered as Q3.1 ]
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX virtrdf: <http://www.openlinksw.com/schemas/virtrdf#>
+
+SELECT ?guagingStationName ?catchment ?catchmentArea
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+    # take the catchement areas of catchements (envthes:30212 is the catchement class)
+    ?catchment rdf:type envthes:30212 ;
+	           n4e_hyd:catchment_area_calculated ?catchmentArea. 
+
+    # find the name of the sensor related with catchement
+    ?sensor n4e_hyd:monitorsCatchment ?catchment;
+            schema:name ?guagingStationName. 
+}
+ORDER BY DESC(?catchmentArea)
+LIMIT 3
+

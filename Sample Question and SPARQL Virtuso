@@ -1,5 +1,5 @@
 Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3 
-Context Specified - 6.1 
+Context Specified - 6.1, 6.2
 
 
 
@@ -809,4 +809,45 @@ WHERE {
 }
 ORDER BY DESC(?catchmentArea)
 LIMIT 3
+
+
+Q6.2) Which catchment area has the highest annual precipitation for a selected year (e.g., 2015)?
+
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+
+SELECT ?catchment (SUM(?flowRate) AS ?totalAnnualFlowrate) ?catchmentArea
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+    ?observation rdf:type sosa:Observation ;
+                 sosa:observedProperty envthes:21242 ;  # Precipitation
+                 sosa:madeBySensor ?sensor ;
+                 sosa:resultTime ?resultTime ;
+                 sosa:hasResult ?result.
+
+    # Retrieve the precipitation value
+    ?result qudt:numericValue ?flowRate;
+            qudt:unit  unit:M3-PER-SEC .
+
+    # Find catchment monitored by the sensor
+    ?sensor n4e_hyd:monitorsCatchment ?catchment.
+
+    # Find catchment area of the catchment
+    ?catchment n4e_hyd:catchment_area_calculated ?catchmentArea
+
+    # Filter for the selected year
+    BIND(YEAR(?resultTime) AS ?resultYear)
+    FILTER (?resultYear = 2015)
+}
+GROUP BY ?catchment ?catchmentArea
+ORDER BY DESC(?totalAnnualFlowrate)  # Sort by highest precipitation
+LIMIT 1  # Select only the catchment with the highest precipitation
+
 

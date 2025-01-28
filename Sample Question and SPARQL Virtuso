@@ -666,3 +666,58 @@ WHERE {
     BIND ((?elevationBeschling-?elevationGarsella) as ?elevDiffBeschlingMinusGarsella)
 
 }
+
+
+
+Q4.2) What is the distance between the highest and lowest elevation gauging stations in this dataset?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX virtrdf: <http://www.openlinksw.com/schemas/virtrdf#>
+
+SELECT ?maxStationName ?maxElevation ?minStationName ?minElevation ?distance
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+    {
+        # Get the station with the highest elevation
+        SELECT ?maxStationName ?maxElevation ?maxWKT
+        WHERE {
+            ?sensor schema:name ?maxStationName ; 
+                    geo:hasGeometry ?geom .
+            ?geom geo:asWKT ?maxWKT .
+            BIND (bif:st_geomfromtext(?maxWKT) AS ?geomObj)
+            BIND (bif:st_z(?geomObj) AS ?maxElevation) # Elevation
+        }
+        ORDER BY DESC(?maxElevation)
+        LIMIT 1
+    }
+    
+    {
+        # Get the station with the lowest elevation
+        SELECT ?minStationName ?minElevation ?minWKT
+        WHERE {
+            ?sensor schema:name ?minStationName ; 
+                    geo:hasGeometry ?geom .
+            ?geom geo:asWKT ?minWKT .
+            BIND (bif:st_geomfromtext(?minWKT) AS ?geomObj)
+            BIND (bif:st_z(?geomObj) AS ?minElevation) # Elevation
+        }
+        ORDER BY ASC(?minElevation)
+        LIMIT 1
+    }
+
+    # Convert WKT into geometry objects
+    BIND (bif:st_geomfromtext(?maxWKT) AS ?geomMax)
+    BIND (bif:st_geomfromtext(?minWKT) AS ?geomMin)
+
+    # Compute the distance between the highest and lowest stations
+    BIND (bif:st_distance(?geomMax, ?geomMin, <http://www.opengis.net/def/uom/OGC/1.0/metre>) AS ?distance)
+}

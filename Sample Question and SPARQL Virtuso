@@ -999,7 +999,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX unit: <https://qudt.org/vocab/unit/>
 PREFIX schema: <https://schema.org/>
 
-SELECT halfDecade (COUNT(DISTINCT ?date) AS ?floodDays)
+SELECT ?halfDecade (COUNT(DISTINCT ?date) AS ?floodDays)
 WHERE {
     # Find observations for river flow
     ?observation rdf:type sosa:Observation ;

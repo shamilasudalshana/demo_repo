@@ -1,5 +1,5 @@
 Changed  - 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3 
-Context Specified - 6.1, 6.2, 6.3, 7.1, 7.2, 7.3, 
+Context Specified - 6.1, 6.2, 6.3, 7.1, 7.2, 7.3, 8.2
 
 
 
@@ -1032,3 +1032,52 @@ WHERE {
 GROUP BY ?halfDecade
 ORDER BY DESC(?floodDays)
 LIMIT 5
+
+
+Q8.2)  At what elevation is the gauging station with the lowest observed average river flow?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?gaugingStationName ?elevation (AVG(?flowRate) AS ?avgFlowRate)
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+    # Observations of river flow
+    ?observation rdf:type sosa:Observation ;
+                 sosa:observedProperty envthes:21242 ;
+                 sosa:madeBySensor ?sensor ;
+                 sosa:resultTime ?resultTime ;
+                 sosa:hasResult ?result.
+
+    # Access flow rate value
+    ?result qudt:numericValue ?flowRate;
+            qudt:unit unit:M3-PER-SEC.
+
+    # Link sensor to gauging station
+    ?sensor schema:name ?gaugingStationName;
+            geo:hasGeometry ?geom.
+
+    # Get the WKT representation of the location
+    ?geom geo:asWKT ?wkt.
+
+    # Convert WKT into geometry object using Virtuoso functions
+    BIND (bif:st_geomfromtext(?wkt) AS ?geomObj)
+
+    # Extract elevation (Z coordinate)
+    BIND (bif:st_z(?geomObj) AS ?elevation)
+
+    # Filter data within a relevant time range (e.g., 2012-2013)
+    BIND (YEAR(?resultTime) AS ?resultYear)
+    #FILTER (?resultYear >= 2012 && ?resultYear <= 2013)
+}
+GROUP BY ?gaugingStationName ?elevation
+ORDER BY ASC(?avgFlowRate)
+LIMIT 8

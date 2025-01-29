@@ -1034,7 +1034,7 @@ ORDER BY DESC(?floodDays)
 LIMIT 5
 
 
-Q8.2)  At what elevation is the gauging station with the lowest observed average river flow?
+Q8.2)  What it the elevation of the gauging station with the lowest observed average river flow?
 
 PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
 PREFIX sosa: <http://www.w3.org/ns/sosa/>

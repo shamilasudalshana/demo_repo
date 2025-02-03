@@ -1,0 +1,26 @@
+
+# 1.Object - Location/Footprint:
+## 1.1 Where is the "Schlehdorf" gauging station located within the catchment area? [What are the coordinates] - ## Tested and working
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX schema: <https://schema.org/>
+
+SELECT ?geomObj ?easting ?northing ?elevation
+WHERE { GRAPH <http://hydroturtle/LamahCE>
+{
+    # Find the sensor with the name "Bangs"
+    ?sensor schema:name "Bangs" ;
+            geo:hasGeometry ?geom .
+    
+    # Get the WKT representation
+    ?geom geo:asWKT ?geomObj.
+    
+    # Convert WKT into geometry object using Virtuoso functions
+   # BIND (bif:st_geomfromtext(?wkt) AS ?geomObj)
+    
+    # Extract coordinates using Virtuoso spatial functions
+    BIND (bif:st_x(?geomObj) AS ?easting)   # Longitude
+    BIND (bif:st_y(?geomObj) AS ?northing)  # Latitude
+    BIND (bif:st_z(?geomObj) AS ?elevation) # Elevation
+}}

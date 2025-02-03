@@ -13,11 +13,8 @@ WHERE { GRAPH <http://hydroturtle/LamahCE>
     ?sensor schema:name "Bangs" ;
             geo:hasGeometry ?geom .
     
-    # Get the WKT representation
+    # Get the WKT representation as geomatric object
     ?geom geo:asWKT ?geomObj.
-    
-    # Convert WKT into geometry object using Virtuoso functions
-   # BIND (bif:st_geomfromtext(?wkt) AS ?geomObj)
     
     # Extract coordinates using Virtuoso spatial functions
     BIND (bif:st_x(?geomObj) AS ?easting)   # Longitude

@@ -37,8 +37,8 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 
 SELECT ?stationName ?easting ?northing (SUM(?flowRate) AS ?totalFlowRate) ?unit
 FROM <http://hydroturtle/LamahCE>
-WHERE {
-
+WHERE { GRAPH <http://hydroturtle/LamahCE>
+{
      # Find the observations with precipitation[envthes:30106] (flow rate for this time - envthes:21242) 
      ?observation rdf:type sosa:Observation ;
                sosa:observedProperty envthes:30106 ;
@@ -68,8 +68,13 @@ WHERE {
     BIND (bif:st_y(?geomObj) AS ?northing)  # Latitude
 
 }
+}
 
 # Group by station to sum precipitation values (this one is for flow rate for now) for each station in 2015
 GROUP BY ?stationName ?easting ?northing ?unit
 ORDER BY DESC(?totalFlowRate)
 LIMIT 3
+
+Q1.3) Where are five of the largest catchment areas in this dataset?
+
+

@@ -98,8 +98,7 @@ ORDER BY DESC(?catchmentArea)
 LIMIT 5
 
 # 2. Object - Boundary: 
-Q2.1) What are the neighbouring catchments of the catchment with the highest precipitation in 2012?  
-#not properly updated
+Q2.1) What are the neighbouring catchments of the catchment with the highest precipitation in the decade 2001-2010?  
 
 PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
 PREFIX sosa: <http://www.w3.org/ns/sosa/>
@@ -111,53 +110,54 @@ PREFIX unit: <https://qudt.org/vocab/unit/>
 PREFIX schema: <https://schema.org/>
 PREFIX locn: <http://www.w3.org/ns/locn#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
-PREFIX virtrdf: <http://www.openlinksw.com/schemas/virtrdf#>
 
-SELECT (COUNT(DISTINCT ?neighbourCatchment ) AS ?count) (COUNT(DISTINCT ?catchment ) AS ?count2) #?neighbourCatchment ?catchment ?maxFlow ?unit ?time ?geomObjCatNeig
-FROM <http://hydroturtle/LamahCE>
+SELECT ?neighbourCatchment ?catchment ?totalPrecipitation ?geomObjCatNeig ?unit
+#(COUNT(DISTINCT ?neighbourCatchment ) AS ?count) (COUNT(DISTINCT ?catchment ) AS ?count2) 
 WHERE {
-    # Find the catchment with the highest flow rate between 2012-2016
-    {
+       GRAPH <http://hydroturtle/LamahCE>
+       {
+              # Find the catchment with the highest flow rate between 2001-2010
+              {
+                     SELECT ?catchment ?geomObjCat (SUM(?precipitation) AS ?totalPrecipitation) ?unit
+                     WHERE {
+                            # Find the observations with precipitation[envthes:30106]
+                            ?observation rdf:type sosa:Observation ;
+                            sosa:observedProperty envthes:30106;
+                            sosa:madeBySensor ?sensor ;
+                            sosa:resultTime ?time ;
+                            sosa:hasResult ?result.
 
-        SELECT ?catchment ?geomObjCat (MAX(?flowRate) AS ?maxFlow) ?time ?unit
-        WHERE {
-            # Find the observations with precipitation[envthes:30106] (flow rate for this time - envthes:21242) - 
-            # precipitation can be written as directly associalted with catchment as observerd property 
-            ?observation rdf:type sosa:Observation ;
-                sosa:observedProperty envthes:30106;
-                sosa:madeBySensor ?sensor ;
-                sosa:resultTime ?time ;
-                sosa:hasResult ?result.
+                            ## take the flow rate value
+                            ?result qudt:numericValue ?precipitation;
+                                   qudt:unit  ?unit.
 
-            ## take the flow rate value
-            ?result qudt:numericValue ?flowRate;
-                    qudt:unit  ?unit.
+                            # Take the catchment geometry as WKT
+                            ?sensor n4e_hyd:monitorsCatchment ?catchment .
+                            ?catchment geo:hasGeometry ?catchmentGeometry.
+                            ?catchmentGeometry geo:asWKT ?geomObjCat.
 
-            # Take the catchment geometry as WKT
-            ?sensor n4e_hyd:monitorsCatchment ?catchment .
-            ?catchment geo:hasGeometry ?catchmentGeometry.
-            ?catchmentGeometry geo:asWKT ?geomObjCat.
+                            # take the year from the time variable
+                            BIND(YEAR(?time) as ?year)
 
+                            # Filter the result duration for the decade between 2001 to 2010
+                            FILTER (?year >=2001 && ?year <= 2010)
+                            }
+                            GROUP BY ?catchment ?geomObjCat ?unit
+                            ORDER BY DESC(?totalPrecipitation)
+                            LIMIT 1
+                     }
+                            
+                     #from here this should try to take 
+                     ?neighbourCatchment rdf:type envthes:30212 ;
+                            geo:hasGeometry ?neighbourCatchmentGeom .
 
-           FILTER (?time >= "2012-01-01"^^xsd:dateTime && ?time <= "2015-12-31"^^xsd:dateTime)
-              #FILTER (xsd:dateTime(?time) >= "2016-01-01T00:00:00Z"^^xsd:dateTime &&
-            #xsd:dateTime(?time) <= "2016-12-31T23:59:59Z"^^xsd:dateTime)
-}
-        ORDER BY DESC(?maxFlow)
-        LIMIT 1
-
-}
-
-            #from here this should try to take 
-            ?neighbourCatchment rdf:type envthes:30212 ;
-                                geo:hasGeometry ?neighbourCatchmentGeom .
-
-            ?neighbourCatchmentGeom geo:asWKT ?geomObjCatNeig.
+                     ?neighbourCatchmentGeom geo:asWKT ?geomObjCatNeig.
 
 
-            FILTER (?neighbourCatchment != ?catchment) # Exclude the max flow catchment
-            FILTER bif:st_intersects(?geomObjCat, ?geomObjCatNeig, 0) # 0 distance means touching borders
+                     FILTER (?neighbourCatchment != ?catchment) # Exclude the max flow catchment
+                     FILTER bif:st_intersects(?geomObjCat, ?geomObjCatNeig, 0) # 0 distance means touching borders
+                     }
+              }
+              GROUP BY ?neighbourCatchment 
 
-        }
-#GROUP BY ?neighbourCatchment 
 

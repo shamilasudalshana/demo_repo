@@ -1,6 +1,6 @@
 
 # 1.Object - Location/Footprint:
-## 1.1 Where is the "Schlehdorf" gauging station located within the catchment area? [What are the coordinates] - ## Tested and working
+Q1.1) Where is the "Schlehdorf" gauging station located within the catchment area? [What are the coordinates] - ## Tested and working
 
 PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
@@ -21,3 +21,55 @@ WHERE { GRAPH <http://hydroturtle/LamahCE>
     BIND (bif:st_y(?geomObj) AS ?northing)  # Latitude
     BIND (bif:st_z(?geomObj) AS ?elevation) # Elevation
 }}
+
+
+Q1.2) Where are the gauging stations located in the catchment areas for maximum three average annual precipitations in 2015? 
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?stationName ?easting ?northing (SUM(?flowRate) AS ?totalFlowRate) ?unit
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+
+     # Find the observations with precipitation[envthes:30106] (flow rate for this time - envthes:21242) 
+     ?observation rdf:type sosa:Observation ;
+               sosa:observedProperty envthes:30106 ;
+               sosa:madeBySensor ?station ;
+               sosa:resultTime ?resultTime ;
+               sosa:hasResult ?result .
+
+      #Filter results of 2015
+      FILTER(YEAR(?resultTime) = 2015)
+
+      # Access the blank node for QuantityValue
+     ?result rdf:type qudt:QuantityValue ;
+           qudt:numericValue ?flowRate;
+           qudt:unit ?unit.
+
+     # Retrieve gauging station and location details
+     ?station rdf:type sosa:Sensor ;
+           schema:name ?stationName ;
+          geo:hasGeometry ?locationGeometry .
+
+    ## Get the WKT representation
+    ?locationGeometry geo:asWKT ?geomObj.
+
+   
+    # Extract coordinates using Virtuoso spatial functions
+    BIND (bif:st_x(?geomObj) AS ?easting)   # Longitude
+    BIND (bif:st_y(?geomObj) AS ?northing)  # Latitude
+
+}
+
+# Group by station to sum precipitation values (this one is for flow rate for now) for each station in 2015
+GROUP BY ?stationName ?easting ?northing ?unit
+ORDER BY DESC(?totalFlowRate)
+LIMIT 3

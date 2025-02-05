@@ -279,5 +279,53 @@ GROUP BY ?year
 ORDER BY ?year
 
 
+# Network - Spatial Relationships:
+Q4.1) What is the spatial relationship (distance, elevation difference)  between the "Oberammergau" and "Schlehdorf" gauging stations?
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 
+SELECT ?distance  ?elevDiffBeschlingMinusGarsella ?geomObjBeschling ?geomObjGarsella ?elevDiffBeschlingMinusGarsella
+FROM <http://hydroturtle/LamahCE>
+WHERE { GRAPH <http://hydroturtle/LamahCE>
+       {
+              # Find the sensor with the name "Beschling"
+              ?sensorBeschling rdf:type sosa:Sensor;
+                               schema:name "Beschling" ; 
+                               geo:hasGeometry ?geomBeschling .
+              
+              # Get the WKT representation
+              ?geomBeschling geo:asWKT ?geomObjBeschling .
+                   
+              # Extract coordinates using Virtuoso spatial functions
+              BIND (bif:st_x(?geomObjBeschling) AS ?eastingBeschling)   # Longitude
+              BIND (bif:st_y(?geomObjBeschling) AS ?northingBeschling)  # Latitude
+              BIND (bif:st_z(?geomObjBeschling) AS ?elevationBeschling) # Elevation
+
+
+              # Find the sensor with the name "Garsella"
+              ?sensorGarsella rdf:type sosa:Sensor;
+                              schema:name "Garsella" ; 
+                              geo:hasGeometry ?geomGarsella .
+              
+              # Get the WKT representation
+              ?geomGarsella geo:asWKT ?geomObjGarsella .
+  
+              # Extract coordinates using Virtuoso spatial functions
+              BIND (bif:st_x(?geomObjGarsella) AS ?eastingGarsella)   # Longitude
+              BIND (bif:st_y(?geomObjGarsella) AS ?northingGarsella)  # Latitude
+              BIND (bif:st_z(?geomObjGarsella) AS ?elevationGarsella) # Elevation
+              
+              # Compute geodesic distance in meters
+              BIND (bif:st_distance(?geomObjBeschling, ?geomObjGarsella, unit:KiloM ) AS ?distance)
+              BIND ((?elevationBeschling-?elevationGarsella) as ?elevDiffBeschlingMinusGarsella) 
+       }
+}
 

@@ -377,3 +377,59 @@ WHERE {
     # Compute the distance between the highest and lowest stations
     BIND (bif:st_distance(?maxGeomObj, ?minGeomObj, unit:KiloM ) AS ?distance)
 }
+
+Q4.3) How does the elevation of the "Gisingen" gauging station compare with other surrounding gauging stations (10km)?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?surroundingGaugingName ?sensorSurrounding  ?elevation ?distance ?northing ?easting
+FROM <http://hydroturtle/LamahCE>
+WHERE { GRAPH <http://hydroturtle/LamahCE>
+       {
+              # Find the sensor with the name "Gisingen"
+              ?sensorGiven a sosa:Sensor;
+                            schema:name "Gisingen"; 
+                            geo:hasGeometry ?geomGiven .
+              
+              # Get the WKT representation
+              ?geomGiven geo:asWKT ?geomObjGiven .
+              
+              # Convert WKT into geometry object using Virtuoso functions
+              # BIND (bif:st_geomfromtext(?wktGiven) AS ?geomObjGiven)
+
+              
+              # Find other sensors 
+              ?sensorSurrounding a sosa:Sensor;
+                                   schema:name ?surroundingGaugingName; 
+                                   geo:hasGeometry ?geomSurrounding .
+              
+              # Get the WKT representation
+              ?geomSurrounding geo:asWKT ?geomObjSurrounding .
+              
+              # Convert WKT into geometry object using Virtuoso functions
+              # BIND (bif:st_geomfromtext(?wktSurrounding) AS ?geomObjSurrounding)
+
+              
+              # Extract coordinates using Virtuoso spatial functions
+              BIND (bif:st_x(?geomObjSurrounding) AS ?easting)   # Longitude
+              BIND (bif:st_y(?geomObjSurrounding) AS ?northing)  # Latitude
+              BIND (bif:st_z(?geomObjSurrounding) AS ?elevation) # Elevation
+
+              # Exclude the given gauging station from the selection
+              FILTER (?sensorSurrounding != ?sensorGiven)
+
+              # select the surrounding stations 
+              FILTER  bif:st_intersects(?geomObjGiven, ?geomObjSurrounding, 0.12 )  # distance need to given in degrees since geomatric objects are in WGS84 coordinates. 
+              BIND (bif:st_distance(?geomObjGiven, ?geomObjSurrounding, unit:KiloM ) AS ?distance)
+       }
+
+}
+

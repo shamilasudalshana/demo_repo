@@ -329,3 +329,51 @@ WHERE { GRAPH <http://hydroturtle/LamahCE>
        }
 }
 
+Q4.2) What is the distance between this dataset's highest and lowest elevation gauging stations?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+
+SELECT ?maxStationName ?maxElevation ?minStationName ?minElevation ?distance
+FROM <http://hydroturtle/LamahCE>
+WHERE {
+    {
+        # Get the station with the highest elevation
+        SELECT ?maxStationName ?maxElevation ?maxGeomObj
+        WHERE {
+            ?sensor schema:name ?maxStationName ; 
+                    geo:hasGeometry ?geom .
+            ?geom geo:asWKT ?maxGeomObj .
+            BIND (bif:st_z(?maxGeomObj) AS ?maxElevation) # Elevation
+        }
+        ORDER BY DESC(?maxElevation)
+        LIMIT 1
+    }
+    
+    {
+        # Get the station with the lowest elevation
+        SELECT ?minStationName ?minElevation ?minGeomObj
+        WHERE {
+            ?sensor schema:name ?minStationName ; 
+                    geo:hasGeometry ?geom .
+            ?geom geo:asWKT ?minGeomObj .
+            BIND (bif:st_z(?minGeomObj) AS ?minElevation) # Elevation
+        }
+        ORDER BY ASC(?minElevation)
+        LIMIT 1
+    }
+
+    # Convert WKT into geometry objects
+    # BIND (bif:st_geomfromtext(?maxWKT) AS ?geomMax)
+    # BIND (bif:st_geomfromtext(?minWKT) AS ?geomMin)
+
+    # Compute the distance between the highest and lowest stations
+    BIND (bif:st_distance(?maxGeomObj, ?minGeomObj, unit:KiloM ) AS ?distance)
+}

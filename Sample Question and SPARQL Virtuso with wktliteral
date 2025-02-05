@@ -160,4 +160,49 @@ WHERE {
               }
               GROUP BY ?neighbourCatchment 
 
+Q2.2) What is the average annual precipitation in catchment_1 for the period between 2010 and 2020?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+
+SELECT ?guagingStationName (AVG(?yearlyPrecipitation) AS ?averageAnnualPrecipitation) ?unit
+WHERE { GRAPH <http://hydroturtle/LamahCE>
+       {
+              {
+                     SELECT ?resultYear (SUM(?precipitation) AS ?yearlyPrecipitation) ?guagingStationName ?unit
+                     WHERE {
+                     
+                     # Find the observations with precipitation[envthes:30106] 
+                     # precipitation can be written as directly associalted with catchment as observerd property 
+                     ?observation rdf:type sosa:Observation ;
+                            sosa:observedProperty envthes:30106 ;
+                            sosa:madeBySensor ?sensor ;
+                            sosa:resultTime ?resultTime ;
+                            sosa:hasResult ?result.
+
+                     ## # Access the blank node to retrieve the precipitation value 
+                     ?result qudt:numericValue ?precipitation;
+                            qudt:unit  ?unit.
+
+                     # find catchment related with sensor 
+                     ?sensor n4e_hyd:monitorsCatchment n4e_hyd:catchment_1;
+                            schema:name ?guagingStationName
+
+                     # Extract the year directly in the FILTER and assign to ?year [this query is written between 2012 to 2015 for the moment data is uploaded]
+                     BIND (YEAR(?resultTime) AS ?resultYear)
+                     FILTER (?resultYear >= 2012 && ?resultYear <= 2015)
+              }
+              GROUP BY ?resultYear ?guagingStationName ?unit
+       }
+}
+}
+
+
+
 

@@ -204,5 +204,45 @@ WHERE { GRAPH <http://hydroturtle/LamahCE>
 }
 
 
+# Object - Spatial Properties:
+3.5.1) What are the all-time minimum and maximum river flow observed at all the gauging stations?
+
+PREFIX n4e_hyd: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#>
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+PREFIX qudt: <https://qudt.org/schema/qudt/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX unit: <https://qudt.org/vocab/unit/>
+PREFIX schema: <https://schema.org/>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+
+SELECT ?guagingStationName (MIN(?flowRate) AS ?minRiverFlow) (MAX(?flowRate) AS ?maxRiverFlow) ?unit
+FROM <http://hydroturtle/LamahCE>
+WHERE { GRAPH <http://hydroturtle/LamahCE>
+       {
+              # Find the observations with precipitation[envthes:30106] (flow rate for this time - envthes:21242) - 
+              # Precipitation can be written as directly associated with catchment as observed property 
+              ?observation rdf:type sosa:Observation ;
+                     sosa:observedProperty envthes:21242 ;
+                     sosa:madeBySensor ?sensor ;
+                     sosa:resultTime ?resultTime ;
+                     sosa:hasResult ?result.
+
+              # Access the blank node to retrieve the precipitation value [for this case, used flow rate due to uploaded data for the moment to triple store ]
+              ?result qudt:numericValue ?flowRate;
+                     qudt:unit  ?unit.
+
+              # find gauging station name  
+              ?sensor n4e_hyd:monitorsCatchment ?catchment;
+                     schema:name ?guagingStationName #"Schwarzach"    ## use directly station name instead of ?guagingStationName variable only particular station data need to be extracted. 
+              }
+       }
+       GROUP BY ?guagingStationName ?unit #can remove GROUP BY - specially, only one gauging station is used. 
+
+
+Q3.6) 
+
+
 
 

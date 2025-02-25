@@ -864,7 +864,6 @@ n4e_hyd:sensor_31 rdf:type sosa:Sensor ;
 	n4e_hyd:hasRiverBasedRegion "Rhine" ;
 	n4e_hyd:preducesTimesereis n4e_hyd:dailyTimeSeries_31 ;
 	n4e_hyd:preducesTimesereis n4e_hyd:hourlyTimeSeries_31 ;
-	n4e_hyd:area_ratio "nan"^^xsd:decimal ;
 	n4e_hyd:eu_Hydro_ID "nan" ;
 	n4e_hyd:hyriv_ID "nan" ;
 	geo:hasGeometry n4e_hyd:geomPoint_31 .

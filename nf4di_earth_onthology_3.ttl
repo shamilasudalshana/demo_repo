@@ -9,6 +9,6 @@ n4e_hyd:AirTemperature2m	rdf:type		owl: Class ;
                           rdfs:comment		"Class representing air temperature observations at a height of 2 m above Earth surface." .
 
 ne4_hyd:hasHighPrecipitationSeason 	rdf:type 		owl:ObjectProperty ;
-                      					rdfs:label 		"has High precipitation season" ;
-                      					rdfs:comment 		"Season during which most high-precipitation days (≥5 times mean daily precipitation) " ;
-                      					rdfs:domain 		envthes:30212, sosa:Sensor  . 
+                      					    rdfs:label 		"has High precipitation season" ;
+                      					    rdfs:comment 		"Season during which most high-precipitation days (≥5 times mean daily precipitation) " ;
+                      					    rdfs:domain 		envthes:30212, sosa:Sensor  . 

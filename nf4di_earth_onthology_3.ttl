@@ -4,11 +4,11 @@
 @prefix envthes: <http://vocabs.lter-europe.net/EnvThes/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-n4e_hyd:AirTemperature2m	rdf:type		owl: Class ;	
+n4e_hyd: AirTemperature2m	 rdf: type		owl: Class ;	  
                           rdfs:label 		"Air temperature at a height of 2 m above Earth surface" ;
                           rdfs:comment		"Class representing air temperature observations at a height of 2 m above Earth surface." .
 
-ne4_hyd:hasHighPrecipitationSeason 	rdf:type 		owl:ObjectProperty ;
+ne4_hyd:hasHighPrecipitationSeason 	    rdf:type 		owl:ObjectProperty ;
                       					    rdfs:label 		"has High precipitation season" ;
                       					    rdfs:comment 		"Season during which most high-precipitation days (≥5 times mean daily precipitation) " ;
                       					    rdfs:domain 		envthes:30212, sosa:Sensor  . 

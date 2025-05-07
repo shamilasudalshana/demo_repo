@@ -1,0 +1,433 @@
+@prefix n4e_hyd:  <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#> .
+@prefix n4e:      <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix pext:     <https://www.ontotext.com/proton/protonext.html#> .
+@prefix geo:      <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix locn:     <http://www.w3.org/ns/locn#> .
+@prefix esco:     <https://ec.europa.eu/esco/lod/static/model.html#> .
+@prefix dbr:      <https://dbpedia.org/page/> .
+@prefix dbo:      <https://dbpedia.org/ontology/> .
+@prefix gvp:      <http://vocab.getty.edu/ontology#> .
+@prefix time:     <https://www.w3.org/TR/owl-time/#> .
+@prefix envthes:  <http://vocabs.lter-europe.net/EnvThes/> .
+@prefix m3lite:   <http://iot.ee.surrey.ac.uk/ontology/m3-lite.owl#> .
+@prefix schema:   <https://schema.org/> .
+@prefix ifc:      <https://pi.pauwel.be/evoc/ifc_W3ID/20151211/IFC4_ADD1/index.html#> .
+@prefix sosa:     <http://www.w3.org/ns/sosa/> .
+@prefix qudt:     <http://qudt.org/schema/qudt#> .
+@prefix sou:      <http://qudt.org/vocab/sou/> .
+@prefix unit:     <http://qudt.org/vocab/unit/> .
+@prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+@prefix poso:     <http://example.com/poso#> .
+
+# Ontology Declaration
+n4e_hyd:HydroOntology a owl:Ontology ;
+    rdfs:label "NFDI4Earth HydroOntology" .
+
+### Classes
+
+n4e_hyd:DailyTimeSeries a ifc:IfcRegularTimeSeries ;
+    ifc:timeStep "86400"^^xsd:decimal ;
+    rdfs:label "Daily Time Series" ;
+    rdfs:comment "Time series of daily observations / measurements" ;
+    owl:domain sosa:Sensor .
+
+n4e_hyd:HourlyTimeSeries a ifc:IfcRegularTimeSeries ;
+    ifc:timeStep "3600"^^xsd:decimal ;
+    rdfs:label "Hourly Time Series" ;
+    rdfs:comment "Hourly series of daily observations / measurements" ;
+    owl:domain sosa:Sensor .
+
+n4e_hyd:DAY-PER-YR a qudt:Unit ;
+    qudt:applicableSystem sou:SI ;
+    qudt:symbol "d/yr" ;
+    rdfs:label "Days per year"@en .
+
+n4e_hyd:AirTemperature2m rdf:type owl:Class ;
+    rdfs:label "Air temperature at a height of 2 m above Earth surface" ;
+    rdfs:comment "Class representing air temperature observations at a height of 2 m above Earth surface." .
+
+n4e_hyd:AirTemperature2mMax rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:AirTemperature2m ;
+    rdfs:label "Air temperature at a height of 2 m above Earth surface (Maximum)" ;
+    rdfs:comment "Class representing maximum air temperature observations at a height of 2 m above Earth surface for a given period of time." .
+
+n4e_hyd:AirTemperature2mMin rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:AirTemperature2m ;
+    rdfs:label "Air temperature at a height of 2 m above Earth surface (Minimum)" ;
+    rdfs:comment "Class representing minimum air temperature observations at a height of 2 m above Earth surface for a given period of time." .
+
+n4e_hyd:AirTemperature2mAvg rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:AirTemperature2m ;
+    rdfs:label "Air temperature at a height of 2 m above Earth surface (Average)" ;
+    rdfs:comment "Class representing average air temperature observations at a height of 2 m above Earth surface for a given period of time." .
+
+n4e_hyd:DewPointTemperature2m rdf:type rdfs:Class ;
+    rdfs:label "Dew point temperature at a height of 2 m above Earth surface" ;
+    rdfs:comment "Class representing dew point temperature observations at a height of 2 m above Earth surface." .
+
+n4e_hyd:DewPointTemperature2mMax rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:DewPointTemperature2m ;
+    rdfs:label "Dew point temperature at a height of 2 m above Earth surface (Maximum)" ;
+    rdfs:comment "Class representing maximum dew point temperature observations at a height of 2 m above Earth surface for a given period of time." .
+
+n4e_hyd:DewPointTemperature2mAvg rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:DewPointTemperature2m ;
+    rdfs:label "Dew point temperature at a height of 2 m above Earth surface (Average)" ;
+    rdfs:comment "Class representing average dew point temperature observations at a height of 2 m above Earth surface for a given period of time." .
+
+n4e_hyd:DewPointTemperature2mMin rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:DewPointTemperature2m ;
+    rdfs:label "Dew point temperature at a height of 2 m above Earth surface (Minimum)" ;
+    rdfs:comment "Class representing minimum dew point temperature observations at a height of 2 m above Earth surface for a given period of time." .
+
+n4e_hyd:WindSpeedEast10m rdf:type rdfs:Class ;
+    rdfs:label "Horizontal speed of air moving towards the east at a height of 10 m above Earth surface" ;
+    rdfs:comment "Class representing observations of horizontal wind speed towards the east at a height of 10 m above Earth surface." ;
+    rdfs:subClassOf envthes:22319 .
+
+n4e_hyd:WindSpeedNorth10m rdf:type rdfs:Class ;
+    rdfs:label "Vertical speed of air moving towards the north at a height of 10 m above Earth surface" ;
+    rdfs:comment "Class representing observations of horizontal wind speed towards the north at a height of 10 m above Earth surface." ;
+    rdfs:subClassOf envthes:22319 .
+
+n4e_hyd:ForecastAlbedo rdf:type rdfs:Class ;
+    rdfs:label "Forecast albedo" ;
+    rdfs:comment "Class representing observations of forecast albedo, which is the fraction of solar (shortwave) radiation reflected by Earth's surface (direct and diffuse)." ;
+    rdfs:subClassOf envthes:21351 .
+
+n4e_hyd:HighVegetationGreenLeafArea rdf:type rdfs:Class ;
+    rdfs:label "One-half of the total green leaf area for high-vegetation type" ;
+    rdfs:comment "Class representing observations of one-half of the total green leaf area per unit horizontal ground surface area for high-vegetation type." .
+
+n4e_hyd:LowVegetationGreenLeafArea rdf:type rdfs:Class ;
+    rdfs:label "One-half of the total green leaf area for low-vegetation type" ;
+    rdfs:comment "Class representing observations of one-half of the total green leaf area per unit horizontal ground surface area for low-vegetation type." .
+
+n4e_hyd:SurfaceNetSolarRadiation rdf:type rdfs:Class ;
+    rdfs:label "Surface Net Solar Radiation" ;
+    rdfs:comment "Class representing observations of surface net solar radiation, i.e., the amount of solar radiation reaching the Earth's surface minus the amount reflected (governed by albedo); a positive sign indicates radiation to the Earth." .
+
+n4e_hyd:SurfaceNetSolarRadiationMax rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:SurfaceNetSolarRadiation ;
+    rdfs:label "Surface Net Solar Radiation (Maximum)" ;
+    rdfs:comment "Class representing maximum surface net solar radiation observations for a given period of time." .
+
+n4e_hyd:SurfaceNetSolarRadiationAvg rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:SurfaceNetSolarRadiation ;
+    rdfs:label "Surface Net Solar Radiation (Average)" ;
+    rdfs:comment "Class representing average surface net solar radiation observations for a given period of time." .
+
+n4e_hyd:SurfaceNetSolarRadiationMin rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:SurfaceNetSolarRadiation ;
+    rdfs:label "Surface Net Solar Radiation (Minimum)" ;
+    rdfs:comment "Class representing minimum surface net solar radiation observations for a given period of time." .
+
+n4e_hyd:SurfaceNetThermalRadiation rdf:type rdfs:Class ;
+    rdfs:label "Surface Net Thermal Radiation" ;
+    rdfs:comment "Class representing observations of surface thermal (net) radiation; a positive sign indicates radiation from the Earth." .
+
+n4e_hyd:SurfaceNetThermalRadiationMax rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:SurfaceNetThermalRadiation ;
+    rdfs:label "Surface Net Thermal Radiation (Maximum)" ;
+    rdfs:comment "Class representing maximum surface net thermal radiation observations for a given period of time." .
+
+n4e_hyd:SurfaceNetThermalRadiationAvg rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:SurfaceNetThermalRadiation ;
+    rdfs:label "Surface Net Thermal Radiation (Average)" ;
+    rdfs:comment "Class representing average surface net thermal radiation observations for a given period of time." .
+
+n4e_hyd:SurfaceNetThermalRadiationMin rdf:type owl:Class ;
+    rdfs:subClassOf n4e_hyd:SurfaceNetThermalRadiation ;
+    rdfs:label "Surface Net Thermal Radiation (Minimum)" ;
+    rdfs:comment "Class representing minimum surface net thermal radiation observations for a given period of time." .
+
+n4e_hyd:WaterFractionTopsoil rdf:type rdfs:Class ;
+    rdfs:label "Water Fraction in Topsoil Layer" ;
+    rdfs:comment "Class representing observations of the fraction of water in the topsoil layer (0–100 cm depth)." .
+
+n4e_hyd:WaterFractionSubsoil rdf:type rdfs:Class ;
+    rdfs:label "Water Fraction in Subsoil Layer" ;
+    rdfs:comment "Class representing observations of the fraction of water in the subsoil layer (100–289 cm depth)." .
+
+
+### Object Properties
+
+n4e_hyd:GovnrID rdf:type owl:Class ;
+    rdfs:label "Government ID" ;
+    rdfs:comment "Official gauge number from the associated governments." .
+
+n4e_hyd:issueID a owl:ObjectProperty ;
+    owl:domain pext:Government ;
+    rdfs:range n4e_hyd:GovnrID .
+
+:_german_gov n4e_hyd:issueID :_id .
+:_german_gov rdfs:label "German Government" .
+:sensor n4e_hyd:hasGaugeNumber :_id .
+
+n4e_hyd:hasRiverBasedRegion rdf:type owl:ObjectProperty ;
+    rdfs:label "River-based region" ;
+    owl:domain dbo:River ;
+    rdfs:comment "Name of the river-based region." .
+
+n4e_hyd:has_mvert_dist rdf:type owl:ObjectProperty ;
+    rdfs:label "Longest distance from the gauge" ;
+    owl:domain envthes:30212 ;
+    rdfs:comment "Horizontal distance from the farthest catchment point to the corresponding gauge." .
+
+n4e_hyd:has_mvert_ang rdf:type owl:ObjectProperty ;
+    rdfs:label "Angle to farthest point of the catchment" ;
+    owl:domain envthes:30212 ;
+    rdfs:range poso:RelativeAngle ;
+    rdfs:comment "Angle between north and the line connecting the farthest catchment point to the gauge (e.g. 180° for southward, 270° for westward)." .
+
+n4e_hyd:hasCatchment rdf:type owl:ObjectProperty ;
+    rdfs:label "has Catchment" ;
+    rdfs:comment "Relates a stream, lake, hydrological storage, or measurement station to its catchment." ;
+    rdfs:domain envthes:20916, envthes:20915, envthes:21796, envthes:21792, sosa:Sensor ;
+    rdfs:range envthes:30212 .
+
+n4e_hyd:observesArea rdf:type owl:ObjectProperty ;
+    rdfs:label "observes area" ;
+    rdfs:comment "Links a Sensor to an area it indirectly observes (e.g. a catchment)." ;
+    rdfs:domain sosa:Sensor ;
+    rdfs:range envthes:30212 .
+
+n4e_hyd:preducesTimesereis rdf:type owl:ObjectProperty ;
+    rdfs:label "has Time Series" ;
+    rdfs:comment "Relates a resource to a time series containing its data." ;
+    rdfs:range ifc:IfcTimeSeries .
+
+n4e_hyd:hasHighPrecipitationSeason rdf:type owl:ObjectProperty ;
+    rdfs:label "has High precipitation season" ;
+    rdfs:comment "Season during which most high-precipitation days (≥5× mean daily precipitation) occur." ;
+    rdfs:domain envthes:30212, sosa:Sensor .
+
+n4e_hyd:hasLowPrecipitationSeason rdf:type owl:ObjectProperty ;
+    rdfs:label "has Low precipitation season" ;
+    rdfs:comment "Season during which most dry days (<1 mm/day) occur." ;
+    rdfs:domain envthes:30212, sosa:Sensor .
+
+n4e_hyd:hasDominantLandUse rdf:type owl:ObjectProperty ;
+    rdfs:label "Dominant land use type" ;
+    rdfs:comment "Dominant land cover class over an area." ;
+    rdfs:domain schema:AdministrativeArea, envthes:32 ;
+    rdfs:range envthes:10242 .
+
+n4e_hyd:hasSoil rdf:type owl:ObjectProperty ;
+    rdfs:label "Has Soil." ;
+    rdfs:comment "Connects an area or point to its soil." ;
+    rdfs:domain schema:AdministrativeArea, sosa:Sensor, envthes:10092, envthes:32 ;
+    rdfs:range envthes:24 .
+
+n4e_hyd:hasSoilPorosity rdf:type owl:ObjectProperty ;
+    rdfs:label "Soil porosity" ;
+    rdfs:comment "Total soil porosity." ;
+    rdfs:domain schema:AdministrativeArea, envthes:32 ;
+    rdfs:range envthes:21556 .
+
+n4e_hyd:hasSaturatedHydraulicConductivity rdf:type owl:ObjectProperty ;
+    rdfs:label "has Saturated Hydraulic Conductivity" ;
+    rdfs:comment "Saturated hydraulic conductivity of the soil for an area." ;
+    rdfs:domain schema:AdministrativeArea, envthes:32 ;
+    rdfs:range envthes:22221 .
+
+n4e_hyd:hasSoilTexture rdf:type owl:ObjectProperty ;
+    rdfs:label "has soil texture" ;
+    rdfs:comment "Relates a location or area to its soil texture." ;
+    rdfs:domain schema:AdministrativeArea, envthes:32 ;
+    rdfs:range envthes:22279 .
+
+n4e_hyd:hasDominantGeologicalClass rdf:type owl:ObjectProperty ;
+    rdfs:label "Has Dominant Geological Class" ;
+    rdfs:comment "Connects a catchment or administrative area to its dominant geological class." ;
+    rdfs:domain schema:AdministrativeArea, envthes:10092 .
+
+
+### Data Properties
+
+n4e_hyd:latitude rdf:type owl:DatatypeProperty ;
+    rdfs:label "Latitude EPSG 3035" ;
+    rdfs:comment "Latitude in LAEA Europe grid (EPSG 3035)." ;
+    rdfs:range xsd:decimal .
+
+n4e_hyd:longitude rdf:type owl:DatatypeProperty ;
+    rdfs:label "Longitude EPSG 3035" ;
+    rdfs:comment "Longitude in LAEA Europe (EPSG 3035)." ;
+    rdfs:range xsd:decimal .
+
+n4e_hyd:elevation_guage rdf:type owl:DatatypeProperty ;
+    rdfs:label "Elevation of gauge" ;
+    rdfs:comment "Elevation of the gauge's zero point from mean sea level." ;
+    rdfs:range xsd:decimal .
+
+n4e_hyd:obsbeg_daily rdf:type owl:DatatypeProperty ;
+    rdfs:label "Starting Year of Daily Runoff Time Series" ;
+    rdfs:comment "Year when the daily runoff time series begins." ;
+    rdfs:range xsd:gYear .
+
+n4e_hyd:obsbeg_hr rdf:type owl:DatatypeProperty ;
+    rdfs:label "Starting Year of hourly Runoff Time Series" ;
+    rdfs:comment "Year when the hourly runoff time series begins." ;
+    rdfs:range xsd:gYear .
+
+n4e_hyd:obsend_hr rdf:type owl:DatatypeProperty ;
+    rdfs:label "Observation End Year" ;
+    rdfs:comment "Year when the continuous runoff data recording ended (use '0' if ongoing)." ;
+    rdfs:range xsd:gYear .
+
+n4e_hyd:hasObsBegTime rdf:type owl:DatatypeProperty ;
+    rdfs:label "Starting Time of Daily Runoff Time Series" ;
+    rdfs:comment "Specific date/year when the daily runoff time series begins." .
+
+n4e_hyd:gaps_pre rdf:type owl:DatatypeProperty ;
+    rdfs:label "Fraction of Gaps - Raw Hourly Runoff Time Series" ;
+    rdfs:comment "Fraction of gaps in the raw hourly runoff time series." ;
+    rdfs:range xsd:decimal .
+
+n4e_hyd:gaps_post rdf:type owl:DatatypeProperty ;
+    rdfs:label "Fraction of Gaps - processed Hourly Runoff Time Series" ;
+    rdfs:comment "Fraction of gaps in the hourly runoff time series after processing (linear interpolation, up to 6 h)." ;
+    rdfs:range xsd:decimal .
+
+n4e_hyd:area_ratio rdf:type owl:DatatypeProperty ;
+    rdfs:label "Area Ratio" ;
+    rdfs:comment "Ratio between the basin delineation area and the governmental area." ;
+    rdfs:range xsd:decimal .
+
+n4e_hyd:eu_Hydro_ID rdf:type owl:DatatypeProperty ;
+    owl:domain dbo:River ;
+    rdfs:label "EU-Hydro – River Network ID" ;
+    rdfs:comment "OBJECT_ID of the next river segment (EU-Hydro River Network Database)." .
+
+n4e_hyd:hyriv_ID rdf:type owl:DatatypeProperty ;
+    owl:domain dbo:River ;
+    rdfs:label "EU-Hydro – River Network ID" ;
+    rdfs:comment "HYRIV_ID of the next river segment (RiverATLAS)." .
+
+n4e_hyd:meanElevation rdf:type owl:DatatypeProperty ;
+    rdfs:label "Mean Elevation" ;
+    rdfs:comment "Mean elevation of an area calculated from elevation data." ;
+    rdfs:range xsd:decimal .
+
+n4e_hyd:medianElevation rdf:type rdf:DatatypeProperty ;
+    rdfs:label "Median Elevation" ;
+    rdfs:comment "Median elevation of an area." ;
+    rdfs:range xsd
+
+# Standard Deviation of Elevation
+n4e_hyd:standardDeviationElevation a rdf:DatatypeProperty ;
+    rdfs:label "Standard Deviation of Elevation" ;
+    rdfs:comment "Standard deviation of elevation values in an area" ;
+    rdfs:range xsd:decimal .
+
+# Elevation Range
+n4e_hyd:elevationRange a rdf:DatatypeProperty ;
+    rdfs:label "Elevation Range" ;
+    rdfs:comment "Range of elevation values in an area" ;
+    rdfs:range xsd:decimal .
+
+# Mean Slope
+n4e_hyd:meanSlope a rdf:DatatypeProperty ;
+    rdfs:label "Mean Slope" ;
+    rdfs:comment "Mean slope of a defined area, such as a catchment" ;
+    rdfs:range xsd:decimal .
+
+# Precipitation Seasonality (first definition)
+n4e_hyd:precipitationSeasonality a rdf:DatatypeProperty ;
+    rdfs:label "Precipitation Seasonality" ;
+    rdfs:comment "Seasonality and timing of precipitation, estimated using sine curves, to represent the annual precipitation cycles" ;
+    rdfs:range xsd:decimal .
+
+# Elongation Ratio
+n4e_hyd:elon_ratio a owl:DatatypeProperty ;
+    rdfs:label "Elongation Ratio" ;
+    rdfs:comment "Ratio between the diameter of an equivalent circle and the area of the catchment area to its length, Re = D/L = (4 × A / π)^(1/2)/L" ;
+    rdfs:range xsd:decimal .
+
+# Stream Density\ n4e_hyd:has_Strm_density a owl:DatatypeProperty ;
+    rdfs:label "Stream Density" ;
+    rdfs:comment "Ratio of lengths of streams L_F and the catchment area A, D_F = ΣL_F/A" ;
+    rdfs:domain envthes:30212 ;
+    rdfs:range xsd:decimal .
+
+# Precipitation seasonality (second definition)
+n4e_hyd:has_p_season a owl:DatatypeProperty ;
+    rdfs:label "Precipitation Seasonality" ;
+    rdfs:comment "Seasonality and timing of precipitation (estimated using sine curves) to represent the annual precipitation cycles; positive (negative) values indicate that precipitation sums are higher during summer (winter) months; values close to 0 indicate uniform precipitation" ;
+    rdfs:domain envthes:60037 ;
+    rdfs:range xsd:decimal .
+
+# Mean Daily Precipitation
+n4e_hyd:hasMeanDailyPrecip a owl:DatatypeProperty ;
+    rdfs:label "Mean daily precipitation" ;
+    rdfs:comment "Long term average of daily precipitation for a particular location or area" ;
+    rdfs:domain m3lite:Precipitation ;
+    rdfs:range xsd:decimal .
+
+# Mean Daily Evapotranspiration
+n4e_hyd:hasMeanEvapotranspiration a owl:DatatypeProperty ;
+    rdfs:label "Mean daily evapotranspiration" ;
+    rdfs:comment "Long term average of daily total evapotranspiration for a particular location or area" ;
+    rdfs:domain envthes:21299 ;
+    rdfs:range xsd:decimal .
+
+# Reference Evapotranspiration Concept
+n4e_hyd:ReferenceEvapotranspiration a skos:Concept ;
+    rdfs:label "Reference Evapotranspiration" ;
+    rdfs:comment "The amount of water that would evaporate and transpire from a well-irrigated, large, and uniform vegetated surface under specific meteorological conditions" ;
+    skos:broader envthes:21243 .
+
+# Reference Evapotranspiration Data Property
+n4e_hyd:hasReferenceEvapotranspiration a owl:DatatypeProperty ;
+    rdfs:label "Reference evapotranspiration" ;
+    rdfs:comment "Long term average of daily reference evapotranspiration for a particular location or area" ;
+    rdfs:domain n4e_hyd:ReferenceEvapotranspiration ;
+    rdfs:range xsd:decimal .
+
+# Aridity Index
+n4e_hyd:hasAridityIndex a owl:DatatypeProperty ;
+    rdfs:label "Aridity Index" ;
+    rdfs:comment "Aridity, computed as the ratio of mean reference evapotranspiration and mean precipitation" ;
+    rdfs:range xsd:decimal .
+
+# Reciprocal Aridity Index
+n4e_hyd:hasReciprocalAridityIndex a owl:DatatypeProperty ;
+    rdfs:label "Reciprocal Aridity Index" ;
+    rdfs:comment "Reciprocal value of aridity index from Climate Database" ;
+    rdfs:range xsd:decimal .
+
+# Snow Fraction
+n4e_hyd:hasSnowFraction a owl:DatatypeProperty ;
+    rdfs:label "Snow fraction" ;
+    rdfs:comment "Fraction of precipitation falling as snow, i.e. falling on days with mean temperature below 0 °C" ;
+    rdfs:domain m3lite:Precipitation ;
+    rdfs:range xsd:decimal .
+
+# High Precipitation Frequency
+n4e_hyd:hasHighPrecFrequncy a owl:DatatypeProperty ;
+    rdfs:label "High precipitation frequency" ;
+    rdfs:comment "Frequency of high-precipitation days (≥5 times mean daily precipitation)" ;
+    rdfs:range xsd:decimal .
+
+# High Precipitation Duration
+n4e_hyd:hasHighPrecipitationDuration a owl:DatatypeProperty ;
+    rdfs:label "High precipitation duration" ;
+    rdfs:comment "Mean duration of high-precipitation events (number of consecutive days with ≥5 times mean daily precipitation)" ;
+    rdfs:range xsd:decimal .
+
+# Low Precipitation Frequency
+n4e_hyd:hasLowPrecFrequency a owl:DatatypeProperty ;
+    rdfs:label "Low precipitation frequency" ;
+    rdfs:comment "Frequency of dry days (<1 mm d-1 daily average precipitation)" ;
+    rdfs:range xsd:decimal .
+
+# Low Precipitation Duration
+n4e_hyd:hasLowPrecipitationDuration a owl:DatatypeProperty ;
+    rdfs:label "Low precipitation duration" ;
+    rdfs:comment "Mean duration of dry periods (number of consecutive days with <1 mm d-1 daily average precipitation)" ;
+    rdfs:
+

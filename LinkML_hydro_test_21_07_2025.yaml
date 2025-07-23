@@ -1,0 +1,577 @@
+id: https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd
+name: NFDI4EarthHydroOntology
+description: Ontology for hydrological obersvation variables and time series data, converted to
+  LinkML.
+prefixes:
+  hyobs : https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#
+  linkml: https://w3id.org/linkml/
+  envthes: http://vocabs.lter-europe.net/EnvThes/
+  sosa: http://www.w3.org/ns/sosa/
+default_prefix: hyobs
+imports:
+- linkml:types
+classes:
+  AirTemperature2m:
+    description: Air temperature at a height of 2 m above Earth surface
+    class_uri: hyobs:AirTemperature2m
+  AirTemperature2mMax:
+    description: Air temperature at a height of 2 m above Earth surface (Maximum)
+    class_uri: hyobs:AirTemperature2mMax
+    is_a: AirTemperature2m
+  AirTemperature2mMin:
+    description: Air temperature at a height of 2 m above Earth surface (Minimum)
+    class_uri: hyobs:AirTemperature2mMin
+    is_a: AirTemperature2m
+  AirTemperature2mAvg:
+    description: Air temperature at a height of 2 m above Earth surface (Average)
+    class_uri: hyobs:AirTemperature2mAvg
+    is_a: AirTemperature2m
+  DewPointTemperature2m:
+    description: Dew point temperature at a height of 2 m above Earth surface
+    class_uri: hyobs:DewPointTemperature2m
+  DewPointTemperature2mMax:
+    description: Dew point temperature at a height of 2 m above Earth surface (Maximum)
+    class_uri: hyobs:DewPointTemperature2mMax
+    is_a: DewPointTemperature2m
+  DewPointTemperature2mAvg:
+    description: Dew point temperature at a height of 2 m above Earth surface (Average)
+    class_uri: hyobs:DewPointTemperature2mAvg
+    is_a: DewPointTemperature2m
+  DewPointTemperature2mMin:
+    description: Dew point temperature at a height of 2 m above Earth surface (Minimum)
+    class_uri: hyobs:DewPointTemperature2mMin
+    is_a: DewPointTemperature2m
+  WindSpeedEast10m:
+    description: Horizontal speed of air moving towards the east at a height of 10 m above Earth surface
+    class_uri: hyobs:WindSpeedEast10m
+  WindSpeedNorth10m:
+    description: Vertical speed of air moving towards the north at a height of 10 m above Earth surface
+    class_uri: hyobs:WindSpeedNorth10m
+  ForecastAlbedo:
+    description: Class representing observations of forecast albedo, which is the fraction of solar (shortwave) radiation reflected by Earth's surface (direct and diffuse)
+    class_uri: hyobs:ForecastAlbedo
+  HighVegetationGreenLeafArea:
+    description: One-half of the total green leaf area for high-vegetation type
+    class_uri: hyobs:HighVegetationGreenLeafArea
+  LowVegetationGreenLeafArea:
+    description: One-half of the total green leaf area for low-vegetation type
+    class_uri: hyobs:LowVegetationGreenLeafArea
+  SurfaceNetSolarRadiation:
+    description: Class representing observations of surface net solar radiation, i.e., the amount of solar radiation reaching the Earth's surface minus the amount reflected by the Earth's surface (governed by albedo); positive sign is an indicator for radiation to the Earth
+    class_uri: hyobs:SurfaceNetSolarRadiation
+  SurfaceNetSolarRadiationMax:
+    description: Surface Net Solar Radiation (Maximum)
+    class_uri: hyobs:SurfaceNetSolarRadiationMax
+    is_a: SurfaceNetSolarRadiation
+  SurfaceNetSolarRadiationAvg:
+    description: Surface Net Solar Radiation (Average)
+    class_uri: hyobs:SurfaceNetSolarRadiationAvg
+    is_a: SurfaceNetSolarRadiation
+  SurfaceNetSolarRadiationMin:
+    description: Surface Net Solar Radiation (Minimum)
+    class_uri: hyobs:SurfaceNetSolarRadiationMin
+    is_a: SurfaceNetSolarRadiation
+  SurfaceNetThermalRadiation:
+    description: Class representing observations of surface thermal radiation, i.e., net thermal radiation at the Earth's surface; positive sign is an indicator for radiation from the Earth.
+    class_uri: hyobs:SurfaceNetThermalRadiation
+  SurfaceNetThermalRadiationMax:
+    description: Surface Net Thermal Radiation (Maximum)
+    class_uri: hyobs:SurfaceNetThermalRadiationMax
+    is_a: SurfaceNetThermalRadiation
+  SurfaceNetThermalRadiationAvg:
+    description: Surface Net Thermal Radiation (Average)
+    class_uri: hyobs:SurfaceNetThermalRadiationAvg
+    is_a: SurfaceNetThermalRadiation
+  SurfaceNetThermalRadiationMin:
+    description: Surface Net Thermal Radiation (Minimum)
+    class_uri: hyobs:SurfaceNetThermalRadiationMin
+    is_a: SurfaceNetThermalRadiation
+  WaterFractionTopsoil:
+    description: Class representing observations of the fraction of water in the topsoil layer at a depth of 0 to 100 cm.
+    class_uri: hyobs:WaterFractionTopsoil
+  WaterFractionSubsoil:
+    description: Class representing observations of the fraction of water in the subsoil layer at a depth of 100 to 289 cm.
+    class_uri: hyobs:WaterFractionSubsoil
+  GovnrID:
+    description: Government ID
+    class_uri: hyobs:GovnrID
+  Catchment: # catchment
+    slots:
+      - hasRiverBasedRegion
+      - has_mvert_dist
+      - has_mvert_ang
+      - hasHighPrecipitationSeason
+      - hasLowPrecipitationSeason
+      - hasDominantLandUse
+    class_uri: envthes:10092
+  Sensor:
+    slots:
+      - producesTimeseries
+      - monitorsCatchment
+    class_uri: sosa:Sensor
+
+
+slots:
+# object properties section 
+  issueID:
+    slot_uri: hyobs:issueID
+    range: GovnrID
+    description: Official gauge number from the associated governments.
+    title: Issue i d
+  hasRiverBasedRegion:
+    title: River-based region
+    slot_uri: hyobs:hasRiverBasedRegion
+    range: string
+    description: Name of the river-based region
+  has_mvert_dist:
+    slot_uri: hyobs:has_mvert_dist
+    range: string
+    description: Horizontal distance from the farthest point of the catchment to the corresponding gauge (length axis)
+    title: Longest distance from the gauge
+  has_mvert_ang:
+    slot_uri: hyobs:has_mvert_ang
+    range: decimal
+    description: Angle between the north direction and connection from farthest point of catchment to the corresponding gauge (length axis); e.g., direction from north (farthest catchment point) to south (gauge): 180∘, direction from east to west: 270∘
+    title: Angle to farthest point of the catchment
+  monitorsCatchment:
+    slot_uri: hyobs:monitorsCatchment
+    range: Catchment
+    description: Relates a sensor or gauge to a catchment area it monitors
+    title: monitors Catchment
+  observesArea:
+  slot_uri: hyobs:observesArea
+  range: Catchment
+  description: Property linking a Sensor to an Area it observes indirectly, such as a catchment
+  title: observes area
+  hasHighPrecipitationSeason:
+    slot_uri: hyobs:hasHighPrecipitationSeason
+    range: string
+    description: Season during which most high-precipitation days (≥5 times mean daily precipitation) occurs
+    title: has High precipitation season
+  hasLowPrecipitationSeason:
+    slot_uri: hyobs:hasLowPrecipitationSeason
+    range: string
+    description: Season during which most dry days (<1 mm d-1 daily average Precipitation) occurs
+    title: has Low precipitation season
+  hasDominantLandUse:
+    slot_uri: hyobs:hasDominantLandUse
+    range: string
+    description: dominant land cover class over the area
+    title: Dominant land use type
+  hasSoil:
+    slot_uri: hyobs:hasSoil
+    range: string
+    description: Connects an area or point to its soil
+    title: Has soil
+  hasSoilPorosity:
+    slot_uri: hyobs:hasSoilPorosity
+    range: string
+    description: Soil porosity
+    title: Soil porosity
+  hasSaturatedHydraulicConductivity:
+    slot_uri: hyobs:hasSaturatedHydraulicConductivity
+    range: decimal
+    description: has Saturated Hydraulic Conductivity
+    title: has Saturated Hydraulic Conductivity
+  hasSoilTexture:
+    slot_uri: hyobs:hasSoilTexture
+    range: string
+    description: has soil texture
+    title: has soil texture
+  hasDominantGeologicalClass:
+    slot_uri: hyobs:hasDominantGeologicalClass
+    range: string
+    description: Has Dominant Geological Class
+    title: Has Dominant Geological Class
+  producesTimeseries:
+    slot_uri: hyobs:producesTimeseries
+    range: string
+    description: has Time Series
+    title: has Time Series
+# data properties seciton 
+  elevationGuage:
+    slot_uri: hyobs:elevationGuage
+    title: Elevation of gauge
+    description: Elevation of the gauge's zero point from mean sea level
+    range: decimal
+
+  obsBegDaily:
+    slot_uri: hyobs:obsBegDaily
+    title: Starting Year of Daily Runoff Time Series
+    description: Year when the daily runoff time series in the dataset begins
+    range: gYear
+
+  obsBegHr:
+    slot_uri: hyobs:obsBegHr
+    title: Starting Year of hourly Runoff Time Series
+    description: Year when the hourly runoff time series in the dataset begins
+    range: gYear
+
+  obsEndHr:
+    slot_uri: hyobs:obsEndHr
+    title: Observation End Year
+    description: Year when the continuous runoff data recording ended, use '0' if ongoing
+    range: gYear
+
+  hasObsBegTime:
+    slot_uri: hyobs:hasObsBegTime
+    title: Starting Time of Daily Runoff Time Series
+    description: Specific date/year when the daily runoff time series in the dataset begins
+    range: gYear
+
+  gapsPre:
+    slot_uri: hyobs:gapsPre
+    title: Fraction of Gaps - Raw Hourly Runoff Time Series
+    description: Represents the fraction of gaps in the raw hourly runoff time series
+    range: decimal
+
+  gapsPost:
+    slot_uri: hyobs:gapsPost
+    title: Fraction of Gaps - Processed Hourly Runoff Time Series
+    description: Represents Fraction of gaps in the hourly runoff time series after processing
+    range: decimal
+
+  areaRatio:
+    slot_uri: hyobs:areaRatio
+    title: Area Ratio
+    description: Ratio between variable area_calc of basin delineation A and area_gov
+    range: decimal
+
+  euHydroID:
+    slot_uri: hyobs:euHydroID
+    title: EU-Hydro – River Network ID
+    description: OBJECT_ID of the next river segment from stream network EU-Hydro – River Network Database
+    range: string
+
+  hyrivID:
+    slot_uri: hyobs:hyrivID
+    title: RiverATLAS ID
+    description: HYRIV_ID of the next river segment from stream network RiverATLAS
+    range: string
+
+  meanElevation:
+    slot_uri: hyobs:meanElevation
+    title: Mean Elevation
+    description: Mean elevation of an area calculated from elevation data
+    range: decimal
+
+  medianElevation:
+    slot_uri: hyobs:medianElevation
+    title: Median Elevation
+    description: Median elevation of an area calculated from elevation data
+    range: decimal
+
+  standardDeviationElevation:
+    slot_uri: hyobs:standardDeviationElevation
+    title: Standard Deviation of Elevation
+    description: Standard deviation of elevation values in an area
+    range: decimal
+
+  elevationRange:
+    slot_uri: hyobs:elevationRange
+    title: Elevation Range
+    description: Range of elevation values in an area
+    range: decimal
+
+  meanSlope:
+    slot_uri: hyobs:meanSlope
+    title: Mean Slope
+    description: Mean slope of a defined area, such as a catchment
+    range: decimal
+
+  precipitationSeasonality:
+    slot_uri: hyobs:precipitationSeasonality
+    title: Precipitation Seasonality
+    description: Seasonality and timing of precipitation using sine curves to represent the annual precipitation cycles
+    range: decimal
+
+  elonRatio:
+    slot_uri: hyobs:elonRatio
+    title: Elongation Ratio
+    description: Ratio between the diameter of an equivalent circle and the area of the catchment area to its length
+    range: decimal
+
+  hasStrmDensity:
+    slot_uri: hyobs:hasStrmDensity
+    title: Stream Density
+    description: Ratio of lengths of streams LF and the catchment area A, DF=∑LFA
+    range: decimal
+## Precipitation & Hydrological Indicators
+  hasPSeason:
+    slot_uri: hyobs:hasPSeason
+    title: Precipitation Seasonality
+    description: Seasonality and timing of precipitation using sine curves; positive values for summer-dominated, negative for winter-dominated precipitation
+    range: decimal
+
+  hasMeanDailyPrecip:
+    slot_uri: hyobs:hasMeanDailyPrecip
+    title: Mean Daily Precipitation
+    description: Long term average of daily precipitation for a particular location or area
+    range: decimal
+
+  hasMeanEvapotranspiration:
+    slot_uri: hyobs:hasMeanEvapotranspiration
+    title: Mean Daily Evapotranspiration
+    description: Long term average of daily total evapotranspiration for a particular location or area
+    range: decimal
+
+  hasReferenceEvapotranspiration:
+    slot_uri: hyobs:hasReferenceEvapotranspiration
+    title: Reference Evapotranspiration
+    description: Long term average of daily reference evapotranspiration
+    range: decimal
+
+  hasAridityIndex:
+    slot_uri: hyobs:hasAridityIndex
+    title: Aridity Index
+    description: Aridity computed as the ratio of mean reference evaporation and mean precipitation
+    range: decimal
+
+  hasReciprocalAridityIndex:
+    slot_uri: hyobs:hasReciprocalAridityIndex
+    title: Reciprocal Aridity Index
+    description: Reciprocal value of the aridity index from Climate Database
+    range: decimal
+
+  hasSnowFraction:
+    slot_uri: hyobs:hasSnowFraction
+    title: Snow Fraction
+    description: Fraction of precipitation falling as snow (on days with mean temperature below 0 °C)
+    range: decimal
+
+  hasHighPrecFrequency:
+    slot_uri: hyobs:hasHighPrecFrequency
+    title: High Precipitation Frequency
+    description: Frequency of high-precipitation days (≥5 times mean daily precipitation)
+    range: decimal
+
+  hasHighPrecipitationDuration:
+    slot_uri: hyobs:hasHighPrecipitationDuration
+    title: High Precipitation Duration
+    description: Mean duration of high-precipitation events (consecutive days ≥5× mean daily precipitation)
+    range: decimal
+
+  hasLowPrecFrequency:
+    slot_uri: hyobs:hasLowPrecFrequency
+    title: Low Precipitation Frequency
+    description: Frequency of dry days (<1 mm/day average precipitation)
+    range: decimal
+
+  hasLowPrecipitationDuration:
+    slot_uri: hyobs:hasLowPrecipitationDuration
+    title: Low Precipitation Duration
+    description: Mean duration of dry periods (consecutive days with <1 mm/day)
+    range: decimal
+## Land Use & Vegetation Indices
+  hasAgriculturalAreaFraction:
+    slot_uri: hyobs:hasAgriculturalAreaFraction
+    title: Agricultural Area Fraction
+    description: Fraction of agricultural areas (CLC classes starting with number 2)
+    range: decimal
+
+  hasBareAreaFraction:
+    slot_uri: hyobs:hasBareAreaFraction
+    title: Bare Area Fraction
+    description: Fraction of bare areas (CLC classes 332, 333)
+    range: decimal
+
+  hasForestAreaFraction:
+    slot_uri: hyobs:hasForestAreaFraction
+    title: Forest Area Fraction
+    description: Fraction of forest areas (CLC classes 311, 312, 313)
+    range: decimal
+
+  hasGlacierAreaFraction:
+    slot_uri: hyobs:hasGlacierAreaFraction
+    title: Glacier Area Fraction
+    description: Fraction of glaciers (CLC class 335)
+    range: decimal
+
+  hasLakeAreaFraction:
+    slot_uri: hyobs:hasLakeAreaFraction
+    title: Lake Area Fraction
+    description: Fraction of natural or artificial water bodies with all-season water filling (CLC class 512)
+    range: decimal
+
+  hasUrbanAreaFraction:
+    slot_uri: hyobs:hasUrbanAreaFraction
+    title: Urban Area Fraction
+    description: Fraction of areas mainly occupied by buildings (CLC classes 111–124)
+    range: decimal
+
+  hasMaxLeafAreaIndex:
+    slot_uri: hyobs:hasMaxLeafAreaIndex
+    title: Maximum Average Leaf Area Index
+    description: Maximum monthly mean of one-sided leaf area index (12-month average)
+    range: decimal
+
+  hasRangeLeafAreaIndex:
+    slot_uri: hyobs:hasRangeLeafAreaIndex
+    title: Range of Average Leaf Area Index
+    description: Difference between max and min monthly mean of one-sided leaf area index
+    range: decimal
+
+  hasMaxNDVI:
+    slot_uri: hyobs:hasMaxNDVI
+    title: Maximum Average NDVI
+    description: Maximum monthly mean of NDVI (12-month average)
+    range: decimal
+
+  hasMinNDVI:
+    slot_uri: hyobs:hasMinNDVI
+    title: Minimum Average NDVI
+    description: Minimum monthly mean of NDVI (12-month average)
+    range: decimal
+
+  hasMaxGreenVegetationFraction:
+    slot_uri: hyobs:hasMaxGreenVegetationFraction
+    title: Maximum Green Vegetation Fraction
+    description: Maximum monthly mean of green vegetation fraction (12-month average)
+    range: decimal
+
+  hasRangeGreenVegetationFraction:
+    slot_uri: hyobs:hasRangeGreenVegetationFraction
+    title: Range of Green Vegetation Fraction
+    description: Difference between max and min monthly mean of green vegetation fraction
+    range: decimal
+##S oil, Geology & Subsurface Properties
+  hasDepthToBedrock:
+    slot_uri: hyobs:hasDepthToBedrock
+    title: Depth to Bedrock
+    description: Depth to bedrock from the surface of a point or an area
+    range: decimal
+
+  hasRootDepth:
+    slot_uri: hyobs:hasRootDepth
+    title: Available Root Depth
+    description: Depth available for roots in soil layer from the surface
+    range: decimal
+
+  hasTotalAvailableWaterContent:
+    slot_uri: hyobs:hasTotalAvailableWaterContent
+    title: Total Available Water Content
+    description: Total water content available in soil (between field capacity and wilting point)
+    range: decimal
+
+  hasSandFraction:
+    slot_uri: hyobs:hasSandFraction
+    title: Sand Fraction
+    description: Sand fraction of a soil material as a subproperty of soil texture
+    range: decimal
+
+  hasSiltFraction:
+    slot_uri: hyobs:hasSiltFraction
+    title: Silt Fraction
+    description: Silt fraction of a soil material as a subproperty of soil texture
+    range: decimal
+
+  hasClayFraction:
+    slot_uri: hyobs:hasClayFraction
+    title: Clay Fraction
+    description: Clay fraction of a soil material as a subproperty of soil texture
+    range: decimal
+
+  hasGravelFraction:
+    slot_uri: hyobs:hasGravelFraction
+    title: Gravel Fraction
+    description: Gravel fraction of a soil material
+    range: decimal
+
+  hasOrganicFraction:
+    slot_uri: hyobs:hasOrganicFraction
+    title: Organic Fraction
+    description: Organic fraction of a soil material
+    range: decimal
+
+  hasIceAndGlacierFraction:
+    slot_uri: hyobs:hasIceAndGlacierFraction
+    title: Ice and Glacier Fraction
+    description: Fraction of ice and glacier in a catchment or administrative area
+    range: decimal
+
+  hasMetamorphitesFraction:
+    slot_uri: hyobs:hasMetamorphitesFraction
+    title: Metamorphites Fraction
+    description: Fraction of metamorphites in a catchment or administrative area
+    range: decimal
+
+  hasAcidPlutonicRocksFraction:
+    slot_uri: hyobs:hasAcidPlutonicRocksFraction
+    title: Acid Plutonic Rocks Fraction
+    description: Fraction of acid plutonic rocks in a catchment or administrative area
+    range: decimal
+
+  hasBasicPlutonicRocksFraction:
+    slot_uri: hyobs:hasBasicPlutonicRocksFraction
+    title: Basic Plutonic Rocks Fraction
+    description: Fraction of basic plutonic rocks in a catchment or administrative area
+    range: decimal
+
+  hasIntermediatePlutonicRocksFraction:
+    slot_uri: hyobs:hasIntermediatePlutonicRocksFraction
+    title: Intermediate Plutonic Rocks Fraction
+    description: Fraction of intermediate plutonic rocks in a catchment or administrative area
+    range: decimal
+
+  hasPyroclasticsFraction:
+    slot_uri: hyobs:hasPyroclasticsFraction
+    title: Pyroclastics Fraction
+    description: Fraction of pyroclastics in a catchment or administrative area
+    range: decimal
+
+  hasCarbonateSedimentaryRocksFraction:
+    slot_uri: hyobs:hasCarbonateSedimentaryRocksFraction
+    title: Carbonate Sedimentary Rocks Fraction
+    description: Fraction of carbonate sedimentary rocks in a catchment or administrative area
+    range: decimal
+
+  hasMixedSedimentaryRocksFraction:
+    slot_uri: hyobs:hasMixedSedimentaryRocksFraction
+    title: Mixed Sedimentary Rocks Fraction
+    description: Fraction of mixed sedimentary rocks in a catchment or administrative area
+    range: decimal
+
+  hasSiliciclasticSedimentaryRocksFraction:
+    slot_uri: hyobs:hasSiliciclasticSedimentaryRocksFraction
+    title: Siliciclastic Sedimentary Rocks Fraction
+    description: Fraction of siliciclastic sedimentary rocks in a catchment or administrative area
+    range: decimal
+
+  hasUnconsolidatedSedimentsFraction:
+    slot_uri: hyobs:hasUnconsolidatedSedimentsFraction
+    title: Unconsolidated Sediments Fraction
+    description: Fraction of unconsolidated sediments in a catchment or administrative area
+    range: decimal
+
+  hasAcidVolcanicRocksFraction:
+    slot_uri: hyobs:hasAcidVolcanicRocksFraction
+    title: Acid Volcanic Rocks Fraction
+    description: Fraction of acid volcanic rocks in a catchment or administrative area
+    range: decimal
+
+  hasBasicVolcanicRocksFraction:
+    slot_uri: hyobs:hasBasicVolcanicRocksFraction
+    title: Basic Volcanic Rocks Fraction
+    description: Fraction of basic volcanic rocks in a catchment or administrative area
+    range: decimal
+
+  hasWaterBodiesFraction:
+    slot_uri: hyobs:hasWaterBodiesFraction
+    title: Water Bodies Fraction
+    description: Fraction of water bodies in a catchment or administrative area
+    range: decimal
+
+  hasSubsurfacePermeabilityFraction:
+    slot_uri: hyobs:hasSubsurfacePermeabilityFraction
+    title: Subsurface Permeability Fraction
+    description: Fraction of subsurface permeability in log10 scale in a catchment or administrative area
+    range: decimal
+
+  hasSubsurfacePorosityFraction:
+    slot_uri: hyobs:hasSubsurfacePorosityFraction
+    title: Subsurface Porosity Fraction
+    description: Fraction of subsurface porosity in a catchment or administrative area
+    range: decimal
+
+
+

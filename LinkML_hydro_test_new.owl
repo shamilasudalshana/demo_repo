@@ -1,0 +1,1289 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix envthes: <http://vocabs.lter-europe.net/EnvThes/> .
+@prefix hyobs: <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+hyobs:River a owl:Class ;
+    rdfs:label "River" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:hasRiverBasedRegion ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:hasRiverBasedRegion ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty hyobs:hasRiverBasedRegion ] ;
+    skos:exactMatch envthes:20916 ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:Sensor a owl:Class ;
+    rdfs:label "Sensor" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom hyobs:Catchment ;
+            owl:onProperty hyobs:monitorsCatchment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:monitorsCatchment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:producesTimeseries ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:producesTimeseries ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty hyobs:producesTimeseries ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:monitorsCatchment ] ;
+    skos:exactMatch sosa:Sensor ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:areaRatio a owl:DatatypeProperty ;
+    rdfs:label "areaRatio" ;
+    dcterms:title "Area Ratio" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Ratio between variable area_calc of basin delineation A and area_gov" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:bankfullFlow a owl:DatatypeProperty ;
+    rdfs:label "bankfullFlow" ;
+    dcterms:title "Bankfull Flow" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Flow at which the river begins to overflow the banks at a gauging station." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:benchmarkCatch a owl:DatatypeProperty ;
+    rdfs:label "benchmarkCatch" ;
+    dcterms:title "Benchmark Catchment" ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Indicator whether the catchment is a benchmark site." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:bulkDensity a owl:DatatypeProperty ;
+    rdfs:label "bulkDensity" ;
+    dcterms:title "Bulk Density" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "The mass of dry soil per unit volume, typically expressed in g/cm³. It includes both solids and pore space in the soil." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:depthToBedrock a owl:DatatypeProperty ;
+    rdfs:label "depthToBedrock" ;
+    dcterms:title "Depth to Bedrock" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Vertical distance from the soil surface to the upper surface of bedrock." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:dischargeUncertaintyMetadata a owl:DatatypeProperty ;
+    rdfs:label "dischargeUncertaintyMetadata" ;
+    dcterms:title "Discharge Uncertainty Metadata" ;
+    rdfs:range xsd:string ;
+    skos:definition "Metadata explaining why discharge uncertainty estimates are (not) provided." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:elevation10thPercentile a owl:DatatypeProperty ;
+    rdfs:label "elevation10thPercentile" ;
+    dcterms:title "10th Percentile Elevation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "The 10th percentile elevation value within the catchment area, meaning 10% of the area lies below this elevation." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:elevation90thPercentile a owl:DatatypeProperty ;
+    rdfs:label "elevation90thPercentile" ;
+    dcterms:title "90th Percentile Elevation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "The 90th percentile elevation value within the catchment area, meaning 90% of the area lies below this elevation." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:elevationGuage a owl:DatatypeProperty ;
+    rdfs:label "elevationGuage" ;
+    dcterms:title "Elevation of gauge" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Elevation of the gauge's zero point from mean sea level" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:elevationRange a owl:DatatypeProperty ;
+    rdfs:label "elevationRange" ;
+    dcterms:title "Elevation Range" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Range of elevation values in an area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:elonRatio a owl:DatatypeProperty ;
+    rdfs:label "elonRatio" ;
+    dcterms:title "Elongation Ratio" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Ratio between the diameter of an equivalent circle and the area of the catchment area to its length" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:euHydroID a owl:DatatypeProperty ;
+    rdfs:label "euHydroID" ;
+    dcterms:title "EU-Hydro – River Network ID" ;
+    rdfs:range xsd:string ;
+    skos:definition "OBJECT_ID of the next river segment from stream network EU-Hydro – River Network Database" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:flowPercentComplete a owl:DatatypeProperty ;
+    rdfs:label "flowPercentComplete" ;
+    dcterms:title "Flow Percent Complete" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of days with flow data available from 1 Oct 1970 to 31 Sep 2015." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:flowPeriodEnd a owl:DatatypeProperty ;
+    rdfs:label "flowPeriodEnd" ;
+    dcterms:title "Flow Period End" ;
+    rdfs:range xsd:date ;
+    skos:definition "End date that daily flow time series in CAMELS-GB are available for this gauging station." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:flowPeriodStart a owl:DatatypeProperty ;
+    rdfs:label "flowPeriodStart" ;
+    dcterms:title "Flow Period Start" ;
+    rdfs:range xsd:date ;
+    skos:definition "First date that daily flow time series in CAMELS-GB are available for this gauging station." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:gapsPost a owl:DatatypeProperty ;
+    rdfs:label "gapsPost" ;
+    dcterms:title "Fraction of Gaps - Processed Hourly Runoff Time Series" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Represents Fraction of gaps in the hourly runoff time series after processing" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:gapsPre a owl:DatatypeProperty ;
+    rdfs:label "gapsPre" ;
+    dcterms:title "Fraction of Gaps - Raw Hourly Runoff Time Series" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Represents the fraction of gaps in the raw hourly runoff time series" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasAcidPlutonicRocksFraction a owl:DatatypeProperty ;
+    rdfs:label "hasAcidPlutonicRocksFraction" ;
+    dcterms:title "Acid Plutonic Rocks Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of acid plutonic rocks in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasAcidVolcanicRocksFraction a owl:DatatypeProperty ;
+    rdfs:label "hasAcidVolcanicRocksFraction" ;
+    dcterms:title "Acid Volcanic Rocks Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of acid volcanic rocks in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasAgriculturalAreaFraction a owl:DatatypeProperty ;
+    rdfs:label "hasAgriculturalAreaFraction" ;
+    dcterms:title "Agricultural Area Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of agricultural areas (CLC classes starting with number 2)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasAridityIndex a owl:DatatypeProperty ;
+    rdfs:label "hasAridityIndex" ;
+    dcterms:title "Aridity Index" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Aridity computed as the ratio of mean reference evaporation and mean precipitation" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasBareAreaFraction a owl:DatatypeProperty ;
+    rdfs:label "hasBareAreaFraction" ;
+    dcterms:title "Bare Area Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of bare areas (CLC classes 332, 333)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasBareSoilAndRockFraction a owl:DatatypeProperty ;
+    rdfs:label "hasBareSoilAndRockFraction" ;
+    dcterms:title "Has Bare Soil And Rock Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage cover of bare soil and rocks." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasBaseflowIndexCEH a owl:DatatypeProperty ;
+    rdfs:label "hasBaseflowIndexCEH" ;
+    dcterms:title "Has Baseflow Index CEH" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Base flow index using the Gustard et al. (1992) CEH method." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasBaseflowIndexLadson a owl:DatatypeProperty ;
+    rdfs:label "hasBaseflowIndexLadson" ;
+    dcterms:title "Has Baseflow Index Ladson" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Base flow index using the Ladson et al. (2013) digital filter method." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasBasicPlutonicRocksFraction a owl:DatatypeProperty ;
+    rdfs:label "hasBasicPlutonicRocksFraction" ;
+    dcterms:title "Basic Plutonic Rocks Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of basic plutonic rocks in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasBasicVolcanicRocksFraction a owl:DatatypeProperty ;
+    rdfs:label "hasBasicVolcanicRocksFraction" ;
+    dcterms:title "Basic Volcanic Rocks Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of basic volcanic rocks in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasCarbonateSedimentaryRocksFraction a owl:DatatypeProperty ;
+    rdfs:label "hasCarbonateSedimentaryRocksFraction" ;
+    dcterms:title "Carbonate Sedimentary Rocks Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of carbonate sedimentary rocks in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasCatchmentArea a owl:DatatypeProperty ;
+    rdfs:label "hasCatchmentArea" ;
+    dcterms:title "Has Catchment Area" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Relates a catchment to its catchment area measured as a decimal value (e.g., in square kilometers)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasClayFraction a owl:DatatypeProperty ;
+    rdfs:label "hasClayFraction" ;
+    dcterms:title "Clay Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Clay fraction of a soil material as a subproperty of soil texture" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasCropCoverFraction a owl:DatatypeProperty ;
+    rdfs:label "hasCropCoverFraction" ;
+    dcterms:title "Has Crop Cover Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage cover of crops." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasDeciduousWoodlandFraction a owl:DatatypeProperty ;
+    rdfs:label "hasDeciduousWoodlandFraction" ;
+    dcterms:title "Has Deciduous Woodland Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage cover of deciduous woodland." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasDepthToBedrock a owl:DatatypeProperty ;
+    rdfs:label "hasDepthToBedrock" ;
+    dcterms:title "Depth to Bedrock" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Depth to bedrock from the surface of a point or an area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasDominantGeologicalClass a owl:DatatypeProperty ;
+    rdfs:label "hasDominantGeologicalClass" ;
+    dcterms:title "Has Dominant Geological Class" ;
+    rdfs:range xsd:string ;
+    skos:definition "Has Dominant Geological Class" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasEvergreenWoodlandFraction a owl:DatatypeProperty ;
+    rdfs:label "hasEvergreenWoodlandFraction" ;
+    dcterms:title "Has Evergreen Woodland Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage cover of evergreen woodland." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasFlowDurationCurveSlope a owl:DatatypeProperty ;
+    rdfs:label "hasFlowDurationCurveSlope" ;
+    dcterms:title "Has Flow Duration Curve Slope" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Slope of the flow duration curve between the log-transformed 33rd and 66th streamflow percentiles." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasForestAreaFraction a owl:DatatypeProperty ;
+    rdfs:label "hasForestAreaFraction" ;
+    dcterms:title "Forest Area Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of forest areas (CLC classes 311, 312, 313)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasGlacierAreaFraction a owl:DatatypeProperty ;
+    rdfs:label "hasGlacierAreaFraction" ;
+    dcterms:title "Glacier Area Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of glaciers (CLC class 335)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasGrassCoverFraction a owl:DatatypeProperty ;
+    rdfs:label "hasGrassCoverFraction" ;
+    dcterms:title "Has Grass Cover Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage cover of grass and pasture." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasGravelFraction a owl:DatatypeProperty ;
+    rdfs:label "hasGravelFraction" ;
+    dcterms:title "Gravel Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Gravel fraction of a soil material" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasHighFlowDuration a owl:DatatypeProperty ;
+    rdfs:label "hasHighFlowDuration" ;
+    dcterms:title "Has High Flow Duration" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Average duration of high-flow events (consecutive days >9× the median daily flow)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasHighFlowFrequency a owl:DatatypeProperty ;
+    rdfs:label "hasHighFlowFrequency" ;
+    dcterms:title "Has High Flow Frequency" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Frequency of high-flow days (>9× the median daily flow)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasHighFlowQuantile95 a owl:DatatypeProperty ;
+    rdfs:label "hasHighFlowQuantile95" ;
+    dcterms:title "Has High Flow Quantile 95%" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "95% flow quantile (high flow)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasHighPrecFrequency a owl:DatatypeProperty ;
+    rdfs:label "hasHighPrecFrequency" ;
+    dcterms:title "High Precipitation Frequency" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Frequency of high-precipitation days (≥5 times mean daily precipitation)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasHighPrecipitationDuration a owl:DatatypeProperty ;
+    rdfs:label "hasHighPrecipitationDuration" ;
+    dcterms:title "High Precipitation Duration" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Mean duration of high-precipitation events (consecutive days ≥5× mean daily precipitation)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasIceAndGlacierFraction a owl:DatatypeProperty ;
+    rdfs:label "hasIceAndGlacierFraction" ;
+    dcterms:title "Ice and Glacier Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of ice and glacier in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasInlandWaterCoverFraction a owl:DatatypeProperty ;
+    rdfs:label "hasInlandWaterCoverFraction" ;
+    dcterms:title "Has Inland Water Cover Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage cover of inland water." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasIntermediatePlutonicRocksFraction a owl:DatatypeProperty ;
+    rdfs:label "hasIntermediatePlutonicRocksFraction" ;
+    dcterms:title "Intermediate Plutonic Rocks Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of intermediate plutonic rocks in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasLakeAreaFraction a owl:DatatypeProperty ;
+    rdfs:label "hasLakeAreaFraction" ;
+    dcterms:title "Lake Area Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of natural or artificial water bodies with all-season water filling (CLC class 512)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasLowFlowDuration a owl:DatatypeProperty ;
+    rdfs:label "hasLowFlowDuration" ;
+    dcterms:title "Has Low Flow Duration" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Average duration of low-flow events (consecutive days below low-flow threshold)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasLowFlowFrequency a owl:DatatypeProperty ;
+    rdfs:label "hasLowFlowFrequency" ;
+    dcterms:title "Has Low Flow Frequency" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Frequency of low-flow days." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasLowFlowQuantile5 a owl:DatatypeProperty ;
+    rdfs:label "hasLowFlowQuantile5" ;
+    dcterms:title "Has Low Flow Quantile 5%" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "5% flow quantile (low flow)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasLowPrecFrequency a owl:DatatypeProperty ;
+    rdfs:label "hasLowPrecFrequency" ;
+    dcterms:title "Low Precipitation Frequency" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Frequency of dry days (<1 mm/day average precipitation)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasLowPrecipitationDuration a owl:DatatypeProperty ;
+    rdfs:label "hasLowPrecipitationDuration" ;
+    dcterms:title "Low Precipitation Duration" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Mean duration of dry periods (consecutive days with <1 mm/day)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMaxGreenVegetationFraction a owl:DatatypeProperty ;
+    rdfs:label "hasMaxGreenVegetationFraction" ;
+    dcterms:title "Maximum Green Vegetation Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Maximum monthly mean of green vegetation fraction (12-month average)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMaxLeafAreaIndex a owl:DatatypeProperty ;
+    rdfs:label "hasMaxLeafAreaIndex" ;
+    dcterms:title "Maximum Average Leaf Area Index" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Maximum monthly mean of one-sided leaf area index (12-month average)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMaxNDVI a owl:DatatypeProperty ;
+    rdfs:label "hasMaxNDVI" ;
+    dcterms:title "Maximum Average NDVI" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Maximum monthly mean of NDVI (12-month average)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMeanDailyPrecip a owl:DatatypeProperty ;
+    rdfs:label "hasMeanDailyPrecip" ;
+    dcterms:title "Mean Daily Precipitation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Long term average of daily precipitation for a particular location or area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMeanDischarge a owl:DatatypeProperty ;
+    rdfs:label "hasMeanDischarge" ;
+    dcterms:title "Has Mean Discharge" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Mean daily discharge." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMeanEvapotranspiration a owl:DatatypeProperty ;
+    rdfs:label "hasMeanEvapotranspiration" ;
+    dcterms:title "Mean Daily Evapotranspiration" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Long term average of daily total evapotranspiration for a particular location or area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMeanHalfFlowDate a owl:DatatypeProperty ;
+    rdfs:label "hasMeanHalfFlowDate" ;
+    dcterms:title "Has Mean Half Flow Date" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Mean half-flow date (date on which cumulative discharge since 1 Oct reaches half of the annual discharge)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMetamorphitesFraction a owl:DatatypeProperty ;
+    rdfs:label "hasMetamorphitesFraction" ;
+    dcterms:title "Metamorphites Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of metamorphites in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMinNDVI a owl:DatatypeProperty ;
+    rdfs:label "hasMinNDVI" ;
+    dcterms:title "Minimum Average NDVI" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Minimum monthly mean of NDVI (12-month average)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasMixedSedimentaryRocksFraction a owl:DatatypeProperty ;
+    rdfs:label "hasMixedSedimentaryRocksFraction" ;
+    dcterms:title "Mixed Sedimentary Rocks Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of mixed sedimentary rocks in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasObsBegTime a owl:DatatypeProperty ;
+    rdfs:label "hasObsBegTime" ;
+    dcterms:title "Starting Time of Daily Runoff Time Series" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Specific date/year when the daily runoff time series in the dataset begins" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasOrganicFraction a owl:DatatypeProperty ;
+    rdfs:label "hasOrganicFraction" ;
+    dcterms:title "Organic Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Organic fraction of a soil material" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasPSeason a owl:DatatypeProperty ;
+    rdfs:label "hasPSeason" ;
+    dcterms:title "Precipitation Seasonality" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Seasonality and timing of precipitation using sine curves; positive values for summer-dominated, negative for winter-dominated precipitation" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasPyroclasticsFraction a owl:DatatypeProperty ;
+    rdfs:label "hasPyroclasticsFraction" ;
+    dcterms:title "Pyroclastics Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of pyroclastics in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasRangeGreenVegetationFraction a owl:DatatypeProperty ;
+    rdfs:label "hasRangeGreenVegetationFraction" ;
+    dcterms:title "Range of Green Vegetation Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Difference between max and min monthly mean of green vegetation fraction" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasRangeLeafAreaIndex a owl:DatatypeProperty ;
+    rdfs:label "hasRangeLeafAreaIndex" ;
+    dcterms:title "Range of Average Leaf Area Index" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Difference between max and min monthly mean of one-sided leaf area index" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasReciprocalAridityIndex a owl:DatatypeProperty ;
+    rdfs:label "hasReciprocalAridityIndex" ;
+    dcterms:title "Reciprocal Aridity Index" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Reciprocal value of the aridity index from Climate Database" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasReferenceEvapotranspiration a owl:DatatypeProperty ;
+    rdfs:label "hasReferenceEvapotranspiration" ;
+    dcterms:title "Reference Evapotranspiration" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Long term average of daily reference evapotranspiration" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasRootDepth a owl:DatatypeProperty ;
+    rdfs:label "hasRootDepth" ;
+    dcterms:title "Available Root Depth" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Depth available for roots in soil layer from the surface" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasRunoffRatio a owl:DatatypeProperty ;
+    rdfs:label "hasRunoffRatio" ;
+    dcterms:title "Has Runoff Ratio" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Runoff ratio, calculated as the ratio of mean daily discharge to mean daily precipitation." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSandFraction a owl:DatatypeProperty ;
+    rdfs:label "hasSandFraction" ;
+    dcterms:title "Sand Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Sand fraction of a soil material as a subproperty of soil texture" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSaturatedHydraulicConductivity a owl:DatatypeProperty ;
+    rdfs:label "hasSaturatedHydraulicConductivity" ;
+    dcterms:title "has Saturated Hydraulic Conductivity" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "has Saturated Hydraulic Conductivity" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasShrubCoverFraction a owl:DatatypeProperty ;
+    rdfs:label "hasShrubCoverFraction" ;
+    dcterms:title "Has Shrub Cover Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage cover of medium-scale vegetation (shrubs)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSiliciclasticSedimentaryRocksFraction a owl:DatatypeProperty ;
+    rdfs:label "hasSiliciclasticSedimentaryRocksFraction" ;
+    dcterms:title "Siliciclastic Sedimentary Rocks Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of siliciclastic sedimentary rocks in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSiltFraction a owl:DatatypeProperty ;
+    rdfs:label "hasSiltFraction" ;
+    dcterms:title "Silt Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Silt fraction of a soil material as a subproperty of soil texture" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSnowFraction a owl:DatatypeProperty ;
+    rdfs:label "hasSnowFraction" ;
+    dcterms:title "Snow Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of precipitation falling as snow (on days with mean temperature below 0 °C)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSoilPorosity a owl:DatatypeProperty ;
+    rdfs:label "hasSoilPorosity" ;
+    dcterms:title "Soil porosity" ;
+    rdfs:range xsd:string ;
+    skos:definition "Total Soil porosity" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSoilTexture a owl:DatatypeProperty ;
+    rdfs:label "hasSoilTexture" ;
+    dcterms:title "has soil texture" ;
+    rdfs:range xsd:string ;
+    skos:definition "has soil texture" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasStreamflowElasticity a owl:DatatypeProperty ;
+    rdfs:label "hasStreamflowElasticity" ;
+    dcterms:title "Has Streamflow Elasticity" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Sensitivity of streamflow to precipitation at the annual scale." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasStrmDensity a owl:DatatypeProperty ;
+    rdfs:label "hasStrmDensity" ;
+    dcterms:title "Stream Density" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Ratio of lengths of streams LF and the catchment area A, DF=∑LFA" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSubsurfacePermeabilityFraction a owl:DatatypeProperty ;
+    rdfs:label "hasSubsurfacePermeabilityFraction" ;
+    dcterms:title "Subsurface Permeability Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of subsurface permeability in log10 scale in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSubsurfacePorosityFraction a owl:DatatypeProperty ;
+    rdfs:label "hasSubsurfacePorosityFraction" ;
+    dcterms:title "Subsurface Porosity Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of subsurface porosity in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasTotalAvailableWaterContent a owl:DatatypeProperty ;
+    rdfs:label "hasTotalAvailableWaterContent" ;
+    dcterms:title "Total Available Water Content" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Total water content available in soil (between field capacity and wilting point)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasUnconsolidatedSedimentsFraction a owl:DatatypeProperty ;
+    rdfs:label "hasUnconsolidatedSedimentsFraction" ;
+    dcterms:title "Unconsolidated Sediments Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of unconsolidated sediments in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasUrbanAreaFraction a owl:DatatypeProperty ;
+    rdfs:label "hasUrbanAreaFraction" ;
+    dcterms:title "Urban Area Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of areas mainly occupied by buildings (CLC classes 111–124)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasUrbanCoverFraction a owl:DatatypeProperty ;
+    rdfs:label "hasUrbanCoverFraction" ;
+    dcterms:title "Has Urban Cover Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage cover of suburban and urban land." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasWaterBodiesFraction a owl:DatatypeProperty ;
+    rdfs:label "hasWaterBodiesFraction" ;
+    dcterms:title "Water Bodies Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of water bodies in a catchment or administrative area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasZeroFlowFraction a owl:DatatypeProperty ;
+    rdfs:label "hasZeroFlowFraction" ;
+    dcterms:title "Has Zero Flow Fraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Fraction of days with zero discharge (Q = 0)." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hyrivID a owl:DatatypeProperty ;
+    rdfs:label "hyrivID" ;
+    dcterms:title "RiverATLAS ID" ;
+    rdfs:range xsd:string ;
+    skos:definition "HYRIV_ID of the next river segment from stream network RiverATLAS" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:issueID a owl:ObjectProperty ;
+    rdfs:label "issueID" ;
+    dcterms:title "Issue i d" ;
+    rdfs:range hyobs:GovnrID ;
+    skos:definition "Official gauge number from the associated governments." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:maxElevation a owl:DatatypeProperty ;
+    rdfs:label "maxElevation" ;
+    dcterms:title "Maximum Elevation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Maximum elevation within the catchment area, based on elevation data." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:meanDailyDischarge a owl:DatatypeProperty ;
+    rdfs:label "meanDailyDischarge" ;
+    dcterms:title "Mean Daily Discharge" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "The average daily volumetric flow rate of water passing through a river cross-section or outlet point over a defined period." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:meanDischarges a owl:DatatypeProperty ;
+    rdfs:label "meanDischarges" ;
+    dcterms:title "Mean Discharges" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Mean daily discharges into water courses from permit holders." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:meanElevation a owl:DatatypeProperty ;
+    rdfs:label "meanElevation" ;
+    dcterms:title "Mean Elevation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Mean elevation of an area calculated from elevation data" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:meanGroundwaterAbstraction a owl:DatatypeProperty ;
+    rdfs:label "meanGroundwaterAbstraction" ;
+    dcterms:title "Mean Groundwater Abstraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Average volume of groundwater abstracted." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:meanSlope a owl:DatatypeProperty ;
+    rdfs:label "meanSlope" ;
+    dcterms:title "Mean Slope" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Mean slope of a defined area, such as a catchment" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:meanSurfaceWaterAbstraction a owl:DatatypeProperty ;
+    rdfs:label "meanSurfaceWaterAbstraction" ;
+    dcterms:title "Mean Surface Water Abstraction" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Average volume of surface water abstracted." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:medianElevation a owl:DatatypeProperty ;
+    rdfs:label "medianElevation" ;
+    dcterms:title "Median Elevation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Median elevation of an area calculated from elevation data" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:minElevation a owl:DatatypeProperty ;
+    rdfs:label "minElevation" ;
+    dcterms:title "Minimum Elevation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Minimum elevation within the catchment area, based on elevation data." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:numberOfReservoirs a owl:DatatypeProperty ;
+    rdfs:label "numberOfReservoirs" ;
+    dcterms:title "Number of Reservoirs" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Number of reservoirs in the catchment." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:obsBegDaily a owl:DatatypeProperty ;
+    rdfs:label "obsBegDaily" ;
+    dcterms:title "Starting Year of Daily Runoff Time Series" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Year when the daily runoff time series in the dataset begins" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:obsBegHr a owl:DatatypeProperty ;
+    rdfs:label "obsBegHr" ;
+    dcterms:title "Starting Year of hourly Runoff Time Series" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Year when the hourly runoff time series in the dataset begins" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:obsEndHr a owl:DatatypeProperty ;
+    rdfs:label "obsEndHr" ;
+    dcterms:title "Observation End Year" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Year when the continuous runoff data recording ended, use '0' if ongoing" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctAbstractionAgriculture a owl:DatatypeProperty ;
+    rdfs:label "pctAbstractionAgriculture" ;
+    dcterms:title "percentage Abstraction for Agriculture" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total abstractions for agriculture." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctAbstractionAmenities a owl:DatatypeProperty ;
+    rdfs:label "pctAbstractionAmenities" ;
+    dcterms:title "percentage Abstraction for Amenities" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total abstractions for amenities." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctAbstractionEnergy a owl:DatatypeProperty ;
+    rdfs:label "pctAbstractionEnergy" ;
+    dcterms:title "percentage Abstraction for Energy" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total abstractions for energy production." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctAbstractionEnvironmental a owl:DatatypeProperty ;
+    rdfs:label "pctAbstractionEnvironmental" ;
+    dcterms:title "percentage Abstraction for Environment" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total abstractions for environmental purposes." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctAbstractionIndustry a owl:DatatypeProperty ;
+    rdfs:label "pctAbstractionIndustry" ;
+    dcterms:title "percentage Abstraction for Industry" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total abstractions for industrial, commercial and public services." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctAbstractionWaterSupply a owl:DatatypeProperty ;
+    rdfs:label "pctAbstractionWaterSupply" ;
+    dcterms:title "percentage Abstraction for Water Supply" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total abstractions for water supply." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctReservoirDrainage a owl:DatatypeProperty ;
+    rdfs:label "pctReservoirDrainage" ;
+    dcterms:title "Percentage Reservoir Use for Drainage" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total reservoir storage used for drainage." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctReservoirEnvironmental a owl:DatatypeProperty ;
+    rdfs:label "pctReservoirEnvironmental" ;
+    dcterms:title "Percentage Reservoir Use for Environment" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total reservoir storage used for environmental purposes." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctReservoirFloodStorage a owl:DatatypeProperty ;
+    rdfs:label "pctReservoirFloodStorage" ;
+    dcterms:title "Percentage Reservoir Use for Flood Storage" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total reservoir storage used for flood storage." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctReservoirHydroelectric a owl:DatatypeProperty ;
+    rdfs:label "pctReservoirHydroelectric" ;
+    dcterms:title "Reservoir Use for Hydroelectricity" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total reservoir storage used for hydroelectricity." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctReservoirNavigation a owl:DatatypeProperty ;
+    rdfs:label "pctReservoirNavigation" ;
+    dcterms:title "Percentage Reservoir Use for Navigation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total reservoir storage used for navigation." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctReservoirUnknownUse a owl:DatatypeProperty ;
+    rdfs:label "pctReservoirUnknownUse" ;
+    dcterms:title "Percentage Reservoir Use Unknown" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total reservoir storage where no use data were available." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:pctReservoirWaterResources a owl:DatatypeProperty ;
+    rdfs:label "pctReservoirWaterResources" ;
+    dcterms:title "Percentage Reservoir Use for Water Resources" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Percentage of total reservoir storage used for water resources." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:precipitationSeasonality a owl:DatatypeProperty ;
+    rdfs:label "precipitationSeasonality" ;
+    dcterms:title "Precipitation Seasonality" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Seasonality and timing of precipitation using sine curves to represent the annual precipitation cycles" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:reservoirStorageMegalitres a owl:DatatypeProperty ;
+    rdfs:label "reservoirStorageMegalitres" ;
+    dcterms:title "Reservoir Storage (ML)" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Total storage capacity of reservoirs in the catchment in megalitres." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:saturatedHydraulicConductivityPtfSandClay a owl:DatatypeProperty ;
+    rdfs:label "saturatedHydraulicConductivityPtfSandClay" ;
+    dcterms:title "Saturated Hydraulic Conductivity (Sand & Clay PTF)" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Saturated hydraulic conductivity estimated using a PTF based on sand and clay fractions." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:saturatedHydraulicConductivityPtfSiltClayOm a owl:DatatypeProperty ;
+    rdfs:label "saturatedHydraulicConductivityPtfSiltClayOm" ;
+    dcterms:title "Saturated Hydraulic Conductivity (Silt, Clay, OM PTF)" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Estimated using a PTF based on silt/clay/OM/bulk density and topsoil." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:standardDeviationElevation a owl:DatatypeProperty ;
+    rdfs:label "standardDeviationElevation" ;
+    dcterms:title "Standard Deviation of Elevation" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Standard deviation of elevation values in an area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:structurefullFlow a owl:DatatypeProperty ;
+    rdfs:label "structurefullFlow" ;
+    dcterms:title "Structurefull Flow" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Flow at which the river reaches the wingwalls of a structure at a gauging station." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:uncertaintyLower a owl:DatatypeProperty ;
+    rdfs:label "uncertaintyLower" ;
+    dcterms:title "Uncertainty Lower" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Lower bound of discharge uncertainty interval for XX percentile flow, as percentage." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:uncertaintyUpper a owl:DatatypeProperty ;
+    rdfs:label "uncertaintyUpper" ;
+    dcterms:title "Uncertainty Upper" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Upper bound of discharge uncertainty interval for XX percentile flow, as percentage." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:volumetricPorosityPtfSandClay a owl:DatatypeProperty ;
+    rdfs:label "volumetricPorosityPtfSandClay" ;
+    dcterms:title "Volumetric Porosity (Sand & Clay PTF)" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Volumetric porosity estimated using a pedo-transfer function based on sand and clay fractions." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:volumetricPorosityPtfSiltClayOm a owl:DatatypeProperty ;
+    rdfs:label "volumetricPorosityPtfSiltClayOm" ;
+    dcterms:title "Volumetric Porosity (Silt, Clay, OM PTF)" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Volumetric porosity estimated using a PTF based on silt/clay/OM/bulk density and topsoil indicator." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:yearFirstReservoirBuilt a owl:DatatypeProperty ;
+    rdfs:label "yearFirstReservoirBuilt" ;
+    dcterms:title "Year First Reservoir Built" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Year the first reservoir in the catchment was built." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:yearLastReservoirBuilt a owl:DatatypeProperty ;
+    rdfs:label "yearLastReservoirBuilt" ;
+    dcterms:title "Year Last Reservoir Built" ;
+    rdfs:range xsd:integer ;
+    skos:definition "Year the last reservoir in the catchment was built." ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+<https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd.owl.ttl> a owl:Ontology ;
+    rdfs:label "NFDI4EarthHydroOntology" ;
+    skos:definition "Ontology for hydrological obersvation variables and time series data, converted to LinkML." .
+
+hyobs:AirTemperature2mAvg a owl:Class ;
+    rdfs:label "AirTemperature2mAvg" ;
+    rdfs:subClassOf hyobs:AirTemperature2m ;
+    skos:definition "Air temperature at a height of 2 m above Earth surface (Average)" ;
+    skos:exactMatch hyobs:AirTemperature2mAvg ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:AirTemperature2mMax a owl:Class ;
+    rdfs:label "AirTemperature2mMax" ;
+    rdfs:subClassOf hyobs:AirTemperature2m ;
+    skos:definition "Air temperature at a height of 2 m above Earth surface (Maximum)" ;
+    skos:exactMatch hyobs:AirTemperature2mMax ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:AirTemperature2mMin a owl:Class ;
+    rdfs:label "AirTemperature2mMin" ;
+    rdfs:subClassOf hyobs:AirTemperature2m ;
+    skos:definition "Air temperature at a height of 2 m above Earth surface (Minimum)" ;
+    skos:exactMatch hyobs:AirTemperature2mMin ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:DewPointTemperature2mAvg a owl:Class ;
+    rdfs:label "DewPointTemperature2mAvg" ;
+    rdfs:subClassOf hyobs:DewPointTemperature2m ;
+    skos:definition "Dew point temperature at a height of 2 m above Earth surface (Average)" ;
+    skos:exactMatch hyobs:DewPointTemperature2mAvg ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:DewPointTemperature2mMax a owl:Class ;
+    rdfs:label "DewPointTemperature2mMax" ;
+    rdfs:subClassOf hyobs:DewPointTemperature2m ;
+    skos:definition "Dew point temperature at a height of 2 m above Earth surface (Maximum)" ;
+    skos:exactMatch hyobs:DewPointTemperature2mMax ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:DewPointTemperature2mMin a owl:Class ;
+    rdfs:label "DewPointTemperature2mMin" ;
+    rdfs:subClassOf hyobs:DewPointTemperature2m ;
+    skos:definition "Dew point temperature at a height of 2 m above Earth surface (Minimum)" ;
+    skos:exactMatch hyobs:DewPointTemperature2mMin ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:DownwardShortwaveRadiation a owl:Class ;
+    rdfs:label "DownwardShortwaveRadiation" ;
+    skos:definition "Solar radiation received at Earth's surface (300–4000 nm)." ;
+    skos:exactMatch hyobs:DownwardShortwaveRadiation ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:EvapotranspirationPenmanMonteith a owl:Class ;
+    rdfs:label "EvapotranspirationPenmanMonteith" ;
+    skos:definition "Potential evapotranspiration using the Penman–Monteith equation." ;
+    skos:exactMatch envthes:21299,
+        hyobs:EvapotranspirationPenmanMonteith ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:EvapotranspirationPenmanMonteithCorrected a owl:Class ;
+    rdfs:label "EvapotranspirationPenmanMonteithCorrected" ;
+    skos:definition "Corrected Penman–Monteith evapotranspiration with interception correction." ;
+    skos:exactMatch envthes:21299,
+        hyobs:EvapotranspirationPenmanMonteithCorrected ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:ForecastAlbedo a owl:Class ;
+    rdfs:label "ForecastAlbedo" ;
+    skos:definition "Class representing observations of forecast albedo, which is the fraction of solar (shortwave) radiation reflected by Earth's surface (direct and diffuse)" ;
+    skos:exactMatch hyobs:ForecastAlbedo ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:HighVegetationGreenLeafArea a owl:Class ;
+    rdfs:label "HighVegetationGreenLeafArea" ;
+    skos:definition "One-half of the total green leaf area for high-vegetation type" ;
+    skos:exactMatch hyobs:HighVegetationGreenLeafArea ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:LongwaveRadiation a owl:Class ;
+    rdfs:label "LongwaveRadiation" ;
+    skos:closeMatch envthes:22164 ;
+    skos:definition "Thermal radiation emitted by Earth and atmosphere (>4 µm)." ;
+    skos:exactMatch hyobs:LongwaveRadiation ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:LowVegetationGreenLeafArea a owl:Class ;
+    rdfs:label "LowVegetationGreenLeafArea" ;
+    skos:definition "One-half of the total green leaf area for low-vegetation type" ;
+    skos:exactMatch hyobs:LowVegetationGreenLeafArea ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:SurfaceNetSolarRadiationAvg a owl:Class ;
+    rdfs:label "SurfaceNetSolarRadiationAvg" ;
+    rdfs:subClassOf hyobs:SurfaceNetSolarRadiation ;
+    skos:definition "Surface Net Solar Radiation (Average)" ;
+    skos:exactMatch hyobs:SurfaceNetSolarRadiationAvg ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:SurfaceNetSolarRadiationMax a owl:Class ;
+    rdfs:label "SurfaceNetSolarRadiationMax" ;
+    rdfs:subClassOf hyobs:SurfaceNetSolarRadiation ;
+    skos:definition "Surface Net Solar Radiation (Maximum)" ;
+    skos:exactMatch hyobs:SurfaceNetSolarRadiationMax ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:SurfaceNetSolarRadiationMin a owl:Class ;
+    rdfs:label "SurfaceNetSolarRadiationMin" ;
+    rdfs:subClassOf hyobs:SurfaceNetSolarRadiation ;
+    skos:definition "Surface Net Solar Radiation (Minimum)" ;
+    skos:exactMatch hyobs:SurfaceNetSolarRadiationMin ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:SurfaceNetThermalRadiationAvg a owl:Class ;
+    rdfs:label "SurfaceNetThermalRadiationAvg" ;
+    rdfs:subClassOf hyobs:SurfaceNetThermalRadiation ;
+    skos:definition "Surface Net Thermal Radiation (Average)" ;
+    skos:exactMatch hyobs:SurfaceNetThermalRadiationAvg ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:SurfaceNetThermalRadiationMax a owl:Class ;
+    rdfs:label "SurfaceNetThermalRadiationMax" ;
+    rdfs:subClassOf hyobs:SurfaceNetThermalRadiation ;
+    skos:definition "Surface Net Thermal Radiation (Maximum)" ;
+    skos:exactMatch hyobs:SurfaceNetThermalRadiationMax ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:SurfaceNetThermalRadiationMin a owl:Class ;
+    rdfs:label "SurfaceNetThermalRadiationMin" ;
+    rdfs:subClassOf hyobs:SurfaceNetThermalRadiation ;
+    skos:definition "Surface Net Thermal Radiation (Minimum)" ;
+    skos:exactMatch hyobs:SurfaceNetThermalRadiationMin ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:WaterFractionSubsoil a owl:Class ;
+    rdfs:label "WaterFractionSubsoil" ;
+    skos:definition "Class representing observations of the fraction of water in the subsoil layer at a depth of 100 to 289 cm." ;
+    skos:exactMatch hyobs:WaterFractionSubsoil ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:WaterFractionTopsoil a owl:Class ;
+    rdfs:label "WaterFractionTopsoil" ;
+    skos:definition "Class representing observations of the fraction of water in the topsoil layer at a depth of 0 to 100 cm." ;
+    skos:exactMatch hyobs:WaterFractionTopsoil ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:WindSpeedEast10m a owl:Class ;
+    rdfs:label "WindSpeedEast10m" ;
+    skos:definition "Horizontal speed of air moving towards the east at a height of 10 m above Earth surface" ;
+    skos:exactMatch hyobs:WindSpeedEast10m ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:WindSpeedNorth10m a owl:Class ;
+    rdfs:label "WindSpeedNorth10m" ;
+    skos:definition "Vertical speed of air moving towards the north at a height of 10 m above Earth surface" ;
+    skos:exactMatch hyobs:WindSpeedNorth10m ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:Catchment a owl:Class ;
+    rdfs:label "Catchment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:has_mvert_ang ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty hyobs:hasSoil ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:hasLowPrecipitationSeason ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:hasHighPrecipitationSeason ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:has_mvert_dist ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:hasSoil ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:hasRiverBasedRegion ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:hasLowPrecipitationSeason ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:has_mvert_ang ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:hasDominantLandUse ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:hasSoil ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:hasHighPrecipitationSeason ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:hasDominantLandUse ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty hyobs:has_mvert_dist ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty hyobs:hasLowPrecipitationSeason ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty hyobs:hasDominantLandUse ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty hyobs:has_mvert_dist ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty hyobs:hasRiverBasedRegion ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty hyobs:hasRiverBasedRegion ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:decimal ;
+            owl:onProperty hyobs:has_mvert_ang ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty hyobs:hasHighPrecipitationSeason ] ;
+    skos:exactMatch envthes:10092 ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:GovnrID a owl:Class ;
+    rdfs:label "GovnrID" ;
+    skos:definition "Government ID" ;
+    skos:exactMatch hyobs:GovnrID ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasDominantLandUse a owl:DatatypeProperty ;
+    rdfs:label "hasDominantLandUse" ;
+    dcterms:title "Dominant land use type" ;
+    rdfs:range xsd:string ;
+    skos:definition "dominant land cover class over the area" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasHighPrecipitationSeason a owl:DatatypeProperty ;
+    rdfs:label "hasHighPrecipitationSeason" ;
+    dcterms:title "has High precipitation season" ;
+    rdfs:range xsd:string ;
+    skos:definition "Season during which most high-precipitation days (≥5 times mean daily precipitation) occurs" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasLowPrecipitationSeason a owl:DatatypeProperty ;
+    rdfs:label "hasLowPrecipitationSeason" ;
+    dcterms:title "has Low precipitation season" ;
+    rdfs:range xsd:string ;
+    skos:definition "Season during which most dry days (<1 mm d-1 daily average Precipitation) occurs" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasSoil a owl:DatatypeProperty ;
+    rdfs:label "hasSoil" ;
+    dcterms:title "Has soil" ;
+    rdfs:range xsd:string ;
+    skos:definition "Connects an area or a point to the soil" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:has_mvert_ang a owl:DatatypeProperty ;
+    rdfs:label "has_mvert_ang" ;
+    dcterms:title "Has mvert ang" ;
+    rdfs:range xsd:decimal ;
+    skos:definition "Angle between the north direction and connection from farthest point of catchment to the corresponding gauge (length axis); e.g., direction from north (farthest catchment point) to south (gauge) 180∘, direction from east to west 270∘" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:has_mvert_dist a owl:DatatypeProperty ;
+    rdfs:label "has_mvert_dist" ;
+    dcterms:title "Longest distance from the gauge" ;
+    rdfs:range xsd:string ;
+    skos:definition "Horizontal distance from the farthest point of the catchment to the corresponding gauge (length axis)" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:monitorsCatchment a owl:ObjectProperty ;
+    rdfs:label "monitorsCatchment" ;
+    dcterms:title "monitors Catchment" ;
+    rdfs:range hyobs:Catchment ;
+    skos:definition "Relates a sensor or gauge to a catchment area it monitors" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:producesTimeseries a owl:DatatypeProperty ;
+    rdfs:label "producesTimeseries" ;
+    dcterms:title "has Time Series" ;
+    rdfs:range xsd:string ;
+    skos:definition "has Time Series" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:AirTemperature2m a owl:Class ;
+    rdfs:label "AirTemperature2m" ;
+    skos:definition "Air temperature at a height of 2 m above Earth surface" ;
+    skos:exactMatch hyobs:AirTemperature2m ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:DewPointTemperature2m a owl:Class ;
+    rdfs:label "DewPointTemperature2m" ;
+    skos:definition "Dew point temperature at a height of 2 m above Earth surface" ;
+    skos:exactMatch hyobs:DewPointTemperature2m ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:SurfaceNetSolarRadiation a owl:Class ;
+    rdfs:label "SurfaceNetSolarRadiation" ;
+    skos:definition "Class representing observations of surface net solar radiation, i.e., the amount of solar radiation reaching the Earth's surface minus the amount reflected by the Earth's surface (governed by albedo); positive sign is an indicator for radiation to the Earth" ;
+    skos:exactMatch hyobs:SurfaceNetSolarRadiation ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:SurfaceNetThermalRadiation a owl:Class ;
+    rdfs:label "SurfaceNetThermalRadiation" ;
+    skos:definition "Class representing observations of surface thermal radiation, i.e., net thermal radiation at the Earth's surface; positive sign is an indicator for radiation from the Earth." ;
+    skos:exactMatch hyobs:SurfaceNetThermalRadiation ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+hyobs:hasRiverBasedRegion a owl:DatatypeProperty ;
+    rdfs:label "hasRiverBasedRegion" ;
+    dcterms:title "River-based region" ;
+    rdfs:range xsd:string ;
+    skos:definition "Name of the river-based region" ;
+    skos:inScheme <https://nfdi4earth.pages.rwth-aachen.de/knowledgehub/nfdi4earth-ontology/test_hyd> .
+
+

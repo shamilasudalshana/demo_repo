@@ -1,0 +1,2 @@
+https://raw.githubusercontent.com/shamilasudalshana/demo_repo/refs/heads/main/out_attributes_QUADICA.ttl
+https://raw.githubusercontent.com/shamilasudalshana/demo_repo/refs/heads/main/out_stations_QUADICA.ttl

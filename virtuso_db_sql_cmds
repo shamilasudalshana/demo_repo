@@ -1,0 +1,26 @@
+ld_dir('/mnt/data/ssh/lamah_ce/catchment_ts/1_406', '*.ttl', 'https://hydroturtle.de/lamah_ce');
+
+rdf_loader_run();
+
+checkpoint;
+
+# Delete load list 
+DELETE FROM DB.DBA.LOAD_LIST;
+
+
+# Load 
+
+SELECT ll_file, ll_state, ll_error
+FROM DB.DBA.LOAD_LIST
+ORDER BY ll_file;
+
+
+#Count 
+SELECT COUNT(*)
+FROM DB.DBA.RDF_QUAD
+WHERE G = iri_to_id('https://hydroturtle.de/lamah_ce');
+
+# Delete the graphs 
+DELETE FROM DB.DBA.RDF_QUAD
+WHERE G = iri_to_id('http://hydroturtle/quadiTest_rk_1');
+

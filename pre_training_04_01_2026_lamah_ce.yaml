@@ -12,7 +12,7 @@
 
         SELECT ?name ?wkt ?lon ?lat ?elevation
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?sensor a sosa:Sensor ;
                     schema:name ?name ;
                     geo:hasGeometry ?geom .
@@ -42,7 +42,7 @@
 
         SELECT ?sensor ?stationName ?catchment ?area ?wkt ?lon ?lat ?elevation
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # Sensor -> Catchment -> Area
             ?sensor a sosa:Sensor ;
@@ -79,7 +79,7 @@
 
         SELECT ?catchment ?neighborCatchment ?neighborWkt
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # Resolve the target catchment from the station id
             ?sensor a sosa:Sensor ;
@@ -118,7 +118,7 @@
 
         SELECT ?topCatchment ?topTotalPrecip ?neighborCatchment
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # 1) Find the catchment with the highest total precipitation in 2012–2015
             {
@@ -170,7 +170,7 @@
 
         SELECT ?catchment ?area
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?catchment hyobs:catchment_area_calculated ?area .
           }
         }
@@ -189,7 +189,7 @@
 
         SELECT ?catchment ?catchmentArea
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?catchment hyobs:catchment_area_calculated ?catchmentArea .
           }
         }
@@ -209,7 +209,7 @@
 
         SELECT ?highestSensor ?highestEle ?lowestSensor ?lowestEle ?distance
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # --- highest elevation station ---
             {
@@ -256,7 +256,7 @@
 
         SELECT ?neighborSensor ?distance
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
 
             # 1) Identify the reference gauging station (station nr. 1)
@@ -299,7 +299,7 @@
 
         SELECT ?riverRegion
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # Find the gauging station by its human-readable name
             ?sensor a sosa:Sensor ;
@@ -325,7 +325,7 @@
 
         SELECT ?catchment ?meanPrecip
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT ?catchment (AVG(xsd:decimal(?val)) AS ?meanPrecip)
               WHERE {
@@ -361,7 +361,7 @@
 
         SELECT ?catchment ?annualPrecip
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
 
             # Annual precipitation per catchment in Austria (AUT) in 2000
@@ -412,7 +412,7 @@
 
         SELECT ?upstreamSensor ?upstreamName ?upstreamEle
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # Reference station: station 88 (get its river + elevation)
             ?refSensor a sosa:Sensor ;
@@ -455,7 +455,7 @@
 
         SELECT ?minFlow ?maxFlow
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
 
             # Find the gauging station by name ("Garsella")
@@ -497,7 +497,7 @@
 
         SELECT ?minFlow ?maxFlow
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             {
               SELECT
@@ -532,7 +532,7 @@
 
         SELECT ?catchment (AVG(?annualTotal) AS ?avgAnnualPrecip)
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # Step 1: compute annual precipitation totals per year (SUM)
             # Step 2: average those annual totals across 2012–2015 (AVG)
@@ -578,7 +578,7 @@
 
         SELECT ?month ?meanMonthlyFlow
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # Expalnation aiming finetuning LLMs 
             # Goal: Find the month in 2012 with the highest flow rate across all Austrian (AUT) gauging stations.
@@ -636,7 +636,7 @@
 
         SELECT ?year ?avgAnnualPrecip
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # ------------------------------------------------------------
             # Goal: Find years where average annual precipitation is
@@ -702,7 +702,7 @@
 
         SELECT (COUNT(DISTINCT ?day) AS ?frostDays)
         WHERE {
-          GRAPH <hydroturtle/lamahCeTest3> {
+          GRAPH <hydroturtle/lamah_ce> {
 
             # Goal: Count frost days at station "Bangs" between 2010 and 2020.
             # Frost day definition: daily average 2m air temperature < 0 °C.

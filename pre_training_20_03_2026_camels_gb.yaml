@@ -12,7 +12,7 @@
 
         SELECT ?name ?wkt ?lon ?lat ?elevation
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?sensor a sosa:Sensor ;
                     schema:name ?name ;
                     geo:hasGeometry ?geom .
@@ -44,7 +44,7 @@
 
         SELECT ?sensor ?stationName ?catchment ?area ?wkt ?lon ?lat ?elevation
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?sensor a sosa:Sensor ;
                     hyobs:monitorsCatchment ?catchment ;
                     geo:hasGeometry ?geom .
@@ -78,7 +78,7 @@
 
         SELECT ?catchment ?neighborCatchment ?neighborWkt
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?sensor a sosa:Sensor ;
                     dct:identifier ?sensorId ;
                     hyobs:monitorsCatchment ?catchment .
@@ -111,7 +111,7 @@
 
         SELECT ?topCatchment ?topTotalPrecip ?neighborCatchment
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT ?topCatchment (SUM(xsd:decimal(?precVal)) AS ?topTotalPrecip)
               WHERE {
@@ -158,7 +158,7 @@
 
         SELECT ?catchment ?area
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?catchment hyobs:hasCatchmentArea ?areaNode .
             ?areaNode qudt:numericValue ?area .
           }
@@ -178,7 +178,7 @@
 
         SELECT ?catchment ?area
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?catchment hyobs:hasCatchmentArea ?areaNode .
             ?areaNode qudt:numericValue ?area .
           }
@@ -199,7 +199,7 @@
 
         SELECT ?highestSensor ?highestEle ?lowestSensor ?lowestEle ?distance
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT ?highestSensor ?highestEle ?wktHigh
               WHERE {
@@ -277,7 +277,7 @@
 
         SELECT ?river
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?sensor a sosa:Sensor ;
                     schema:name ?stationName ;
                     dbo:river ?river .
@@ -299,7 +299,7 @@
 
         SELECT ?catchment ?meanPrecip
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT ?catchment (AVG(xsd:decimal(?val)) AS ?meanPrecip)
               WHERE {
@@ -334,7 +334,7 @@
 
         SELECT ?catchment ?annualPrecip
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT ?catchment (SUM(xsd:decimal(?val)) AS ?annualPrecip)
               WHERE {
@@ -372,7 +372,7 @@
 
         SELECT ?minFlow ?maxFlow
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             ?sensor a sosa:Sensor ;
                     schema:name ?stationName .
             FILTER(lcase(str(?stationName)) = "wick at tarroul")
@@ -406,7 +406,7 @@
 
         SELECT ?minPrecipitation ?maxPrecipitation
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT
                 (MIN(xsd:decimal(?val)) AS ?minPrecipitation)
@@ -436,7 +436,7 @@
 
         SELECT ?catchment (AVG(?annualTotal) AS ?avgAnnualPrecip)
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT ?catchment ?year (SUM(xsd:decimal(?val)) AS ?annualTotal)
               WHERE {
@@ -472,7 +472,7 @@
 
         SELECT ?month ?meanMonthlyFlow
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT ?month (AVG(xsd:decimal(?val)) AS ?meanMonthlyFlow)
               WHERE {
@@ -509,7 +509,7 @@
 
         SELECT ?year ?avgAnnualPrecip
         WHERE {
-          GRAPH <https://hydroturtle.de/camels_gb> {
+          GRAPH <hydroturtle/lamah_ce> {
             {
               SELECT ?year (AVG(?annualTotal) AS ?avgAnnualPrecip)
               WHERE {

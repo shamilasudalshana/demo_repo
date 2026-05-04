@@ -11,7 +11,7 @@
 
         SELECT ?name ?wkt ?lon ?lat
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
                     schema:name ?name ;
                     geo:hasGeometry ?geom .
@@ -41,7 +41,7 @@
 
         SELECT ?sensor ?stationName ?catchment ?area ?wkt ?lon ?lat
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
                     geo:hasGeometry ?geom;
                     hyobs:monitorsCatchment ?catchment .
@@ -73,7 +73,7 @@
 
         SELECT ?catchment ?neighborCatchment ?neighborWkt
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
                     dct:identifier ?sensorId ;
                     hyobs:monitorsCatchment ?catchment .
@@ -106,7 +106,7 @@
 
         SELECT ?topCatchment ?topMedian ?neighborCatchment
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             {
               SELECT ?topCatchment (MAX(xsd:decimal(?val)) AS ?topMedian)
               WHERE {
@@ -151,7 +151,7 @@
 
         SELECT ?catchment ?area
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?catchment hyobs:hasCatchmentArea ?areaNode .
             ?areaNode qudt:numericValue ?area .
           }
@@ -171,7 +171,7 @@
 
         SELECT ?catchment ?area
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?catchment hyobs:hasCatchmentAreaKm2 ?areaNode .
             ?areaNode qudt:numericValue ?area .
           }
@@ -193,7 +193,7 @@
 
         SELECT ?highestSensor ?highestVal ?lowestSensor ?lowestVal ?distance
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             {
               SELECT ?highestSensor ?highestVal ?wktHigh
               WHERE {
@@ -253,7 +253,7 @@
 
         SELECT ?neighborSensor ?neighborName ?distance
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?refSensor a sosa:Sensor ;
                       schema:name "SN_OBF01800_m"^^xsd:string ;
                       geo:hasGeometry ?refGeom .
@@ -285,7 +285,7 @@
 
         SELECT ?river
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
                     schema:name ?stationName ;
                     dbo:river ?river .
@@ -309,7 +309,7 @@
 
         SELECT ?catchment ?medianNO3N
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             {
               SELECT ?catchment (MAX(xsd:decimal(?val)) AS ?medianNO3N)
               WHERE {
@@ -347,7 +347,7 @@
 
         SELECT ?catchment ?medianPO4P
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             {
               SELECT ?catchment (MAX(xsd:decimal(?val)) AS ?medianPO4P)
               WHERE {
@@ -386,7 +386,7 @@
 
         SELECT ?minFlow ?maxFlow
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
                     schema:name ?stationName
             FILTER(str(?stationName) = "BW_CTA913")
@@ -419,7 +419,7 @@
 
         SELECT ?minFlow ?maxFlow
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             {
               SELECT
                 (MIN(xsd:decimal(?val)) AS ?minFlow)
@@ -448,7 +448,7 @@
 
         SELECT ?catchment (AVG(?annualDOC) AS ?avgAnnualDOC)
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             {
               SELECT ?catchment ?year (AVG(xsd:decimal(?val)) AS ?annualDOC)
               WHERE {
@@ -487,7 +487,7 @@
 
         SELECT ?month ?medianNO3N
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             {
               SELECT ?month (MAX(xsd:decimal(?val)) AS ?medianNO3N)
               WHERE {
@@ -531,7 +531,7 @@
 
         SELECT ?year ?nationalMedianQ
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             {
               SELECT ?year (AVG(xsd:decimal(?val)) AS ?nationalMedianQ)
               WHERE {
@@ -576,7 +576,7 @@
 
         SELECT (COUNT(DISTINCT ?month) AS ?monthsAbove11)
         WHERE {
-          GRAPH <https://hydroturtle.de/quadica> {
+          GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
                     schema:name ?stationName. 
             FILTER(lcase(str(?stationName)) = "bw_cks022")

@@ -453,36 +453,26 @@
         PREFIX schema:  <http://schema.org/>
         PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
 
-        SELECT ?minFlow ?maxFlow
+        SELECT  (MIN(xsd:decimal(?val)) AS ?minFlow)  (MAX(xsd:decimal(?val)) AS ?maxFlow)
         WHERE {
           GRAPH <hydroturtle/lamah_ce> {
-
-
+            {
             # Find the gauging station by name ("Garsella")
             ?sensor a sosa:Sensor ;
                     schema:name ?stationName .
-
-            # Robust name match (datatype/lang-tag safe) - make ths lowercase to llm fine tune forcus
-            FILTER(lcase(str(?stationName)) = "garsella")
-
-            # 2) Get all river flow observations made by this sensor
-            #    (flow observedProperty = envthes:21242)
+            # Robust name match (datatype/lang-tag safe) - make this lowercase to llm fine tune focus
+            FILTER(lcase(str(?stationName)) = "garsella")}
             {
-              SELECT
-                (MIN(xsd:decimal(?val)) AS ?minFlow)
-                (MAX(xsd:decimal(?val)) AS ?maxFlow)
-              WHERE {
+            # Get all river flow observations made by this sensor
+            #  (flow observedProperty = envthes:21242)   
                 ?obs a sosa:Observation ;
                     sosa:observedProperty envthes:21242 ;
                     sosa:madeBySensor ?sensor ;
                     sosa:hasResult ?res .
-
-                ?res qudt:numericValue ?val .
-              }
-            }
+                ?res qudt:numericValue ?val .}
+            
           }
         }
-
 - messages:
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
@@ -516,6 +506,7 @@
 
           }
         }
+
 
 - messages:
     - role: system

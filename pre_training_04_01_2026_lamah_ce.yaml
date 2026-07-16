@@ -290,7 +290,7 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "What is name of the river connected to gauging station 'Loruens-Aeule'?"
+      content: "What is the name of the river-based region connected to the gauging station 'Loruens-Aeule'?"
     - role: assistant
       content: |
         PREFIX hyobs:  <https://w3id.org/hmontology/>

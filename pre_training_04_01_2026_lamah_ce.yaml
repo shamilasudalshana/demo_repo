@@ -547,17 +547,16 @@
       content: "Which month experienced the highest flow rate in Austria in 2012?"
     - role: assistant
       content: |
-        PREFIX sosa:    <http://www.w3.org/ns/sosa/>
+
+      PREFIX sosa:    <http://www.w3.org/ns/sosa/>
         PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
         PREFIX qudt:    <http://qudt.org/schema/qudt/>
         PREFIX esco:    <http://data.europa.eu/esco/model#>
         PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
-
-        SELECT ?month ?meanMonthlyFlow
+        
+        SELECT ?month (AVG(xsd:decimal(?val)) AS ?meanMonthlyFlow)
         WHERE {
-          GRAPH <hydroturtle/lamah_ce> {
-
-            # Expalnation aiming finetuning LLMs 
+            # Explanation aiming for fine-tuning LLMs 
             # Goal: Find the month in 2012 with the highest flow rate across all Austrian (AUT) gauging stations.
             #
             # Approach:
@@ -565,38 +564,35 @@
             #   2) Keep only observations from sensors in Austria (AUT)
             #   3) Group by month and compute mean monthly flow
             #   4) Return the month with the highest mean monthly flow
-
-            {
-              SELECT ?month (AVG(xsd:decimal(?val)) AS ?meanMonthlyFlow)
-              WHERE {
-                # Flow observations
-                ?obs a sosa:Observation ;
-                    sosa:observedProperty envthes:21242 ;
-                    sosa:madeBySensor ?sensor ;
-                    sosa:resultTime ?t ;
-                    sosa:hasResult ?res .
-
-                # Numeric value of flow (m3/s)
-                ?res qudt:numericValue ?val .
-
-                # Restrict to Austria using ISO A3 code
-                ?sensor esco:isoCountryCodeA3 ?code .
-                FILTER(str(?code) = "AUT")
-
-                # Restrict to year 2012
-                BIND(YEAR(?t) AS ?year)
-                FILTER(?year = 2012)
-
-                # Extract month number (1–12)
-                BIND(MONTH(?t) AS ?month)
-              }
-              GROUP BY ?month
-              ORDER BY DESC(?meanMonthlyFlow)
-              LIMIT 1
-            }
-
+          GRAPH <hydroturtle/lamah_ce> 
+          {
+        
+            # Flow observations
+            ?obs a sosa:Observation ;
+                sosa:observedProperty envthes:21242 ;
+                sosa:madeBySensor ?sensor ;
+                sosa:resultTime ?t ;
+                sosa:hasResult ?res .
+        
+            # Numeric value of flow (m3/s)
+            ?res qudt:numericValue ?val .
+        
+            # Restrict to Austria using ISO A3 code
+            ?sensor esco:isoCountryCodeA3 ?code .
+            FILTER(str(?code) = "AUT")
+        
+            # Restrict to year 2012
+            BIND(YEAR(?t) AS ?year)
+            FILTER(?year = 2012)
+        
+            # Extract month number (1–12)
+            BIND(MONTH(?t) AS ?month)
           }
+        
         }
+        GROUP BY ?month
+        ORDER BY DESC(?meanMonthlyFlow)
+        LIMIT 1
 
 - messages:
     - role: system
@@ -715,22 +711,3 @@
             BIND(xsd:date(?t) AS ?day)
           }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-

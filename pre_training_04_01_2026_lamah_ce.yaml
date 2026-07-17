@@ -353,48 +353,34 @@
       content: "Which catchments recorded total precipitation above 1000 mm in Austria in 2010?"
     - role: assistant
       content: |
-        PREFIX sosa:    <http://www.w3.org/ns/sosa/>
+        PREFIX sosa: <http://www.w3.org/ns/sosa/>
         PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
-        PREFIX qudt:    <http://qudt.org/schema/qudt/>
-        PREFIX esco:    <http://data.europa.eu/esco/model#>
-        PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
-
-        SELECT ?catchment ?annualPrecip
+        PREFIX qudt: <http://qudt.org/schema/qudt/>
+        PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+        PREFIX sf: <http://www.opengis.net/ont/sf#>
+        PREFIX esco: <http://data.europa.eu/esco/model#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        
+        SELECT ?catchment (SUM(xsd:decimal(?val)) AS ?annualPrecip)
         WHERE {
           GRAPH <hydroturtle/lamah_ce> {
-
-
-            # Annual precipitation per catchment in Austria (AUT) in 2000
-            # (daily values summed to get mm/year)
-            {
-              SELECT ?catchment (SUM(xsd:decimal(?val)) AS ?annualPrecip)
-              WHERE {
-                ?obs a sosa:Observation ;
-                    sosa:observedProperty envthes:30106 ;
-                    sosa:hasFeatureOfInterest ?catchment ;
-                    sosa:madeBySensor ?sensor ;
-                    sosa:resultTime ?t ;
-                    sosa:hasResult ?res .
-
-                ?res qudt:numericValue ?val .
-
-                # Austria (in ISO A3 codes)
-                ?sensor esco:isoCountryCodeA3 ?code .
-                FILTER(str(?code) = "AUT")
-
-                # Year 2020
-                FILTER(?t >= "2010-01-01T00:00:00Z"^^xsd:dateTime &&
-                      ?t <  "2011-01-01T00:00:00Z"^^xsd:dateTime)
+            ?obs a sosa:Observation ;
+                 sosa:observedProperty envthes:30106 ;
+                 sosa:hasFeatureOfInterest ?catchment ;
+                 sosa:madeBySensor ?sensor ;
+                 sosa:resultTime ?t ;
+                 sosa:hasResult ?result .
+            ?result qudt:numericValue ?val .
+            # Austria (in ISO A3 codes)
+            ?sensor esco:isoCountryCodeA3 ?country .
+            FILTER(str(?country) = "AUT")
+            FILTER(?t >= "2010-01-01T00:00:00Z"^^xsd:dateTime &&
+                  ?t <  "2011-01-01T00:00:00Z"^^xsd:dateTime)
               }
-              GROUP BY ?catchment
             }
-
-            # Threshold in mm/year
-            FILTER(?annualPrecip > 1000)
-          }
-        }
-        ORDER BY DESC(?annualPrecip)
-
+            GROUP BY ?catchment 
+            HAVING (SUM(xsd:decimal(?val)) > 1000)
+            ORDER BY DESC (?annualPrecip)
 - messages:
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."

@@ -91,12 +91,13 @@
       content: "Which catchments share a boundary with the catchment that recorded the highest annual median NO₃-N in 1999? "
     - role: assistant
       content: |
-        PREFIX hyobs:  <https://w3id.org/hmontology/>
+ PREFIX hyobs:  <https://w3id.org/hmontology/>
         PREFIX geo:    <http://www.opengis.net/ont/geosparql#>
         PREFIX sosa:   <http://www.w3.org/ns/sosa/>
         PREFIX qudt:   <http://qudt.org/schema/qudt/>
         PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
         PREFIX chebi:  <http://purl.obolibrary.org/obo/CHEBI_>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 
         SELECT ?topCatchment ?topMedian ?neighborCatchment
         WHERE {
@@ -105,7 +106,7 @@
               SELECT ?topCatchment (MAX(xsd:decimal(?val)) AS ?topMedian)
               WHERE {
                 ?obs a sosa:Observation ;
-                    sosa:observedProperty ?prop ;
+                    sosa:observedProperty hyobs:NO3NConcentrationMedian ;
                     hyobs:hasAnalyte chebi:17632 ;
                     sosa:hasFeatureOfInterest ?topCatchment ;
                     sosa:resultTime ?t ;
@@ -114,7 +115,6 @@
                 ?res qudt:numericValue ?val .
 
                 FILTER(YEAR(?t) = 1999)
-                FILTER(?prop = hyobs:NO3NConcentrationMedian || ?prop = hyobs:SoluteConcentrationMedian)
               }
               GROUP BY ?topCatchment
               ORDER BY DESC(?topMedian)
@@ -132,7 +132,6 @@
             FILTER(bif:st_intersects(?wkt1, ?neighborWkt, 0))
           }
         }
-
 - messages:
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
@@ -311,16 +310,15 @@
               SELECT ?catchment (MAX(xsd:decimal(?val)) AS ?medianNO3N)
               WHERE {
                 ?obs a sosa:Observation ;
-                    sosa:observedProperty ?prop ;
+                    sosa:observedProperty hyobs:NO3NConcentrationMedian ;
                     hyobs:hasAnalyte chebi:17632 ;
                     sosa:hasFeatureOfInterest ?catchment ;
                     sosa:resultTime ?t ;
                     sosa:hasResult ?res .
 
                 ?res qudt:numericValue ?val .
-
                 FILTER(YEAR(?t) = 2010)
-                FILTER(?prop = hyobs:NO3NConcentrationMedian || ?prop = hyobs:SoluteConcentrationMedian)
+                
               }
               GROUP BY ?catchment
               ORDER BY DESC(?medianNO3N)
@@ -328,7 +326,7 @@
             }
           }
         }
-
+        
 - messages:
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."

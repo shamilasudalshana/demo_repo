@@ -159,10 +159,12 @@
       content: |
         PREFIX hyobs: <https://w3id.org/hmontology/>
         PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 
         SELECT ?catchment ?area
         WHERE {
           GRAPH <hydroturtle/lamah_ce> {
+            ?catchment a envthes:30212.
             ?catchment hyobs:catchment_area_calculated ?area .
           }
         }
@@ -178,10 +180,12 @@
       content: |
         PREFIX hyobs: <https://w3id.org/hmontology/>
         PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 
         SELECT ?catchment ?catchmentArea
         WHERE {
           GRAPH <hydroturtle/lamah_ce> {
+            ?catchment a envthes:30212.
             ?catchment hyobs:catchment_area_calculated ?catchmentArea .
           }
         }

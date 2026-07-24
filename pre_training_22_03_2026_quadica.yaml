@@ -63,7 +63,7 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "What are the boundaries of neighboring catchments to the catchment monitored by sensor 101?"
+      content: "What is the boundary of the catchment monitored by sensor 101?"
     - role: assistant
       content: |
         PREFIX hyobs: <https://w3id.org/hmontology/>
@@ -71,7 +71,7 @@
         PREFIX sosa: <http://www.w3.org/ns/sosa/>
         PREFIX dct:  <http://purl.org/dc/terms/>
 
-        SELECT ?catchment ?neighborCatchment ?neighborWkt
+        SELECT ?catchment ?wkt1
         WHERE {
           GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
@@ -80,14 +80,7 @@
             FILTER(str(?sensorId) = "101")
 
             ?catchment geo:hasGeometry ?g1 .
-            ?g1 geo:asWKT ?wkt1 .
-            
-            ?neighborCatchment a envthes:30212.
-            ?neighborCatchment geo:hasGeometry ?g2 .
-            ?g2 geo:asWKT ?neighborWkt .
-
-            FILTER(?neighborCatchment != ?catchment)
-            FILTER(bif:st_intersects(?wkt1, ?neighborWkt, 0))
+            ?g1 geo:asWKT ?wkt1 .         
           }
         }
 

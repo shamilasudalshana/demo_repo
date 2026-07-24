@@ -152,6 +152,7 @@
             ?g1 geo:asWKT ?wkt1 .
 
             # 3) Find other catchments whose polygons touch/intersect at distance 0
+            ?neighborCatchment a envthes:30212.
             ?neighborCatchment geo:hasGeometry ?g2 .
             ?g2 geo:asWKT ?neighborWkt .
 

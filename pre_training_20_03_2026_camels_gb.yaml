@@ -68,7 +68,7 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "What are the boundaries of neighboring catchments to catchment 3003?"
+      content: "What are the boundaries of neighboring catchments to the catchment monitored by sensor 3003?"
     - role: assistant
       content: |
         PREFIX hyobs: <https://w3id.org/hmontology/>

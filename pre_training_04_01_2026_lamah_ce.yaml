@@ -76,6 +76,7 @@
         PREFIX geo:  <http://www.opengis.net/ont/geosparql#>
         PREFIX sosa: <http://www.w3.org/ns/sosa/>
         PREFIX dct:  <http://purl.org/dc/terms/>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 
         SELECT ?catchment ?neighborCatchment ?neighborWkt
         WHERE {
@@ -92,7 +93,8 @@
             ?catchment geo:hasGeometry ?g1 .
             ?g1 geo:asWKT ?wkt1 .
 
-            # Find neighbors that touch it
+            # Find neighbors that touch it, which are of type catchment
+            ?neighborCatchment a envthes:30212.
             ?neighborCatchment geo:hasGeometry ?g2 .
             ?g2 geo:asWKT ?neighborWkt .
 

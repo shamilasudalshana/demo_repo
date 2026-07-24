@@ -190,7 +190,6 @@
             ?areaNode qudt:numericValue ?area .
           }
         }
-        ORDER BY ?catchment
 
 - messages:
     - role: system

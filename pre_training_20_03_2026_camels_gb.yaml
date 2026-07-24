@@ -267,20 +267,21 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "What is name of the river connected to gauging station 'Loruens-Aeule'?"
+      content: "What is the name of the station with the ID 12005?"
     - role: assistant
       content: |
         PREFIX sosa:   <http://www.w3.org/ns/sosa/>
         PREFIX schema: <http://schema.org/>
-        PREFIX dbo:    <http://dbpedia.org/ontology/>
+        PREFIX dct:  <http://purl.org/dc/terms/>
 
-        SELECT ?river
+        SELECT ?stationName ?stationId
         WHERE {
           GRAPH <hydroturtle/camels_gb> {
             ?sensor a sosa:Sensor ;
-                    schema:name ?stationName ;
-                    dbo:river ?river .
-            FILTER(lcase(str(?stationName)) = "water of dye at charr")
+                   dct:identifier ?stationId;
+        		   schema:name ?stationName.
+            FILTER(str(?stationId) = "12005")
+
           }
         }
 

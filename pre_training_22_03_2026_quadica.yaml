@@ -150,10 +150,12 @@
         PREFIX hyobs: <https://w3id.org/hmontology/>
         PREFIX qudt:  <http://qudt.org/schema/qudt/>
         PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 
         SELECT ?catchment ?area
         WHERE {
           GRAPH <hydroturtle/quadica> {
+            ?catchment a envthes:30212.
             ?catchment hyobs:hasCatchmentArea ?areaNode .
             ?areaNode qudt:numericValue ?area .
           }
@@ -170,15 +172,16 @@
       content: |
         PREFIX hyobs: <https://w3id.org/hmontology/>
         PREFIX qudt:  <http://qudt.org/schema/qudt/>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 
         SELECT ?catchment ?area
         WHERE {
           GRAPH <hydroturtle/quadica> {
+            ?catchment a envthes:30212.
             ?catchment hyobs:hasCatchmentAreaKm2 ?areaNode .
             ?areaNode qudt:numericValue ?area .
           }
         }
-        ORDER BY ?catchment
 
 - messages:
     - role: system

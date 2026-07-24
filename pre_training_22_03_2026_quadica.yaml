@@ -63,7 +63,7 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "What is the boundary of Catchment 101? [neighbouring catchments] "
+      content: "What are the boundaries of neighboring catchments to the catchment monitored by sensor 101?"
     - role: assistant
       content: |
         PREFIX hyobs: <https://w3id.org/hmontology/>
@@ -81,7 +81,8 @@
 
             ?catchment geo:hasGeometry ?g1 .
             ?g1 geo:asWKT ?wkt1 .
-
+            
+            ?neighborCatchment a envthes:30212.
             ?neighborCatchment geo:hasGeometry ?g2 .
             ?g2 geo:asWKT ?neighborWkt .
 
@@ -130,6 +131,7 @@
             ?topCatchment geo:hasGeometry ?g1 .
             ?g1 geo:asWKT ?wkt1 .
 
+            ?neighborCatchment a envthes:30212.
             ?neighborCatchment geo:hasGeometry ?g2 .
             ?g2 geo:asWKT ?neighborWkt .
 

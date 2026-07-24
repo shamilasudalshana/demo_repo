@@ -273,24 +273,23 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "What is name of the river connected to gauging station 'NW_215004'?"
+      content: "What is the name of the station with the ID 219?"
     - role: assistant
       content: |
         PREFIX sosa:   <http://www.w3.org/ns/sosa/>
         PREFIX schema: <http://schema.org/>
-        PREFIX  dbo: <http://dbpedia.org/ontology/>
-        PREFIX hyobs:  <https://w3id.org/hmontology/>
+        PREFIX dct:  <http://purl.org/dc/terms/>
 
-        SELECT ?river
+        SELECT ?stationName ?stationId
         WHERE {
           GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
-                    schema:name ?stationName ;
-                    dbo:river ?river .
-
-            FILTER(str(?stationName) = "NW_215004")
+                   dct:identifier ?stationId;
+        		   schema:name ?stationName.
+            FILTER(str(?stationId) = "219")
           }
         }
+        
 
 - messages:
     - role: system

@@ -373,32 +373,26 @@
       content: "What are the minimum and maximum discharge observed at station 'BW_CTA913'?"
     - role: assistant
       content: |
-        PREFIX sosa:    <http://www.w3.org/ns/sosa/>
-        PREFIX schema:  <http://schema.org/>
+       PREFIX sosa:    <http://www.w3.org/ns/sosa/>
         PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
         PREFIX qudt:    <http://qudt.org/schema/qudt/>
+        PREFIX schema:  <http://schema.org/>
         PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
 
-        SELECT ?minFlow ?maxFlow
+        SELECT (MIN(xsd:decimal(?val)) AS ?minDischarge) (MAX(xsd:decimal(?val)) AS ?maxDischarge)
         WHERE {
-          GRAPH <hydroturtle/quadica> {
-            ?sensor a sosa:Sensor ;
-                    schema:name ?stationName
-            FILTER(str(?stationName) = "BW_CTA913")
-            {
-              SELECT
-                (MIN(xsd:decimal(?val)) AS ?minFlow)
-                (MAX(xsd:decimal(?val)) AS ?maxFlow)
-              WHERE {
+          GRAPH <hydroturtle/quadica>
+          {
                 ?obs a sosa:Observation ;
                     sosa:observedProperty envthes:21242 ;
                     sosa:madeBySensor ?sensor ;
                     sosa:hasResult ?res .
                 ?res qudt:numericValue ?val .
+                ?sensor a sosa:Sensor ;
+                    schema:name ?stationName .
+                FILTER(str(?stationName) = "BW_CTA913")
               }
             }
-          }
-        }
 
 - messages:
     - role: system

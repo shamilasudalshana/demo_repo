@@ -568,7 +568,7 @@
 
         SELECT (COUNT(DISTINCT ?day) AS ?frostDays)
         WHERE {
-          GRAPH <hydroturtle/camelsGb> {
+          GRAPH <hydroturtle/camels_gb> {
             ?sensor a sosa:Sensor ;
                     schema:name ?stationName .
             FILTER(lcase(str(?stationName)) = "brora at bruachrobie")

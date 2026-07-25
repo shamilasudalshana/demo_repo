@@ -528,9 +528,11 @@
         WHERE {
           GRAPH <hydroturtle/camels_gb> {
             {
+              # for a given year, take the average over all catchments 
               SELECT ?year (AVG(?annualTotal) AS ?avgAnnualPrecip)
               WHERE {
                 {
+                 # take annual total per catchment
                   SELECT ?year ?catchment (SUM(xsd:decimal(?val)) AS ?annualTotal)
                   WHERE {
                     ?obs a sosa:Observation ;
@@ -548,7 +550,7 @@
               GROUP BY ?year
             }
 
-            FILTER(?avgAnnualPrecip < 1500)
+            FILTER(?avgAnnualPrecip < 1200)
           }
         }
         ORDER BY ?year
@@ -573,7 +575,6 @@
                     schema:name ?stationName .
             FILTER(lcase(str(?stationName)) = "brora at bruachrobie")
 
-
             ?obs a sosa:Observation ;
                 sosa:observedProperty envthes:21524 ;
                 sosa:madeBySensor ?sensor ;
@@ -589,22 +590,3 @@
             BIND(xsd:date(?t) AS ?day)
           }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-

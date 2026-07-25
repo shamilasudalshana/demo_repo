@@ -381,7 +381,34 @@
               FILTER(str(?sensorId) = "18017")
           }
         }
+- messages: 
+    - role: system
+      content: "Convert natural language questions into SPARQL queries for Virtuoso."
+    - role: user
+      content: "What are the minimum and maximum precipitation observed at the Gauging Station 'wick at tarroul'? "
+    - role: assistant
+      content: |
+        PREFIX sosa:    <http://www.w3.org/ns/sosa/>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+        PREFIX qudt:    <http://qudt.org/schema/qudt/>
+        PREFIX schema:  <http://schema.org/>
+        PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
 
+        SELECT (MIN(xsd:decimal(?val)) AS ?minFlow) (MAX(xsd:decimal(?val)) AS ?maxFlow)
+        WHERE {
+          GRAPH <hydroturtle/camels_gb> 
+          {
+                ?obs a sosa:Observation ;
+                    sosa:observedProperty envthes:30106 ;
+                    sosa:madeBySensor ?sensor ;
+                    sosa:hasResult ?res .
+                ?res qudt:numericValue ?val .
+                ?sensor a sosa:Sensor ;
+                    schema:name ?stationName .
+                FILTER(lcase(str(?stationName)) = "wick at tarroul")
+              }
+            }
+        
 - messages:
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."

@@ -179,10 +179,10 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "What is the distance between the stations with the highest and lowest annual median DOC in 2010? "
+      content: "What is the distance between the stations with the highest and lowest annual median dissolved organic carbon in 2010? "
     - role: assistant
       content: |
-        PREFIX hyobs:  <https://w3id.org/hmontology/>
+       PREFIX hyobs:  <https://w3id.org/hmontology/>
         PREFIX geo:    <http://www.opengis.net/ont/geosparql#>
         PREFIX sosa:   <http://www.w3.org/ns/sosa/>
         PREFIX qudt:   <http://qudt.org/schema/qudt/>
@@ -195,7 +195,7 @@
               SELECT ?highestSensor ?highestVal ?wktHigh
               WHERE {
                 ?obs a sosa:Observation ;
-                    sosa:observedProperty ?prop ;
+                    sosa:observedProperty hyobs:SoluteConcentrationMedian ;
                     hyobs:hasAnalyte hyobs:DissolvedOrganicCarbon ;
                     sosa:madeBySensor ?highestSensor ;
                     sosa:resultTime ?t ;
@@ -206,7 +206,6 @@
                 ?gHigh geo:asWKT ?wktHigh .
 
                 FILTER(YEAR(?t) = 2010)
-                FILTER(?prop = hyobs:SoluteConcentrationMedian)
               }
               ORDER BY DESC(xsd:decimal(?highestVal))
               LIMIT 1
@@ -216,7 +215,7 @@
               SELECT ?lowestSensor ?lowestVal ?wktLow
               WHERE {
                 ?obs a sosa:Observation ;
-                    sosa:observedProperty ?prop ;
+                    sosa:observedProperty hyobs:SoluteConcentrationMedian ;
                     hyobs:hasAnalyte hyobs:DissolvedOrganicCarbon ;
                     sosa:madeBySensor ?lowestSensor ;
                     sosa:resultTime ?t ;
@@ -227,7 +226,6 @@
                 ?gLow geo:asWKT ?wktLow .
 
                 FILTER(YEAR(?t) = 2010)
-                FILTER(?prop = hyobs:SoluteConcentrationMedian)
               }
               ORDER BY xsd:decimal(?lowestVal)
               LIMIT 1

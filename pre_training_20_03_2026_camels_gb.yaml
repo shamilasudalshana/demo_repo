@@ -479,7 +479,7 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "Which month experienced the highest precipitation rate in Great Britain in 2002?"
+      content: "Which month experienced the highest mean monthly precipitation rate in Great Britain in 2002?"
     - role: assistant
       content: |
         PREFIX sosa:    <http://www.w3.org/ns/sosa/>

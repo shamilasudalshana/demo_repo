@@ -91,14 +91,13 @@
       content: "Which catchments share a boundary with the catchment that recorded the highest annual median NO₃-N in 1999? "
     - role: assistant
       content: |
- PREFIX hyobs:  <https://w3id.org/hmontology/>
-       PREFIX geo:    <http://www.opengis.net/ont/geosparql#>
+ 		PREFIX hyobs:  <https://w3id.org/hmontology/>
+        PREFIX geo:    <http://www.opengis.net/ont/geosparql#>
         PREFIX sosa:   <http://www.w3.org/ns/sosa/>
         PREFIX qudt:   <http://qudt.org/schema/qudt/>
         PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
         PREFIX chebi:  <http://purl.obolibrary.org/obo/CHEBI_>
         PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
-		PREFIX hyobs: <https://w3id.org/hmontology/>
 		
         SELECT ?topCatchment ?topMedian ?neighborCatchment
         WHERE {

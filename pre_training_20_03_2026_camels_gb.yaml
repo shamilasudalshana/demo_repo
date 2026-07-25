@@ -241,7 +241,7 @@
 
         SELECT ?neighborSensor ?neighborName ?distance
         WHERE {
-          GRAPH <hydroturtle/camelsGb> {
+          GRAPH <hydroturtle/camels_gb> {
             ?refSensor a sosa:Sensor ;
                       dct:identifier ?refId ;
                       geo:hasGeometry ?refGeom .

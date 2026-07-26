@@ -364,11 +364,11 @@
       content: "What are the mean slope and mean elevation of catchments with an area greater than 50km?"
     - role: assistant
       content: |
-        PREFIX hyobs: <https://w3id.org/hmontology/>
+		PREFIX hyobs: <https://w3id.org/hmontology/>
         PREFIX qudt:  <http://qudt.org/schema/qudt/>
         PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 
-        SELECT ?catchment ?area
+        SELECT ?catchment ?meanSlope ?elevation ?area
         WHERE {
           GRAPH <hydroturtle/camels_gb> {
             ?catchment a envthes:30212;
@@ -377,7 +377,8 @@
                 hyobs:hasCatchmentArea ?areaNode .
             
             ?areaNode qudt:numericValue ?area .
-            ?elevationbNode qudt:numericValue ?elevation .  
+            ?elevationbNode qudt:numericValue ?elevation .
+            
             FILTER (xsd:decimal(?area) > 50)
           }
         }

@@ -491,7 +491,7 @@
       content: "In which month did station 'BW_CEL904' experience the highest median NO₃-N in 2005?"
     - role: assistant
       content: |
-        PREFIX hyobs:  <https://w3id.org/hmontology/>
+       PREFIX hyobs:  <https://w3id.org/hmontology/>
         PREFIX sosa:   <http://www.w3.org/ns/sosa/>
         PREFIX schema: <http://schema.org/>
         PREFIX qudt:   <http://qudt.org/schema/qudt/>
@@ -511,7 +511,7 @@
 
                 ?obs a sosa:Observation ;
                     sosa:madeBySensor ?sensor ;
-                    sosa:observedProperty ?prop ;
+                    sosa:observedProperty hyobs:NO3NConcentrationMedian ;
                     hyobs:hasAnalyte chebi:17632 ;
                     sosa:resultTime ?t ;
                     sosa:hasResult ?res .
@@ -519,7 +519,6 @@
                 ?res qudt:numericValue ?val .
 
                 FILTER(YEAR(?t) = 2005)
-                FILTER(?prop = hyobs:NO3NConcentrationMedian || ?prop = hyobs:SoluteConcentrationMedian)
 
                 BIND(MONTH(?t) AS ?month)
               }
@@ -529,7 +528,6 @@
             }
           }
         }
-
 - messages:
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
@@ -609,23 +607,3 @@
             BIND(CONCAT(STR(YEAR(?t)), "-", STR(MONTH(?t))) AS ?month)
           }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-

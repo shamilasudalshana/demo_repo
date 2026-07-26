@@ -532,7 +532,7 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "Which years experienced national median discharge below its long-term median in Germany? "
+      content: "Which years experienced a national median discharge below the long-term median in Germany? "
     - role: assistant
       content: |
         PREFIX hyobs: <https://w3id.org/hmontology/>
@@ -540,9 +540,10 @@
         PREFIX qudt:  <http://qudt.org/schema/qudt/>
         PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
 
-        SELECT ?year ?nationalMedianQ
+        SELECT ?year ?nationalMedianQ ?longTermMedianQ
         WHERE {
-          GRAPH <hydroturtle/quadica> {
+          GRAPH <hydroturtle/quadica> 
+          {
             {
               SELECT ?year (AVG(xsd:decimal(?val)) AS ?nationalMedianQ)
               WHERE {
@@ -555,7 +556,6 @@
               }
               GROUP BY ?year
             }
-
             {
               SELECT (AVG(xsd:decimal(?val2)) AS ?longTermMedianQ)
               WHERE {
@@ -570,7 +570,6 @@
           }
         }
         ORDER BY ?year
-
 - messages:
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."

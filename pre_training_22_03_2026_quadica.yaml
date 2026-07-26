@@ -426,28 +426,27 @@
       content: "What are the minimum and maximum precipitation across all gauging stations? "
     - role: assistant
       content: |
-        PREFIX sosa:    <http://www.w3.org/ns/sosa/>
+		PREFIX sosa:    <http://www.w3.org/ns/sosa/>
         PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
         PREFIX qudt:    <http://qudt.org/schema/qudt/>
         PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
 
-        SELECT ?minFlow ?maxFlow
+ 		SELECT ?minPrecipitation ?maxPrecipitation
         WHERE {
           GRAPH <hydroturtle/quadica> {
             {
               SELECT
-                (MIN(xsd:decimal(?val)) AS ?minFlow)
-                (MAX(xsd:decimal(?val)) AS ?maxFlow)
+                (MIN(xsd:decimal(?val)) AS ?minPrecipitation)
+                (MAX(xsd:decimal(?val)) AS ?maxPrecipitation)
               WHERE {
                 ?obs a sosa:Observation ;
-                    sosa:observedProperty envthes:21242 ;
+                    sosa:observedProperty envthes:30106 ;
                     sosa:hasResult ?res .
                 ?res qudt:numericValue ?val .
               }
             }
           }
         }
-
 - messages:
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."

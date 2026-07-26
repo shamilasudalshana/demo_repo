@@ -332,20 +332,22 @@
       content: "Which catchments recorded annual median PO₄-P > 0.10 mg/L in 2015?"
     - role: assistant
       content: |
-        PREFIX hyobs:  <https://w3id.org/hmontology/>
+ 		PREFIX hyobs:  <https://w3id.org/hmontology/>
         PREFIX sosa:   <http://www.w3.org/ns/sosa/>
         PREFIX qudt:   <http://qudt.org/schema/qudt/>
         PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
         PREFIX chebi:  <http://purl.obolibrary.org/obo/CHEBI_>
 
         SELECT ?catchment ?medianPO4P
-        WHERE {
-          GRAPH <hydroturtle/quadica> {
+        WHERE 
+        {
+          GRAPH <hydroturtle/quadica> 
+          {
             {
               SELECT ?catchment (MAX(xsd:decimal(?val)) AS ?medianPO4P)
               WHERE {
                 ?obs a sosa:Observation ;
-                    sosa:observedProperty ?prop ;
+                    sosa:observedProperty hyobs:PO4PConcentrationMedian ;
                     hyobs:hasAnalyte chebi:18367 ;
                     sosa:hasFeatureOfInterest ?catchment ;
                     sosa:resultTime ?t ;
@@ -354,7 +356,6 @@
                 ?res qudt:numericValue ?val .
 
                 FILTER(YEAR(?t) = 2015)
-                FILTER(?prop = hyobs:PO4PConcentrationMedian || ?prop = hyobs:SoluteConcentrationMedian)
               }
               GROUP BY ?catchment
             }
@@ -371,7 +372,7 @@
       content: "What are the minimum and maximum discharge observed at station 'BW_CTA913'?"
     - role: assistant
       content: |
-       PREFIX sosa:    <http://www.w3.org/ns/sosa/>
+        PREFIX sosa:    <http://www.w3.org/ns/sosa/>
         PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
         PREFIX qudt:    <http://qudt.org/schema/qudt/>
         PREFIX schema:  <http://schema.org/>

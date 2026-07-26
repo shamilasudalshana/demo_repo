@@ -361,24 +361,24 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "What are the mean slope and mean elevation of catchment 18017?"
+      content: "What are the mean slope and mean elevation of catchments with an area greater than 50km?"
     - role: assistant
       content: |
         PREFIX hyobs: <https://w3id.org/hmontology/>
-        PREFIX sosa: <http://www.w3.org/ns/sosa/>
-        PREFIX dct:  <http://purl.org/dc/terms/>
-        PREFIX qudt:   <http://qudt.org/schema/qudt/>
+        PREFIX qudt:  <http://qudt.org/schema/qudt/>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
 
-        SELECT ?catchment ?meanSlope ?elevation
+        SELECT ?catchment ?area
         WHERE {
           GRAPH <hydroturtle/camels_gb> {
-            ?sensor a sosa:Sensor ;
-                    dct:identifier ?sensorId ;
-                    hyobs:monitorsCatchment ?catchment .
-              ?catchment hyobs:meanSlope ?meanSlope.
-              ?catchment hyobs:meanElevation ?elevationbNode .
-              ?elevationbNode qudt:numericValue ?elevation .
-              FILTER(str(?sensorId) = "18017")
+            ?catchment a envthes:30212;
+                hyobs:meanSlope ?meanSlope;
+				hyobs:meanElevation ?elevationbNode;
+                hyobs:hasCatchmentArea ?areaNode .
+            
+            ?areaNode qudt:numericValue ?area .
+            ?elevationbNode qudt:numericValue ?elevation .  
+            FILTER (xsd:decimal(?area) > 50)
           }
         }
 - messages: 

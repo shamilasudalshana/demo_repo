@@ -574,7 +574,7 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
-      content: "How many months in 1997 did station 'BW_CKS022' have flow-normalized NO₃-N above 11 mg/L? "
+      content: "How many months in 1997 did station 'BW_CKS022' have flow-normalized NO₃-N above 10.5 mg/L? "
     - role: assistant
       content: |
         PREFIX hyobs:  <https://w3id.org/hmontology/>
@@ -584,7 +584,7 @@
         PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
         PREFIX chebi:  <http://purl.obolibrary.org/obo/CHEBI_>
 
-        SELECT (COUNT(DISTINCT ?month) AS ?monthsAbove11)
+        SELECT (COUNT(DISTINCT ?month) AS ?monthsAbove10point5)
         WHERE {
           GRAPH <hydroturtle/quadica> {
             ?sensor a sosa:Sensor ;
@@ -601,7 +601,7 @@
             ?res qudt:numericValue ?val .
 
             FILTER(YEAR(?t) = 1997)
-            FILTER(xsd:decimal(?val) > 11)
+            FILTER(xsd:decimal(?val) > 10.5)
 
             BIND(CONCAT(STR(YEAR(?t)), "-", STR(MONTH(?t))) AS ?month)
           }

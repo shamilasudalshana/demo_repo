@@ -369,6 +369,32 @@
     - role: system
       content: "Convert natural language questions into SPARQL queries for Virtuoso."
     - role: user
+      content: "What are the aridity index and the mean elevation of catchments with an area greater than 50km?"
+    - role: assistant
+      content: |
+		PREFIX hyobs: <https://w3id.org/hmontology/>
+        PREFIX qudt:  <http://qudt.org/schema/qudt/>
+        PREFIX envthes: <http://vocabs.lter-europe.net/EnvThes/>
+
+        SELECT ?catchment ?aridityIndex ?meanElevation ?area
+        WHERE {
+          GRAPH <hydroturtle/quadica> {
+            ?catchment a envthes:30212;
+                hyobs:aridityIndex ?aridityIndex;
+				hyobs:meanElevation ?elevationbNode;
+                hyobs:hasCatchmentArea ?areaNode .
+            
+            ?areaNode qudt:numericValue ?area .
+            ?elevationbNode qudt:numericValue ?meanElevation .
+            
+            FILTER (xsd:decimal(?area) > 50)
+          }
+        }
+		
+- messages:
+    - role: system
+      content: "Convert natural language questions into SPARQL queries for Virtuoso."
+    - role: user
       content: "What are the minimum and maximum discharge observed at station 'BW_CTA913'?"
     - role: assistant
       content: |
